@@ -1,0 +1,836 @@
+[
+  {
+    "id": "sub_men_tops_001",
+    "name": "Tops",
+    "slug": "men-tops",
+    "icon": "👕",
+    "image": "/images/categories/men-tops.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 1,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Men's Tops — T-Shirts, Polo, Casual & Formal Shirts",
+      "metaDescription": "Explore men's tops including t-shirts, polo shirts, casual and formal shirts, hoodies and more.",
+      "keywords": [
+        "mens tops",
+        "mens t-shirts",
+        "polo shirts",
+        "casual shirts",
+        "formal shirts"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+      "colors": [
+        "White",
+        "Black",
+        "Navy",
+        "Grey",
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow",
+        "Orange",
+        "Brown"
+      ],
+      "fits": ["Regular Fit", "Slim Fit", "Oversized", "Muscle Fit"],
+      "materials": ["Cotton", "Polyester", "Linen", "Blend"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_bottoms_002",
+    "name": "Bottoms",
+    "slug": "men-bottoms",
+    "icon": "👖",
+    "image": "/images/categories/men-bottoms.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 2,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Men's Bottoms — Jeans, Chinos, Joggers & Shorts",
+      "metaDescription": "Shop men's jeans, chinos, joggers, shorts and more. All fits and sizes available.",
+      "keywords": [
+        "mens jeans",
+        "mens chinos",
+        "mens joggers",
+        "mens shorts",
+        "mens trousers"
+      ]
+    },
+    "filters": {
+      "sizes": ["28", "30", "32", "34", "36", "38", "40", "42"],
+      "colors": [
+        "Blue",
+        "Black",
+        "Grey",
+        "Khaki",
+        "Olive",
+        "Navy",
+        "Brown",
+        "White"
+      ],
+      "fits": [
+        "Slim Fit",
+        "Regular Fit",
+        "Skinny",
+        "Straight Fit",
+        "Relaxed Fit"
+      ],
+      "materials": ["Denim", "Cotton", "Polyester", "Chino", "Fleece"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_outerwear_003",
+    "name": "Outerwear",
+    "slug": "men-outerwear",
+    "icon": "🧥",
+    "image": "/images/categories/men-outerwear.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 3,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Men's Outerwear — Jackets, Blazers, Puffer Jackets",
+      "metaDescription": "Shop men's jackets, blazers and puffer jackets. Stay warm and stylish.",
+      "keywords": [
+        "mens jackets",
+        "mens blazers",
+        "mens puffer jacket",
+        "mens outerwear"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Black", "Navy", "Grey", "Brown", "Khaki", "Olive"],
+      "fits": ["Regular Fit", "Slim Fit", "Oversized"],
+      "materials": ["Polyester", "Wool", "Leather", "Denim", "Down"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_ethnic_004",
+    "name": "Ethnic & Traditional",
+    "slug": "men-ethnic",
+    "icon": "🥻",
+    "image": "/images/categories/men-ethnic.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 4,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Men's Ethnic Wear — Panjabi, Kurta, Fatua",
+      "metaDescription": "Shop men's ethnic and traditional wear. Panjabi, kurta, fatua and more for Eid, weddings and festivals.",
+      "keywords": [
+        "mens panjabi",
+        "mens kurta",
+        "fatua",
+        "ethnic wear",
+        "eid collection"
+      ]
+    },
+    "filters": {
+      "sizes": ["S", "M", "L", "XL", "XXL", "XXXL"],
+      "colors": [
+        "White",
+        "Off-White",
+        "Sky Blue",
+        "Navy",
+        "Black",
+        "Grey",
+        "Green",
+        "Maroon"
+      ],
+      "fits": ["Regular Fit", "Slim Fit"],
+      "materials": ["Cotton", "Linen", "Silk", "Georgette", "Lawn"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_sportswear_005",
+    "name": "Sportswear",
+    "slug": "men-sportswear",
+    "icon": "⚽",
+    "image": "/images/categories/men-sportswear.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 5,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Men's Sportswear — Gym Wear, Track Suits, Sports T-Shirts",
+      "metaDescription": "Shop men's sportswear including gym wear, track suits, sports t-shirts and more.",
+      "keywords": [
+        "mens sportswear",
+        "gym wear",
+        "track suits",
+        "sports t-shirts",
+        "football jerseys"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Black", "White", "Navy", "Red", "Blue", "Grey", "Green"],
+      "fits": ["Regular Fit", "Slim Fit", "Compression"],
+      "materials": ["Polyester", "Nylon", "Spandex", "Cotton Blend"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_innerwear_006",
+    "name": "Innerwear & Sleepwear",
+    "slug": "men-innerwear",
+    "icon": "🩲",
+    "image": "/images/categories/men-innerwear.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 6,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Men's Innerwear & Sleepwear — Underwear, Socks, Pyjamas",
+      "metaDescription": "Shop men's innerwear including underwear, socks and pyjama sets.",
+      "keywords": ["mens underwear", "mens socks", "mens pyjamas", "innerwear"]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["White", "Black", "Grey", "Navy", "Multicolor"],
+      "materials": ["Cotton", "Modal", "Bamboo", "Polyester"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_footwear_007",
+    "name": "Footwear",
+    "slug": "men-footwear",
+    "icon": "👟",
+    "image": "/images/categories/men-footwear.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 7,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Men's Footwear — Sneakers, Formal Shoes, Sandals",
+      "metaDescription": "Shop men's footwear including sneakers, formal shoes, sandals and loafers.",
+      "keywords": [
+        "mens sneakers",
+        "mens formal shoes",
+        "mens sandals",
+        "mens loafers",
+        "mens boots"
+      ]
+    },
+    "filters": {
+      "sizes": ["6", "7", "8", "9", "10", "11", "12"],
+      "colors": ["Black", "White", "Brown", "Navy", "Grey", "Tan"],
+      "materials": ["Leather", "Synthetic", "Canvas", "Suede", "Mesh"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_men_accessories_008",
+    "name": "Accessories",
+    "slug": "men-accessories",
+    "icon": "⌚",
+    "image": "/images/categories/men-accessories.jpg",
+    "gender": "men",
+    "level": 2,
+    "parentId": "cat_men_001",
+    "parentName": "Men",
+    "parentSlug": "men",
+    "order": 8,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Men's Accessories — Watches, Caps, Belts, Wallets",
+      "metaDescription": "Complete your look with men's accessories. Watches, caps, belts, wallets and sunglasses.",
+      "keywords": [
+        "mens watches",
+        "mens caps",
+        "mens belts",
+        "mens wallets",
+        "mens sunglasses"
+      ]
+    },
+    "filters": {
+      "colors": ["Black", "Brown", "Navy", "Grey", "Tan", "Multicolor"],
+      "materials": [
+        "Leather",
+        "Metal",
+        "Fabric",
+        "Synthetic",
+        "Stainless Steel"
+      ]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_tops_001",
+    "name": "Tops & Blouses",
+    "slug": "women-tops",
+    "icon": "👚",
+    "image": "/images/categories/women-tops.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 1,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Women's Tops & Blouses — T-Shirts, Crop Tops, Hoodies",
+      "metaDescription": "Shop women's tops and blouses including t-shirts, crop tops, hoodies and more.",
+      "keywords": [
+        "womens tops",
+        "womens blouses",
+        "crop tops",
+        "womens t-shirts",
+        "hoodies"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": [
+        "White",
+        "Black",
+        "Pink",
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow",
+        "Multicolor"
+      ],
+      "fits": ["Regular Fit", "Slim Fit", "Oversized", "Cropped"],
+      "materials": ["Cotton", "Polyester", "Chiffon", "Georgette", "Linen"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_dresses_002",
+    "name": "Dresses",
+    "slug": "women-dresses",
+    "icon": "👗",
+    "image": "/images/categories/women-dresses.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 2,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Women's Dresses — Casual, Maxi, Party & Bodycon",
+      "metaDescription": "Shop women's dresses for every occasion. Casual dresses, maxi dresses, party dresses and more.",
+      "keywords": [
+        "womens dresses",
+        "maxi dresses",
+        "party dresses",
+        "casual dresses",
+        "bodycon"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": [
+        "Black",
+        "White",
+        "Red",
+        "Blue",
+        "Pink",
+        "Floral",
+        "Multicolor"
+      ],
+      "lengths": ["Mini", "Midi", "Maxi"],
+      "occasions": ["Casual", "Party", "Formal", "Beach", "Wedding"],
+      "materials": ["Cotton", "Chiffon", "Georgette", "Polyester", "Silk"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_bottoms_003",
+    "name": "Bottoms",
+    "slug": "women-bottoms",
+    "icon": "👖",
+    "image": "/images/categories/women-bottoms.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 3,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Women's Bottoms — Jeans, Leggings, Skirts & Trousers",
+      "metaDescription": "Shop women's bottoms including jeans, leggings, skirts, trousers and more.",
+      "keywords": [
+        "womens jeans",
+        "leggings",
+        "womens skirts",
+        "womens trousers"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Blue", "Black", "White", "Grey", "Pink", "Olive"],
+      "fits": ["Slim Fit", "Skinny", "Regular Fit", "Wide Leg", "Flared"],
+      "materials": ["Denim", "Cotton", "Polyester", "Spandex"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_ethnic_004",
+    "name": "Ethnic & Traditional",
+    "slug": "women-ethnic",
+    "icon": "🥻",
+    "image": "/images/categories/women-ethnic.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 4,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Women's Ethnic Wear — Sarees, Kurtis, Salwar Kameez",
+      "metaDescription": "Shop women's ethnic wear including sarees, kurtis, salwar kameez and lehengas.",
+      "keywords": [
+        "sarees",
+        "kurtis",
+        "salwar kameez",
+        "lehenga",
+        "ethnic wear"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Red", "Green", "Blue", "Yellow", "Pink", "Gold", "Maroon"],
+      "occasions": ["Eid", "Wedding", "Festival", "Party"],
+      "materials": ["Cotton", "Silk", "Georgette", "Chiffon", "Lawn"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_coords_005",
+    "name": "Co-ords & Sets",
+    "slug": "women-coords-sets",
+    "icon": "💃",
+    "image": "/images/categories/women-coords.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 5,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Women's Co-ords & Sets",
+      "metaDescription": "Shop matching co-ord sets, jumpsuits and loungewear.",
+      "keywords": ["co-ord sets", "matching sets", "jumpsuits", "loungewear"]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Black", "White", "Pink", "Blue", "Beige"],
+      "occasions": ["Casual", "Party", "Loungewear", "Beach"],
+      "materials": ["Cotton", "Linen", "Polyester", "Satin"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_activewear_006",
+    "name": "Activewear",
+    "slug": "women-activewear",
+    "icon": "🧘",
+    "image": "/images/categories/women-activewear.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 6,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Women's Activewear",
+      "metaDescription": "Sports bras, yoga pants, gym tops and workout clothing.",
+      "keywords": ["activewear", "sports bras", "yoga pants", "gym wear"]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Black", "White", "Pink", "Blue", "Grey"],
+      "fits": ["Slim Fit", "Compression", "Regular Fit"],
+      "materials": ["Polyester", "Spandex", "Nylon"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_innerwear_007",
+    "name": "Innerwear & Sleepwear",
+    "slug": "women-innerwear",
+    "icon": "👙",
+    "image": "/images/categories/women-innerwear.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 7,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Women's Innerwear & Sleepwear",
+      "metaDescription": "Bras, panties, pyjama sets and sleepwear.",
+      "keywords": ["bras", "panties", "sleepwear", "pyjamas"]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["White", "Black", "Pink", "Nude", "Red"],
+      "materials": ["Cotton", "Lace", "Modal", "Satin"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_footwear_008",
+    "name": "Footwear",
+    "slug": "women-footwear",
+    "icon": "👠",
+    "image": "/images/categories/women-footwear.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 8,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Women's Footwear",
+      "metaDescription": "Heels, sneakers, sandals and flats for women.",
+      "keywords": ["heels", "sneakers", "sandals", "flats"]
+    },
+    "filters": {
+      "sizes": ["4", "5", "6", "7", "8", "9", "10"],
+      "colors": ["Black", "White", "Nude", "Brown", "Silver"],
+      "materials": ["Leather", "Synthetic", "Fabric", "Suede"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_women_accessories_009",
+    "name": "Accessories",
+    "slug": "women-accessories",
+    "icon": "👜",
+    "image": "/images/categories/women-accessories.jpg",
+    "gender": "women",
+    "level": 2,
+    "parentId": "cat_women_002",
+    "parentName": "Women",
+    "parentSlug": "women",
+    "order": 9,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Women's Accessories",
+      "metaDescription": "Handbags, jewelry, sunglasses, hijab and more.",
+      "keywords": ["handbags", "jewelry", "sunglasses", "hijab"]
+    },
+    "filters": {
+      "colors": ["Black", "Brown", "Gold", "Silver", "Pink"],
+      "materials": ["Leather", "Synthetic", "Metal", "Fabric"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_couple_casual_001",
+    "name": "Casual Matching",
+    "slug": "couple-casual",
+    "icon": "👕",
+    "image": "/images/categories/couple-casual.jpg",
+    "gender": "couple",
+    "level": 2,
+    "parentId": "cat_couple_003",
+    "parentName": "Couple",
+    "parentSlug": "couple",
+    "order": 1,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Couple Casual Matching",
+      "metaDescription": "Matching couple t-shirts, hoodies and sweatshirts.",
+      "keywords": [
+        "couple t-shirts",
+        "couple hoodies",
+        "matching outfits",
+        "sweatshirts"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["White", "Black", "Grey", "Navy", "Red", "Pink", "Blue"],
+      "materials": ["Cotton", "Polyester", "Fleece", "Blend"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_couple_ethnic_002",
+    "name": "Ethnic Couple Sets",
+    "slug": "couple-ethnic",
+    "icon": "🥻",
+    "image": "/images/categories/couple-ethnic.jpg",
+    "gender": "couple",
+    "level": 2,
+    "parentId": "cat_couple_003",
+    "parentName": "Couple",
+    "parentSlug": "couple",
+    "order": 2,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Couple Ethnic Sets",
+      "metaDescription": "Matching panjabi, dress and kurta sets for couples.",
+      "keywords": ["couple ethnic", "panjabi set", "kurta set", "eid couple"]
+    },
+    "filters": {
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "colors": ["White", "Off-White", "Sky Blue", "Pink", "Green", "Maroon"],
+      "occasions": ["Eid", "Wedding", "Festival"],
+      "materials": ["Cotton", "Linen", "Silk", "Georgette"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_couple_sleepwear_003",
+    "name": "Couple Sleepwear",
+    "slug": "couple-sleepwear",
+    "icon": "😴",
+    "image": "/images/categories/couple-sleepwear.jpg",
+    "gender": "couple",
+    "level": 2,
+    "parentId": "cat_couple_003",
+    "parentName": "Couple",
+    "parentSlug": "couple",
+    "order": 3,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Couple Sleepwear",
+      "metaDescription": "Matching pyjama sets and sleepwear for couples.",
+      "keywords": ["couple pyjamas", "sleepwear", "nightwear", "matching"]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["White", "Pink", "Blue", "Grey", "Multicolor"],
+      "materials": ["Cotton", "Satin", "Flannel", "Modal"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_couple_accessories_004",
+    "name": "Couple Accessories",
+    "slug": "couple-accessories",
+    "icon": "⌚",
+    "image": "/images/categories/couple-accessories.jpg",
+    "gender": "couple",
+    "level": 2,
+    "parentId": "cat_couple_003",
+    "parentName": "Couple",
+    "parentSlug": "couple",
+    "order": 4,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Couple Accessories",
+      "metaDescription": "Matching watches, bracelets and accessories for couples.",
+      "keywords": [
+        "couple watches",
+        "couple bracelets",
+        "matching accessories",
+        "couple gifts"
+      ]
+    },
+    "filters": {
+      "colors": ["Gold", "Silver", "Rose Gold", "Black", "Multicolor"],
+      "materials": ["Metal", "Stainless Steel", "Leather", "Alloy"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_universal_clothing_001",
+    "name": "Unisex Clothing",
+    "slug": "unisex-clothing",
+    "icon": "👕",
+    "image": "/images/categories/unisex-clothing.jpg",
+    "gender": "universal",
+    "level": 2,
+    "parentId": "cat_universal_004",
+    "parentName": "Universal",
+    "parentSlug": "universal",
+    "order": 1,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Unisex Clothing — Oversized T-Shirts, Hoodies, Joggers",
+      "metaDescription": "Shop unisex clothing for everyone. Oversized t-shirts, hoodies, sweatshirts and joggers.",
+      "keywords": [
+        "unisex clothing",
+        "oversized t-shirts",
+        "unisex hoodies",
+        "unisex joggers"
+      ]
+    },
+    "filters": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+      "colors": ["White", "Black", "Grey", "Navy", "Beige", "Olive", "Brown"],
+      "fits": ["Oversized", "Regular Fit", "Relaxed Fit"],
+      "materials": ["Cotton", "Fleece", "Polyester", "Blend"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_universal_bags_002",
+    "name": "Bags",
+    "slug": "universal-bags",
+    "icon": "🎒",
+    "image": "/images/categories/universal-bags.jpg",
+    "gender": "universal",
+    "level": 2,
+    "parentId": "cat_universal_004",
+    "parentName": "Universal",
+    "parentSlug": "universal",
+    "order": 2,
+    "isActive": true,
+    "isFeatured": true,
+    "seo": {
+      "metaTitle": "Bags for Everyone — Backpacks, Tote Bags, Crossbody Bags",
+      "metaDescription": "Shop unisex bags including backpacks, tote bags and crossbody bags for men and women.",
+      "keywords": [
+        "backpacks",
+        "tote bags",
+        "crossbody bags",
+        "unisex bags",
+        "travel bags"
+      ]
+    },
+    "filters": {
+      "colors": ["Black", "Navy", "Grey", "Brown", "Olive", "Multicolor"],
+      "materials": ["Polyester", "Canvas", "Leather", "Nylon", "Synthetic"],
+      "capacities": ["Small", "Medium", "Large", "Extra Large"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_universal_accessories_003",
+    "name": "Accessories",
+    "slug": "universal-accessories",
+    "icon": "🕶️",
+    "image": "/images/categories/universal-accessories.jpg",
+    "gender": "universal",
+    "level": 2,
+    "parentId": "cat_universal_004",
+    "parentName": "Universal",
+    "parentSlug": "universal",
+    "order": 3,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Universal Accessories — Caps, Sunglasses, Scarves & Gloves",
+      "metaDescription": "Shop unisex accessories including caps, sunglasses, scarves and gloves for everyone.",
+      "keywords": [
+        "unisex caps",
+        "sunglasses",
+        "scarves",
+        "gloves",
+        "unisex accessories"
+      ]
+    },
+    "filters": {
+      "colors": ["Black", "White", "Grey", "Navy", "Olive", "Multicolor"],
+      "materials": ["Cotton", "Wool", "Polyester", "Plastic", "Metal"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "sub_universal_footwear_004",
+    "name": "Footwear",
+    "slug": "universal-footwear",
+    "icon": "👟",
+    "image": "/images/categories/universal-footwear.jpg",
+    "gender": "universal",
+    "level": 2,
+    "parentId": "cat_universal_004",
+    "parentName": "Universal",
+    "parentSlug": "universal",
+    "order": 4,
+    "isActive": true,
+    "isFeatured": false,
+    "seo": {
+      "metaTitle": "Unisex Footwear — Sneakers, Flip Flops & Slides",
+      "metaDescription": "Shop unisex footwear including sneakers, flip flops and slides for men and women.",
+      "keywords": ["unisex sneakers", "flip flops", "slides", "unisex footwear"]
+    },
+    "filters": {
+      "sizes": ["4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      "colors": ["White", "Black", "Grey", "Navy", "Brown", "Multicolor"],
+      "materials": ["Rubber", "Canvas", "Synthetic", "Leather"]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  }
+]

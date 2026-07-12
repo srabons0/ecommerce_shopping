@@ -1,0 +1,1496 @@
+[
+  {
+    "name": "T-Shirts",
+    "slug": "mens-t-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Classic and graphic tees for everyday wear",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Polo Shirts",
+    "slug": "mens-polo-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Smart casual polo shirts for work and leisure",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Casual Shirts",
+    "slug": "mens-casual-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Relaxed fit shirts for weekend and casual outings",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Hoodies",
+    "slug": "mens-hoodies",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Warm and comfortable hoodies for cold weather",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Jeans",
+    "slug": "mens-jeans",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Classic denim jeans in all fits and washes",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Chinos",
+    "slug": "mens-chinos",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Smart casual chino pants for office and outings",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Joggers",
+    "slug": "mens-joggers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Comfortable joggers for gym and everyday wear",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Shorts",
+    "slug": "mens-shorts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Casual and sporty shorts for warm weather",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Jackets",
+    "slug": "mens-jackets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Casual and bomber jackets for everyday style",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Blazers",
+    "slug": "mens-blazers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Formal and semi-formal blazers for every occasion",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Puffer Jackets",
+    "slug": "mens-puffer-jackets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Warm puffer and quilted jackets for winter",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Panjabi",
+    "slug": "mens-panjabi",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Traditional panjabi for Eid, weddings and daily wear",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Kurta",
+    "slug": "mens-kurta",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Stylish kurta for casual and festive occasions",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Fatua",
+    "slug": "mens-fatua",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Lightweight fatua for everyday traditional wear",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Sports T-Shirts",
+    "slug": "mens-sports-t-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Breathable sports tees for gym and outdoor activities",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Gym Wear",
+    "slug": "mens-gym-wear",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Performance gym wear for serious training",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Track Suits",
+    "slug": "mens-track-suits",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Full track suits for training and casual wear",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Underwear",
+    "slug": "mens-underwear",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Comfortable everyday underwear in cotton and modal",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Socks",
+    "slug": "mens-socks",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Everyday and sports socks for all occasions",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Pyjama Sets",
+    "slug": "mens-pyjama-sets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Soft and comfortable pyjama sets for sleeping",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Sneakers",
+    "slug": "mens-sneakers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Casual and sports sneakers for everyday wear",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Formal Shoes",
+    "slug": "mens-formal-shoes",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Classic formal shoes for office and events",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Sandals",
+    "slug": "mens-sandals",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Casual sandals and chappals for summer",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Loafers",
+    "slug": "mens-loafers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Slip-on loafers for smart casual looks",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Caps & Hats",
+    "slug": "mens-caps-hats",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Baseball caps, beanies and hats for everyday style",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Belts",
+    "slug": "mens-belts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Formal and casual leather and fabric belts",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Wallets",
+    "slug": "mens-wallets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Slim and bifold wallets in leather and synthetic",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "Watches",
+    "slug": "mens-watches",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Casual, formal and sports watches for every style",
+    "isActive": true,
+    "isFeatured": true,
+    "gender": "men"
+  },
+  {
+    "name": "Sunglasses",
+    "slug": "mens-sunglasses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "description": "Stylish sunglasses with UV protection",
+    "isActive": true,
+    "isFeatured": false,
+    "gender": "men"
+  },
+  {
+    "name": "T-Shirts",
+    "slug": "womens-t-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Casual and graphic tees for everyday wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Blouses",
+    "slug": "womens-blouses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Elegant blouses for office and casual wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Crop Tops",
+    "slug": "womens-crop-tops",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Trendy crop tops for casual and party looks",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Hoodies",
+    "slug": "womens-hoodies",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Cozy hoodies for casual and outdoor wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Casual Dresses",
+    "slug": "womens-casual-dresses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Comfortable everyday dresses",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Maxi Dresses",
+    "slug": "womens-maxi-dresses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Flowy maxi dresses for events and outings",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Party Dresses",
+    "slug": "womens-party-dresses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Glamorous party and evening dresses",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Bodycon Dresses",
+    "slug": "womens-bodycon-dresses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Figure-hugging dresses for night out",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Jeans",
+    "slug": "womens-jeans",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Stylish jeans in all fits and washes",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Leggings",
+    "slug": "womens-leggings",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Comfortable leggings for gym and daily wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Skirts",
+    "slug": "womens-skirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Mini, midi and maxi skirts for all occasions",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Trousers",
+    "slug": "womens-trousers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Formal and casual trousers and palazzo pants",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Sarees",
+    "slug": "womens-sarees",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Traditional and modern sarees for every occasion",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Kurtis",
+    "slug": "womens-kurtis",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Stylish kurtis for casual and festive wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Salwar Kameez",
+    "slug": "womens-salwar-kameez",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Complete salwar kameez sets for all occasions",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Lehenga Choli",
+    "slug": "womens-lehenga-choli",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Bridal and festive lehenga choli sets",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Co-ord Sets",
+    "slug": "womens-coord-sets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Matching top and bottom sets",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Jumpsuits",
+    "slug": "womens-jumpsuits",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "One-piece jumpsuits for casual and party wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Loungewear Sets",
+    "slug": "womens-loungewear-sets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Comfortable loungewear and pyjama sets",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Yoga Pants",
+    "slug": "womens-yoga-pants",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Flexible yoga and pilates pants for full movement",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Gym Tops",
+    "slug": "womens-gym-tops",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Breathable gym tops and tank tops",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Pyjama Sets",
+    "slug": "womens-pyjama-sets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Soft pyjama sets and nightgowns",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Socks",
+    "slug": "womens-socks",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Ankle socks, stockings and no-show socks",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Sneakers",
+    "slug": "womens-sneakers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Casual and sports sneakers",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Sandals",
+    "slug": "womens-sandals",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Flat and heeled sandals",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Heels",
+    "slug": "womens-heels",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Stilettos, block heels and wedges for every event",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Flats",
+    "slug": "womens-flats",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Comfortable ballet flats and loafers",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Handbags",
+    "slug": "womens-handbags",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Tote bags, clutches and crossbody bags",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Hijab & Scarves",
+    "slug": "womens-hijab-scarves",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Stylish hijab, scarves and dupatta",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Jewelry",
+    "slug": "womens-jewelry",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Earrings, necklaces, bracelets and rings",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Sunglasses",
+    "slug": "womens-sunglasses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Trendy sunglasses with UV protection",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Hair Accessories",
+    "slug": "womens-hair-accessories",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "women",
+    "description": "Hair clips, headbands and scrunchies",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Couple T-Shirts",
+    "slug": "couple-t-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Matching printed couple t-shirts with cute messages",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Couple Hoodies",
+    "slug": "couple-hoodies",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Warm matching couple hoodies for winter and outings",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Couple Sweatshirts",
+    "slug": "couple-sweatshirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Cozy matching sweatshirts for couples",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Panjabi & Dress Set",
+    "slug": "couple-panjabi-dress-set",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Matching panjabi and dress sets for Eid and weddings",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Couple Kurta Set",
+    "slug": "couple-kurta-set",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Coordinated kurta sets for couple outings and festivals",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Couple Pyjama Sets",
+    "slug": "couple-pyjama-sets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Soft matching pyjama sets for couples",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Couple Watches",
+    "slug": "couple-watches",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Matching his and hers watch sets for couples",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Couple Bracelets",
+    "slug": "couple-bracelets",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "couple",
+    "description": "Matching bracelets and bangles for couples",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Oversized T-Shirts",
+    "slug": "oversized-t-shirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Trendy oversized tees for men and women",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Oversized Hoodies",
+    "slug": "oversized-hoodies",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Chunky oversized hoodies in neutral tones",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Sweatshirts",
+    "slug": "unisex-sweatshirts",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Casual unisex sweatshirts for everyday comfort",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Joggers",
+    "slug": "unisex-joggers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Relaxed fit joggers for gym and everyday wear",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Backpacks",
+    "slug": "backpacks",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Everyday and travel backpacks for school, work and adventures",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Tote Bags",
+    "slug": "tote-bags",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Spacious tote bags for shopping, work and everyday use",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Crossbody Bags",
+    "slug": "crossbody-bags",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Compact crossbody bags for hands-free convenience",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Caps",
+    "slug": "unisex-caps",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Baseball caps and snapbacks for men and women",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Sunglasses",
+    "slug": "unisex-sunglasses",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Unisex sunglasses in classic and trendy styles",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Scarves",
+    "slug": "unisex-scarves",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Warm and stylish scarves for all genders",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Gloves",
+    "slug": "unisex-gloves",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Winter gloves and touch-screen friendly gloves",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Sneakers",
+    "slug": "unisex-sneakers",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Classic unisex sneakers for casual and sports wear",
+    "isActive": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Flip Flops",
+    "slug": "flip-flops",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Comfortable everyday flip flops for everyone",
+    "isActive": true,
+    "isFeatured": false
+  },
+  {
+    "name": "Slides",
+    "slug": "slides",
+    "colors": [
+      "#000000",
+      "#FFFFFF",
+      "#D1D5DB",
+      "#4B5563",
+      "#1E3A8A",
+      "#8B5E3C",
+      "#D6C2A1",
+      "#F8F4E3"
+    ],
+    "gender": "universal",
+    "description": "Sporty and casual slides for home and outdoors",
+    "isActive": true,
+    "isFeatured": false
+  }
+]

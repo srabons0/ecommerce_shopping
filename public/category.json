@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Men",
+    "slug": "men",
+    "gender": "men",
+    "seo": {
+      "metaTitle": "Men's Fashion — Shirts, Jeans, Ethnic & More",
+      "metaDescription": "Shop the latest men's fashion. T-shirts, polo shirts, jeans, panjabi, ethnic wear and more at the best prices.",
+      "keywords": [
+        "mens fashion",
+        "mens clothing",
+        "mens shirts",
+        "mens jeans",
+        "panjabi"
+      ]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+  },
+  {
+    "name": "Women",
+    "slug": "women",
+    "gender": "women",
+    "seo": {
+      "metaTitle": "Women's Fashion — Dresses, Tops, Ethnic Wear & More",
+      "metaDescription": "Shop the latest women's fashion. Dresses, tops, sarees, kurtis, leggings and more at the best prices.",
+      "keywords": [
+        "womens fashion",
+        "womens clothing",
+        "womens dresses",
+        "sarees",
+        "kurtis"
+      ]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Couple",
+    "slug": "couple",
+    "gender": "couple",
+    "seo": {
+      "metaTitle": "Couple Matching Outfits — T-Shirts, Hoodies, Pyjamas & Ethnic",
+      "metaDescription": "Shop matching couple outfits. Couple t-shirts, hoodies, pyjama sets, ethnic wear and accessories.",
+      "keywords": [
+        "couple matching outfits",
+        "couple t-shirts",
+        "couple hoodies",
+        "couple ethnic wear"
+      ]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Universal",
+    "slug": "universal",
+    "gender": "universal",
+    "seo": {
+      "metaTitle": "Universal & Unisex Fashion — Hoodies, Joggers, Bags & More",
+      "metaDescription": "Shop unisex and gender-neutral fashion. Oversized hoodies, joggers, backpacks and accessories for everyone.",
+      "keywords": [
+        "unisex clothing",
+        "gender neutral fashion",
+        "oversized hoodies",
+        "unisex backpacks"
+      ]
+    },
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  }
+]
