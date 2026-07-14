@@ -80,7 +80,7 @@ const [user, setUser] =useState(true);
 
         {/* Right Side */}
         <div className="hidden items-center gap-6 md:flex">
-          <div onClick={() => setOpenCart((v) => !v)}>
+          <div onClick={() => setOpenCart(true)}>
             <Image
               src={cartIcon}
               alt="Cart"
@@ -173,7 +173,7 @@ const [user, setUser] =useState(true);
       <AnimatePresence>
         {" "}
         {openCart && (
-          <Cart openCart={openCart} setOpenCart={setOpenCart}></Cart>
+          <Cart setOpenCart={setOpenCart}></Cart>
         )}
       </AnimatePresence>
     </header>

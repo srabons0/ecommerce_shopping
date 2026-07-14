@@ -280,14 +280,14 @@ function ShopSidebar({ category, gender, filters }) {
                       key={color}
                       onClick={() => handleColorChange(color)}
                       type="button"
-                      value={color.toLowerCase()}
+                      value={color}
                       className={`rounded w-5  h-5   border-2 transition
                             ${
                               colors.includes(color)
                                 ? "border-white outline-2 outline-offset-2 outline-white"
                                 : "border-neutral-600"
                             }`}
-                      style={{ backgroundColor: color.toLowerCase() }}
+                      style={{ backgroundColor: color }}
                     ></button>
                   ))}
                 </div>

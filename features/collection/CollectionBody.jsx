@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import CollectionProducts from "./CollectionProducts";
+import { usePathname } from "next/navigation";
 const COLLECTIONS = [
   {
     id: "summer",
@@ -74,7 +75,7 @@ const COLLECTIONS = [
     ],
   },
   {
-    id: "fallwinter",
+    id: "winter",
     index: "02",
     name: "Winter",
     subtitle: "AW25 COLLECTION",
@@ -145,7 +146,7 @@ const COLLECTIONS = [
     ],
   },
   {
-    id: "minblack",
+    id: "minimal",
     index: "04",
     name: "Minimal",
     subtitle: "CORE ESSENTIALS",
@@ -216,7 +217,7 @@ const COLLECTIONS = [
     ],
   },
   {
-    id: "streetwear",
+    id: "trending",
     index: "05",
     name: "Trending ",
     subtitle: "STREET CULTURE DROP",
@@ -299,7 +300,9 @@ function useInView(threshold = 0.12) {
 }
 
 function CollectionBody({  onCart }) {
-      const [activeCol, setActiveCol] = useState("summer");
+  const pathname = usePathname();
+  const active = pathname.split("/").at(2);
+      const [activeCol, setActiveCol] = useState(active.toString());
   const [storyRef, storyVis] = useInView(0.1);
   const [gridRef, gridVis] = useInView(0.08);
   const [lookRef, lookVis] = useInView(0.15);

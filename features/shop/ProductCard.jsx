@@ -132,15 +132,15 @@ export default function ProductCard({
             </div>
             {product.ratings?.average}
           </div>
-          <div className="flex gap-1">
-            {product.attributes.colors.map((color) => (
+          <div className="flex gap-1 items-center">
+            {product.attributes.colors.slice(0,3).map((color) => (
               <div
                 key={color}
                 title={color}
                 className="h-3 w-3 rounded-xs border border-zinc-700"
                 style={{ background: color.replace(/\s+/g, "") }}
               />
-            ))}
+            ))} ....
           </div>
         </div>
       </div>

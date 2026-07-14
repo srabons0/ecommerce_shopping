@@ -1,8 +1,13 @@
 "use client";
+import useCartData from "@/store/cartStore";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { FaHeart, FaHeartBroken, FaStar } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
+import Swal from "sweetalert2";
 const ProductModal = ({
   product,
   open,
@@ -12,38 +17,86 @@ const ProductModal = ({
   // wishlisted,
 }) => {
   const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(0);
+  const [selectedColor, setSelectedColor] = useState(
+    product.attributes.colors[0],
+  );
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState("details");
   const [added, setAdded] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
+  const setCartData = useCartData((state) => state.setCartData);
+  const cartData = useCartData((state) => state.cartData);
 
+  const { data: session } = useSession();
+  // console.log(session);
+  // console.log(cartData);
+//
   // useEffect(() => {
-  //     if (open && product) {
-  //         setSelectedSize(null);
-  //         setQty(1);
-  //         setAdded(false);
-  //         setSelectedColor(0);
-  //     }
-  // }, [open, product]);
+  //   if (!session) {
+  //     localStorage.setItem("cart", JSON.stringify(cartData));
+  //   }
+  // }, [cartData, session]);
 
   if (!product) return null;
 
-  const handleAdd = (product) => {
+  const handleAdd = async (product) => {
     if (!selectedSize) {
-      alert("Please select a size");
+      return Swal.fire("Select Your Size");
+    }
+    if (session) {
+      const order = {
+        name: product.name,
+        email: session.user.email,
+        slug: product.slug,
+        price: product.price,
+        subCategory: product.subCategory,
+        item: product.item,
+        gender: product.gender,
+        images: product.images,
+        discountPercentage: product.discountPercentage,
+        quantity: qty,
+        sizes: selectedSize,
+        colors: selectedColor,
+      };
+
+      try {
+        const res = await fetch("/api/products/userCart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(order),
+        });
+        const data = await res.json();
+        console.log(data);
+        console.log("Status:", res.status);
+        console.log("Success:", res.ok);
+        setAdded(true);
+      } catch (error) {
+        console.error("Fetch Error:", error);
+      }
+      setTimeout(() => {
+        toast.success("Successfully toasted!");
+        setAdded(false);
+        onClose();
+      }, 1000);
       return;
     }
-    const items = [product._id, selectedSize, qty, selectedColor];
+    const items = {
+      _id: product._id,
+      sizes: selectedSize,
+      quantity: qty,
+      colors: selectedColor,
+    };
 
-    console.log(items);
-
+    setCartData(items);
     setAdded(true);
 
     setTimeout(() => {
+      toast.success("Successfully toasted!");
       setAdded(false);
       onClose();
-    }, 1200);
+    }, 1000);
   };
 
   return (
@@ -134,10 +187,10 @@ const ProductModal = ({
                   {product.attributes.colors.map((color, index) => (
                     <button
                       key={index}
-                      onClick={() => setSelectedColor(index)}
+                      onClick={() => setSelectedColor(color)}
                       style={{ backgroundColor: color.replace(/\s+/g, "") }}
                       className={`h-7 w-7 rounded-full border border-white transition-all ${
-                        selectedColor === index
+                        selectedColor === color
                           ? "ring-2 ring-amber-500 ring-offset-2"
                           : "ring-2 ring-transparent"
                       }`}
@@ -191,7 +244,7 @@ const ProductModal = ({
                   onClick={() => handleAdd(product)}
                   className={`flex-1 rounded px-4 py-1  text-xs font-bold tracking-[0.15em] text-black transition ${
                     added
-                      ? "bg-green-700"
+                      ? "bg-green-700 text-white"
                       : "bg-white hover:bg-zinc-200 dark:bg-white dark: dark:hover:bg-zinc-200"
                   }`}
                 >

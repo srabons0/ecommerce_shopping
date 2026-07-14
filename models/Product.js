@@ -1,16 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-const VariantSchema = new Schema({
-  variantId: String,
-  color: String,
-  colorHex: String,
-  size: String,
-  sku: String,
-  stock: Number,
-  priceModifier: Number,
-  images: [String],
-});
-
 const ProductSchema = new Schema(
   {
     name: {
@@ -64,29 +53,13 @@ const ProductSchema = new Schema(
       unique: true,
     },
 
-    images: [String],
-
-    variants: [VariantSchema],
+    images: String,
 
     stock: {
       type: Number,
       default: 0,
     },
 
-    lowStockThreshold: {
-      type: Number,
-      default: 10,
-    },
-
-    trackInventory: {
-      type: Boolean,
-      default: true,
-    },
-
-    allowBackorder: {
-      type: Boolean,
-      default: false,
-    },
 
     attributes: {
       sizes: [String],
@@ -101,31 +74,9 @@ const ProductSchema = new Schema(
       careInstructions: String,
     },
 
-    specifications: {
-      Weight: String,
-      Fabric: String,
-      Origin: String,
-      FitType: String,
-      Collar: String,
-      Closure: String,
-    },
-
     tags: [String],
 
-    shipping: {
-      weight: Number,
-      weightUnit: String,
 
-      dimensions: {
-        length: Number,
-        width: Number,
-        height: Number,
-        unit: String,
-      },
-
-      freeShipping: Boolean,
-      shippingClass: String,
-    },
 
     ratings: {
       average: {
@@ -198,8 +149,6 @@ const ProductSchema = new Schema(
       keywords: [String],
     },
 
-
-    publishedAt: Date,
   },
   {
     timestamps: true,

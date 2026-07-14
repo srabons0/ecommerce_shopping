@@ -20,7 +20,7 @@ async function page({ params, searchParams }) {
   const sortby = slug[2];
 
   // console.log("slug", slug);
-  console.log("filters", filters);
+  // console.log("filters", filters);
   // cat &&console.log(cat.split(","));
   // colors && console.log("colors",colors.split(","));
 
@@ -79,14 +79,18 @@ async function page({ params, searchParams }) {
   const limit =15;
   // console.log(JSON.stringify(productFilters));
   await connectDB();
-  const product = JSON.parse(JSON.stringify(await Product.find(productFilters)
-  .skip((page-1)*limit)
-    .limit(limit)
-    .sort(sort)
-    .select(
-      "name slug gender images price stock isOnSale description shortDescription currency attributes ratings  item subCategory",
-    )
-    .lean()))
+  const product = JSON.parse(
+    JSON.stringify(
+      await Product.find(productFilters)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort(sort)
+        .select(
+          "name slug gender images price stock isOnSale description shortDescription currency attributes ratings discountPercentage item subCategory",
+        )
+        .lean(),
+    ),
+  );
 
     const productCount = await Product.countDocuments(productFilters);
 
