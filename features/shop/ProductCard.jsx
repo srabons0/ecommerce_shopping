@@ -8,19 +8,13 @@ import ProductModal from "./ProductModal";
 
 export default function ProductCard({
   product,
-  onCart,
-  onWish,
-  // wished,
   page,
 }) {
-  const [hovered, setHovered] = useState(false);
-  const [added, setAdded] = useState(false);
   const [open, setOpen] = useState(false);
   const [wished, setWished] = useState(false);
   const ref = useRef(page);
   useEffect(() => {
     if (ref.current !== page) {
-      console.log(page, ref);
       document.getElementById("productScroll")?.scrollIntoView({
         top: 0,
         behavior: "smooth",
@@ -30,42 +24,23 @@ export default function ProductCard({
     }
   }, [page]);
 
-  const handleAdd = (e) => {
-    e.stopPropagation();
-    onCart?.(product);
-
-    setAdded(true);
-
-    setTimeout(() => {
-      setAdded(false);
-    }, 1400);
-  };
-
-  // console.log(product)
 
   return (
     <div
       id="productScroll"
-      // onMouseEnter={() => setHovered(true)}
-      // onMouseLeave={() => setHovered(false)}
-      className={`group overflow-hidden rounded-xl  bg-[#ffffff] text-black transition-all duration-300
-      ${
-        hovered
-          ? "-translate-y-2 border-red-400 border shadow-2xl"
-          : "border-zinc-200 border"
-      }`}
+      className={`group overflow-hidden rounded-xl  bg-[#ffffff] text-black transition-all duration-300 border-zinc-200 border
+      `}
     >
-      {/* Image */}
       <div className="relative aspect-4/4 overflow-hidden">
         <Image
-          src={hovered ? product.images : product.images}
+          src={product.images}
           alt={product.name}
           width={300}
           height={300}
           className="h-full w-full object-cover "
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
 
         {product.badge && (
           <span className="absolute left-3 top-3 bg-lime-400 px-3 py-1 text-[10px] font-bold uppercase text-black">
@@ -79,7 +54,6 @@ export default function ProductCard({
           </span>
         )}
 
-        {/* Wishlist */}
         <button
           onClick={() => {
             setWished(!wished);
@@ -94,22 +68,15 @@ export default function ProductCard({
           )}
         </button>
 
-        {/* Quick Add */}
         <button
           onClick={() => setOpen(true)}
-          className={`absolute bottom-4 left-4 right-4 py-3 font-semibold transition-all duration-300
-          // {hovered
-          //     ? "translate-y-0 opacity-100"
-          //     : "translate-y-20 opacity-0"
-          //   }
-              bg-white text-black
+          className={`absolute bottom-4 left-4 right-4 py-3 font-semibold transition-all duration-300                  bg-white text-black
             `}
         >
           Quick View
         </button>
       </div>
 
-      {/* Content */}
       <div className="space-y-1 p-5 mb-2">
         <p className="text-xs font-medium uppercase tracking-tight text-red-500">
           {product.subCategory}
@@ -133,14 +100,15 @@ export default function ProductCard({
             {product.ratings?.average}
           </div>
           <div className="flex gap-1 items-center">
-            {product.attributes.colors.slice(0,3).map((color) => (
+            {product.attributes.colors.slice(0, 3).map((color) => (
               <div
                 key={color}
                 title={color}
                 className="h-3 w-3 rounded-xs border border-zinc-700"
                 style={{ background: color.replace(/\s+/g, "") }}
               />
-            ))} ....
+            ))}{" "}
+            ....
           </div>
         </div>
       </div>

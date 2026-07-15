@@ -11,7 +11,7 @@ function page() {
       {/* <CollectionsHeader></CollectionsHeader> */}
       <CollectionIndex></CollectionIndex>
       <CollectionBody></CollectionBody>
-      <CollectionShowcase></CollectionShowcase>
+      {/* <CollectionShowcase></CollectionShowcase> */}
       <CollectionNews></CollectionNews>
     </div>
   );

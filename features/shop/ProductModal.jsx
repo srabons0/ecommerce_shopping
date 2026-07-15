@@ -2,20 +2,11 @@
 import useCartData from "@/store/cartStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
+import { useState } from "react";
 import { FaHeart, FaHeartBroken, FaStar } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
-const ProductModal = ({
-  product,
-  open,
-  onClose,
-  onAddToCart,
-  onToggleWishlist,
-  // wishlisted,
-}) => {
+const ProductModal = ({ product, open, onClose }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(
     product.attributes.colors[0],
@@ -25,17 +16,7 @@ const ProductModal = ({
   const [added, setAdded] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
   const setCartData = useCartData((state) => state.setCartData);
-  const cartData = useCartData((state) => state.cartData);
-
   const { data: session } = useSession();
-  // console.log(session);
-  // console.log(cartData);
-//
-  // useEffect(() => {
-  //   if (!session) {
-  //     localStorage.setItem("cart", JSON.stringify(cartData));
-  //   }
-  // }, [cartData, session]);
 
   if (!product) return null;
 
@@ -67,16 +48,11 @@ const ProductModal = ({
           },
           body: JSON.stringify(order),
         });
-        const data = await res.json();
-        console.log(data);
-        console.log("Status:", res.status);
-        console.log("Success:", res.ok);
         setAdded(true);
       } catch (error) {
         console.error("Fetch Error:", error);
       }
       setTimeout(() => {
-        toast.success("Successfully toasted!");
         setAdded(false);
         onClose();
       }, 1000);
@@ -93,7 +69,6 @@ const ProductModal = ({
     setAdded(true);
 
     setTimeout(() => {
-      toast.success("Successfully toasted!");
       setAdded(false);
       onClose();
     }, 1000);
@@ -101,7 +76,6 @@ const ProductModal = ({
 
   return (
     <>
-      {/* Overlay */}
       <div
         onClick={onClose}
         className={` fixed inset-0 z-90 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
@@ -145,7 +119,6 @@ const ProductModal = ({
                 height={150}
                 className="h-full w-full object-cover "
               />
-              {/* transition duration-500 hover:scale-105 */}
             </div>
             <div className="w-1/2 p-8">
               <div className="mb-2 flex items-center">

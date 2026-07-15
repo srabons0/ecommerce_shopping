@@ -12,7 +12,7 @@ import Cart from "@/features/cart/Cart";
 import { AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 
-const Navbar = () => {
+const Navbar = ({category}) => {
   //  const { data: session }           = useSession()
   const [session, setSession] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -66,11 +66,15 @@ const [user, setUser] =useState(true);
             Dashboard
           </Link>
 
-          <Link href="/collections" className="hover:text-neutral-300">
+
+          <Link href="/collection/summer" className="hover:text-neutral-300">
             Collections
           </Link>
 
-          <Link href="/sale" className="hover:text-red-400">
+          <Link
+            href={`/sale/men/${category.find((items) => items.gender === "men").slug}/newest`}
+            className="hover:text-red-400"
+          >
             Sale
           </Link>
           <Link href="/sale" className="hover:text-red-400">
@@ -172,9 +176,7 @@ const [user, setUser] =useState(true);
 
       <AnimatePresence>
         {" "}
-        {openCart && (
-          <Cart setOpenCart={setOpenCart}></Cart>
-        )}
+        {openCart && <Cart setOpenCart={setOpenCart}></Cart>}
       </AnimatePresence>
     </header>
   );

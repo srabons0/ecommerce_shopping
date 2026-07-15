@@ -4,7 +4,7 @@ import React from "react";
 
 function Profile() {
   const { data: session } = useSession();
-  console.log(session);
+  // console.log(session);
   return <div>
 
   </div>;

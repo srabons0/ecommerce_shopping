@@ -1,4 +1,3 @@
-import ProductModal from "@/features/shop/ProductModal";
 import ShopCategory from "@/features/shop/ShopCategory";
 import ShopProduct from "@/features/shop/ShopProduct";
 import ShopProductTool from "@/features/shop/ShopProductTool";
@@ -14,17 +13,9 @@ async function page({ params, searchParams }) {
   const resolvedParams = await params;
   const filters = await searchParams;
   const slug = resolvedParams.slug || [];
-  const gender = slug[0];
   const subCategorySlug = slug[1];
-  const { colors, size, inStock, onSale, ratings, price, cat,page } = filters;
+  const { colors, size, inStock, onSale, ratings, price, cat, page } = filters;
   const sortby = slug[2];
-
-  // console.log("slug", slug);
-  // console.log("filters", filters);
-  // cat &&console.log(cat.split(","));
-  // colors && console.log("colors",colors.split(","));
-
-  // console.log(subCategorySlug)
 
   const productFilters = {
     ...(!cat && { subCategorySlug: subCategorySlug }),
@@ -76,8 +67,8 @@ async function page({ params, searchParams }) {
       sort = { createdAt: -1 };
   }
 
-  const limit =15;
-  // console.log(JSON.stringify(productFilters));
+  const limit = 15;
+
   await connectDB();
   const product = JSON.parse(
     JSON.stringify(
@@ -92,8 +83,7 @@ async function page({ params, searchParams }) {
     ),
   );
 
-    const productCount = await Product.countDocuments(productFilters);
-
+  const productCount = await Product.countDocuments(productFilters);
 
   const category = JSON.parse(
     JSON.stringify(await Category.find().select("gender").lean()),
@@ -106,16 +96,8 @@ async function page({ params, searchParams }) {
     JSON.stringify(await Item.find().select("name slug gender colors").lean()),
   );
 
-  // console.log("category", category);
-  // console.log("subCategory", subCategory);
-  // console.log("itemCategory", itemCategory);
-  // console.log("product:", product.length, product);
-  // console.log("product:", product.length);
   return (
     <div className="w-full h-full relative">
-      {/* <ShopNav></ShopNav> */}
-      {/* <ShopPage></ShopPage> */}
-      {/* <ShopHeader></ShopHeader> */}
       <ShopCategory
         category={category}
         subCategory={subCategory}

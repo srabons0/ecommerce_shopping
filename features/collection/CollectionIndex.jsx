@@ -75,14 +75,14 @@ function CollectionIndex() {
 const pathname = usePathname();
 const active = pathname.split("/").at(2);
 const setCollection =(id)=>{
-  console.log(id);
+  // console.log(id);
   const path = pathname.split("/");
   path[path.length - 1] = id;
-  console.log(path.join("/"));
+  // console.log(path.join("/"));
   router.push(`${path.join("/")}`)
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    console.log(active)
+    // console.log(active)
   return (
     <div className="border-b border-zinc-800 bg-white px-16 py-20">
       <div className="mx-auto max-w-7xl">

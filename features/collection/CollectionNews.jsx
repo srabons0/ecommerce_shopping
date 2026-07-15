@@ -444,33 +444,21 @@ function CollectionNews() {
   const accent = col.palette.primary;
   return (
     <div>
-      <section
-        className="border-t px-6 py-16 lg:px-16"
-        style={{
-          background: col.palette.bg,
-          borderColor: G.border,
-        }}
-      >
+      <section className="border-t px-6 py-16 lg:px-16 bg-white">
         <div className="mx-auto max-w-[700px] text-center">
           {/* Label */}
           <div className="mb-4 inline-flex items-center gap-2.5">
-            <div
-              className="h-1.5 w-1.5 animate-pulse"
-              style={{ background: accent }}
-            />
-            <span
-              className="font-mono text-[9px] font-bold tracking-[0.28em]"
-              style={{ color: accent }}
-            >
+            <div className="h-1.5 w-1.5 animate-pulse bg-red-500" />
+            <span className="font-mono text-[9px] font-bold tracking-[0.28em] text-red-500">
               DROP ALERTS
             </span>
           </div>
 
           {/* Heading */}
-          <h2 className="mb-4 font-['Bebas_Neue'] text-[clamp(36px,5vw,68px)] leading-[0.95] tracking-[0.02em] text-white">
+          <h2 className="mb-4 font-['Bebas_Neue'] text-[clamp(36px,5vw,68px)] leading-[0.95] tracking-[0.02em] text-black">
             BE FIRST FOR
             <br />
-            <span style={{ color: accent }}>EVERY DROP.</span>
+            <span className="text-red-500">EVERY DROP.</span>
           </h2>
 
           {/* Description */}
@@ -481,22 +469,17 @@ function CollectionNews() {
 
           {/* Form */}
           <div
-            className="mx-auto flex max-w-[440px] overflow-hidden border"
-            style={{ borderColor: G.border }}
+            className="mx-auto flex max-w-[440px] overflow-hidden"
           >
             <input
               type="email"
               placeholder="your@email.com"
-              className="flex-1 bg-transparent px-4 py-3 font-mono text-[11px] text-white outline-none placeholder:text-zinc-500"
+              className="flex-1 bg-transparent px-4 py-3 font-mono text-[11px] text-white outline-none placeholder:text-zinc-500 border border-red-500"
               style={{ cursor: "none" }}
             />
 
             <button
-              className="whitespace-nowrap px-6 py-3 font-['Bebas_Neue'] text-[15px] tracking-[0.1em] text-black transition-opacity duration-300 hover:opacity-85"
-              style={{
-                background: accent,
-                cursor: "none",
-              }}
+              className="whitespace-nowrap px-6 py-3 font-['Bebas_Neue'] text-[15px] tracking-[0.1em] text-white transition-opacity duration-300 hover:opacity-85 bg-red-500"
             >
               JOIN →
             </button>

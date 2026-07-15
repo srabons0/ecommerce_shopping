@@ -5,39 +5,9 @@ import ProductCard from "./ProductCard";
 import useCardSorter from "@/store/cardSortStore";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-const products = [
-  {
-    id: 1,
-    name: "Oversized Hoodie",
-    category: "Hoodie",
-    description: "Premium heavyweight cotton hoodie.",
-    price: 79,
-    img: "/products/hoodie-1.jpg",
-    img2: "/products/hoodie-2.jpg",
-    badge: "New",
-    stock: 4,
-    colors: ["#111111", "#d6d6d6", "#6b7280"],
-    sizes: ["S", "M", "L", "XL"],
-  },
-  {
-    id: 2,
-    name: "Cargo Pants",
-    category: "Bottom",
-    description: "Relaxed fit utility cargo pants.",
-    price: 59,
-    img: "/products/cargo-1.jpg",
-    img2: "/products/cargo-2.jpg",
-    badge: "Sale",
-    stock: 12,
-    colors: ["#3f3f46", "#556b2f"],
-    sizes: ["30", "32", "34", "36"],
-  },
-];
 
 export default function ShopProduct({ product, productCount }) {
-  const [wishlist, setWishlist] = useState([]);
   const [page, setPage] = useState(1);
-  const [view, setView] = useState("grid");
   const cardSort = useCardSorter((state) => state.cardSort);
   const pathname = usePathname();
   const router = useRouter();
@@ -48,14 +18,6 @@ export default function ShopProduct({ product, productCount }) {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }, [page, pathname, router]);
 
-  // console.log(page);
-  // console.log(pathname);
-  const toggleWishlist = (id) => {
-    setWishlist((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-    );
-  };
-
   return (
     <div className="min-h-175 bg-[#edecec] px-4 py-4 overflow-y-auto">
       <div
@@ -63,15 +25,7 @@ export default function ShopProduct({ product, productCount }) {
             `}
       >
         {product.map((product) => (
-          <ProductCard
-            key={product._id}
-            product={product}
-            wished={wishlist.includes(product._id)}
-            onWish={toggleWishlist}
-            onCart={(product) => console.log(product)}
-            view={view}
-            page={page}
-          />
+          <ProductCard key={product._id} product={product} page={page} />
         ))}
       </div>
 
@@ -87,7 +41,7 @@ export default function ShopProduct({ product, productCount }) {
             <div
               key={i}
               onClick={() => setPage(i + 1)}
-              className={`w-8 text-lg rounded-sm font-semibold bg-black text-center h-8 border-2 border-black ${page === i+1 && "bg-white text-black"}`}
+              className={`w-8 text-lg rounded-sm font-semibold bg-black text-center h-8 border-2 border-black ${page === i + 1 && "bg-white text-black"}`}
             >
               {i + 1}
             </div>

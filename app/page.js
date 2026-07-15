@@ -23,8 +23,8 @@ export default async function Home() {
     );
   return (
     <main className=" bg-white text-black overflow-auto">
-      <Navbar />
-      <Banner category={category}/>
+      <Navbar category={category} />
+      <Banner category={category} />
       <Category />
       <FeaturedProduct />
       <BrandManifesto />

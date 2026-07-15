@@ -8,7 +8,7 @@ import searchIcon from "@/assets/icons/search-Icons.gif";
 import { AnimatePresence } from "framer-motion";
 import Cart from "../cart/Cart";
 
-function ShopNav() {
+function Navbar({category}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
 const [openCart, setOpenCart] = useState(false);
@@ -37,12 +37,20 @@ const [openCart, setOpenCart] = useState(false);
           <Link href="/dashboard" className="hover:text-neutral-300">
             Dashboard
           </Link>
-
+          <Link
+            href={`/shop/men/${category.find((items) => items.gender === "men").slug}/newest`}
+            className="hover:text-neutral-300"
+          >
+            Shop
+          </Link>
           <Link href="/collections/summer" className="hover:text-neutral-300">
             Collections
           </Link>
 
-          <Link href="/sale" className="hover:text-red-400">
+          <Link
+            href={`/sale/men/${category.find((items) => items.gender === "men").slug}/newest`}
+            className="hover:text-red-400"
+          >
             Sale
           </Link>
           <Link href="/arrivals" className="hover:text-red-400">
@@ -172,12 +180,10 @@ const [openCart, setOpenCart] = useState(false);
       )}
       <AnimatePresence>
         {" "}
-        {openCart && (
-          <Cart setOpenCart={setOpenCart}></Cart>
-        )}
+        {openCart && <Cart setOpenCart={setOpenCart}></Cart>}
       </AnimatePresence>
     </header>
   );
 }
 
-export default ShopNav;
+export default Navbar;

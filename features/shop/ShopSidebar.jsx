@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { IoFilter } from "react-icons/io5";
 import { MdFilterListOff } from "react-icons/md";
@@ -275,9 +275,9 @@ function ShopSidebar({ category, gender, filters }) {
                 component={<div />}
               >
                 <div className="flex flex-wrap gap-2">
-                  {colorFilter.map((color) => (
+                  {colorFilter.map((color, i) => (
                     <button
-                      key={color}
+                      key={i}
                       onClick={() => handleColorChange(color)}
                       type="button"
                       value={color}
@@ -345,11 +345,11 @@ function ShopSidebar({ category, gender, filters }) {
                   type: "spring",
                   stiffness: 220,
                   damping: 25,
-                  delay: 0.5, // Only when opening
+                  delay: 0.5,
                   duration: 0.5,
                 }
               : {
-                  duration: 0.2, // Hide immediately
+                  duration: 0.2,
                 }
           }
           exit={{ opacity: 0 }}

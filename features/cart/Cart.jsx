@@ -36,6 +36,7 @@ function Cart({ setOpenCart }) {
       // console.log(data);
     };
     fetchData();
+    return;
   }, [cartData, session]);
 
   const cartProductData = !session
@@ -52,14 +53,14 @@ function Cart({ setOpenCart }) {
       })
     : cartProduct;
 
-  console.log("cartProductData", cartProductData);
+  // console.log("cartProductData", cartProductData);
 
   const handleCartDelete = async (p) => {
     if (session) {
       const req = await fetch(`/api/products/userCart/${p._id}`, {
         method: "DELETE",
       });
-      console.log(req);
+      // console.log(req);
       if (req.ok) {
         toast.success("Successfully Delete!");
         setCartProduct((pre) => pre.filter((i) => i._id !== p._id));

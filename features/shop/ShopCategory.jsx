@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 const CATS = [
   { gender: "men" },
@@ -36,8 +34,6 @@ function ShopCategory({ category, subCategory, gender, subCat }) {
         ))}
 
         <div className="flex-1" />
-
-        {/* Sub Categories */}
         <div className="flex gap-0 overflow-x-auto">
           {subCategory
             .filter((item) => item.gender === gender)
