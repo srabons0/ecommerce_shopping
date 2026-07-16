@@ -99,7 +99,7 @@ setDiscount([]);
 const handleDiscountChange = (value)=>{
   setDiscount((prev)=>(prev.includes(value)? []: [value]))
 }
-
+console.log(category)
   const colorFilter = [...new Set(category.flatMap((i) => i.colors))];
 
   return (
@@ -361,7 +361,7 @@ const handleDiscountChange = (value)=>{
                   duration: 0.5,
                 }
               : {
-                  duration: 0.2, 
+                  duration: 0.2,
                 }
           }
           exit={{ opacity: 0 }}

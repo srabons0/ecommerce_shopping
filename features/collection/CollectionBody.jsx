@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
-import CollectionProducts from "./CollectionProducts";
 import { usePathname } from "next/navigation";
 const COLLECTIONS = [
   {
@@ -26,7 +25,7 @@ const COLLECTIONS = [
     hero: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=90",
     lookbook:
       "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=85",
-    products:[]
+
   },
   {
     id: "winter",
@@ -51,7 +50,7 @@ const COLLECTIONS = [
     hero: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1600&q=90",
     lookbook:
       "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=85",
-    products:[]
+
   },
   {
     id: "minimal",
@@ -76,7 +75,7 @@ const COLLECTIONS = [
     hero: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1600&q=90",
     lookbook:
       "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=900&q=85",
-    products:[]
+
   },
   {
     id: "trending",
@@ -101,7 +100,7 @@ const COLLECTIONS = [
     hero: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1600&q=90",
     lookbook:
       "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=900&q=85",
-    products:[]
+
   },
 ];
 function useInView(threshold = 0.12) {
@@ -117,14 +116,14 @@ function useInView(threshold = 0.12) {
 
 function CollectionBody({  onCart }) {
   const pathname = usePathname();
-  const active = pathname.split("/").at(2);
+  const active = pathname.split("/").at(3);
       const [activeCol, setActiveCol] = useState(active.toString());
   const [storyRef, storyVis] = useInView(0.1);
   const [gridRef, gridVis] = useInView(0.08);
   const [lookRef, lookVis] = useInView(0.15);
  const col = COLLECTIONS.find((c) => c.id === activeCol);
 
-  const accent = col.palette.primary;
+  const accent = "col.palette.primary";
 
   return (
     <div style={{ background: col.palette.bg }}>
@@ -232,73 +231,9 @@ function CollectionBody({  onCart }) {
         </div>
       </section>
 
-      {/* ── PRODUCT GRID ── */}
-      <section
-        ref={gridRef}
-        className="px-6 pb-24 lg:px-16"
-        style={{ background: col.palette.bg }}
-      >
-        <div className="mx-auto max-w-7xl">
-          {/* Header */}
-          <div
-            className={`mb-9 flex items-end justify-between transition-all duration-700
-              ${
-                gridVis
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-5 opacity-0"
-              }`}
-          >
-            <div>
-              <div className="mb-2 flex items-center gap-3">
-                <div className="h-[2px] w-5" style={{ background: "red" }} />
-                <span
-                  className="font-mono text-[9px] font-bold tracking-[0.28em]"
-                  style={{ color: "red" }}
-                >
-                  CURATED PIECES
-                </span>
-              </div>
 
-              <h3 className="font-['Bebas_Neue'] text-[clamp(28px,4vw,52px)] tracking-[0.03em] text-white">
-                THE COLLECTION
-              </h3>
-            </div>
 
-            <button
-              className="border border-zinc-600 bg-transparent px-5 py-2 font-['Bebas_Neue'] text-[13px] tracking-[0.1em] hover:border-red-500 hover:text-red-500 text-zinc-400 transition-all duration-300"
 
-            >
-              VIEW ALL {col.pieces} PIECES →
-            </button>
-          </div>
-
-          {/* Products */}
-          <div
-            className={`grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-700 delay-200 ${
-              gridVis ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {col.products.map((p, i) => (
-              <CollectionProducts
-                key={p.id}
-                p={p}
-                accent={accent}
-                wide={p.wide}
-                onCart={onCart}
-                idx={i}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div
-        className="mx-6 h-px lg:mx-16"
-        style={{
-          background: `linear-gradient(to right, transparent, ${accent}33, transparent)`,
-        }}
-      />
     </div>
   );
 }

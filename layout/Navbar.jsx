@@ -67,7 +67,7 @@ const [user, setUser] =useState(true);
           </Link>
 
 
-          <Link href="/collection/summer" className="hover:text-neutral-300">
+          <Link href="/collections/men/summer" className="hover:text-neutral-300">
             Collections
           </Link>
 

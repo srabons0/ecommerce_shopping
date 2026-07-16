@@ -88,7 +88,7 @@ const ProductModal = ({ product, open, onClose }) => {
       {open && (
         <div
           className={`fixed z-100 top-1/2 rounded-xl bg-black text-white -translate-y-1/2 w-3/4 overflow-y-auto h-150
-             left-1/2 -translate-x-1/2`}
+                    left-1/2 -translate-x-1/2`}
         >
           <div className="fixed right-4 top-2.5 z-20 flex gap-3 justify-center ml-auto mr-4 mt-4 items-center">
             <button
@@ -115,10 +115,15 @@ const ProductModal = ({ product, open, onClose }) => {
               <Image
                 src={product.images}
                 alt={product.name}
-                width={150}
-                height={150}
+                width={300}
+                height={300}
                 className="h-full w-full object-cover "
               />
+              {product.discountPercentage > 0 && (
+                <span className="absolute left-3 top-3 rounded-full bg-red-500 px-3 py-1.5 text-xs font-bold tracking-wide text-white shadow-md">
+                  -{product.discountPercentage}% OFF
+                </span>
+              )}
             </div>
             <div className="w-1/2 p-8">
               <div className="mb-2 flex items-center">
@@ -141,15 +146,26 @@ const ProductModal = ({ product, open, onClose }) => {
                 </span>
               </div>
               <div className="mb-8 flex items-end gap-3">
-                <span className="text-3xl font-bold  dark:text-white">
-                  <span className="text-xl"> ৳</span> {product.price}
-                </span>
+                <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white">
+                {product.discountPercentage > 0 ? (
+                   <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white"> <span className="font-['Bebas_Neue'] text-[#FF4D4D]">
+                      $
+                      {Math.ceil(
+                        product.price -
+                          (product.price * product.discountPercentage) / 100,
+                      )}
+                    </span>
 
-                {product.originalPrice && (
-                  <span className="text-lg  line-through">
-                    {formatPrice(product.originalPrice)}
+                    <span className="font-mono text-lg text-zinc-500 line-through">
+                      ${product.price}
+                    </span>
+                    </span>
+                ) : (
+                  <span className="font-mono  text-zinc-300 ">
+                    ${product.price}
                   </span>
                 )}
+                </span>
               </div>
               <div className="mb-6">
                 <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">

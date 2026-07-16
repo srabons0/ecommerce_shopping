@@ -43,7 +43,7 @@ const [openCart, setOpenCart] = useState(false);
           >
             Shop
           </Link>
-          <Link href="/collections/summer" className="hover:text-neutral-300">
+          <Link href="/collections/men/summer" className="hover:text-neutral-300">
             Collections
           </Link>
 

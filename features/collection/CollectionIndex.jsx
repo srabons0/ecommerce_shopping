@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 const COLLECTIONS = [
   {
     id: "summer",
@@ -72,17 +72,25 @@ const COLLECTIONS = [
 function CollectionIndex() {
   const [hoveredId, setHoveredId] = useState(null);
   const router = useRouter();
-const pathname = usePathname();
-const active = pathname.split("/").at(2);
-const setCollection =(id)=>{
-  // console.log(id);
-  const path = pathname.split("/");
-  path[path.length - 1] = id;
-  // console.log(path.join("/"));
-  router.push(`${path.join("/")}`)
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const active = pathname.split("/").at(3);
+
+  const setCollection = (id) => {
+    const path = pathname.split("/");
+    path[path.length - 1] = id;
+    router.push(`${path.join("/")}?${searchParams.toString()}`);
+  };
+
+  useEffect(() => {
+    if (active) {
+      document.getElementById("productScroll")?.scrollIntoView({
+        top: 0,
+        behavior: "smooth",
+        block: "start",
+      });
     }
-    // console.log(active)
+  }, [active]);
   return (
     <div className="border-b border-zinc-800 bg-white px-16 py-20">
       <div className="mx-auto max-w-7xl">

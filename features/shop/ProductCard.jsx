@@ -6,10 +6,7 @@ import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import ProductModal from "./ProductModal";
 
-export default function ProductCard({
-  product,
-  page,
-}) {
+export default function ProductCard({ product, page }) {
   const [open, setOpen] = useState(false);
   const [wished, setWished] = useState(false);
   const ref = useRef(page);
@@ -24,12 +21,11 @@ export default function ProductCard({
     }
   }, [page]);
 
-
   return (
     <div
       id="productScroll"
       className={`group overflow-hidden rounded-xl  bg-[#ffffff] text-black transition-all duration-300 border-zinc-200 border
-      `}
+        `}
     >
       <div className="relative aspect-4/4 overflow-hidden">
         <Image
@@ -39,27 +35,28 @@ export default function ProductCard({
           height={300}
           className="h-full w-full object-cover "
         />
-
         <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
-
-        {product.badge && (
-          <span className="absolute left-3 top-3 bg-lime-400 px-3 py-1 text-[10px] font-bold uppercase text-black">
-            {product.badge}
+        {product.discountPercentage > 0 && (
+          <span className="absolute left-3 top-3 rounded-full bg-red-500 px-3 py-1.5 text-xs font-bold tracking-wide text-white shadow-md">
+            -{product.discountPercentage}% OFF
           </span>
         )}
-
-        {product.stock <= 5 && (
-          <span className="absolute left-3 top-12 bg-red-500 px-2 py-1 text-[10px] text-white">
-            ONLY {product.stock} LEFT
-          </span>
-        )}
-
+        <span className="absolute right-3 bottom-18 flex items-center gap-2 rounded-full bg-[#ffffff46] px-3 py-1 text-xs font-semibold text-gray-900 shadow-md backdrop-blur">
+          <span
+            className={`h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+              product.stock <= 5 ? "bg-red-500" : "bg-emerald-600"
+            }`}
+          />
+          {product.stock <= 5
+            ? `Only ${product.stock} Left`
+            : `${product.stock} In Stock`}
+        </span>
         <button
           onClick={() => {
             setWished(!wished);
           }}
           className={`absolute right-3 top-3 rounded-full p-2 transition
-          ${wished ? "text-red-600 bg-white" : "text-red-300 bg-black/80 hover:text-red-500"}`}
+            ${wished ? "text-red-600 bg-white" : "text-red-400 bg-[#0000003b] hover:text-red-500"}`}
         >
           {wished ? (
             <FaHeart className="w-5 h-5" />
@@ -67,25 +64,39 @@ export default function ProductCard({
             <FaHeartBroken className="w-5 h-5" />
           )}
         </button>
-
         <button
           onClick={() => setOpen(true)}
-          className={`absolute bottom-4 left-4 right-4 py-3 font-semibold transition-all duration-300                  bg-white text-black
-            `}
+          className={`absolute bottom-4  left-4 right-4 py-3 font-semibold transition-all duration-300 rounded-xl bg-white text-black
+              `}
         >
           Quick View
         </button>
       </div>
-
       <div className="space-y-1 p-5 mb-2">
         <p className="text-xs font-medium uppercase tracking-tight text-red-500">
           {product.subCategory}
         </p>
-
         <div className="flex justify-between gap-3">
           <h3 className="text-lg font-bold ">{product.name}</h3>
 
-          <span className="text-lg font-bold ">${product.price}</span>
+          {product.discountPercentage > 0 ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-bold line-through text-gray-500">
+                ${product.price}
+              </span>
+              <span className="text-lg font-bold text-red-500">
+                $
+                {Math.ceil(
+                  product.price -
+                    (product.price * product.discountPercentage) / 100,
+                )}
+              </span>{" "}
+            </div>
+          ) : (
+            <span className="text-lg font-bold  text-gray-700">
+              ${product.price}
+            </span>
+          )}
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-2 items-center">
@@ -100,7 +111,7 @@ export default function ProductCard({
             {product.ratings?.average}
           </div>
           <div className="flex gap-1 items-center">
-            {product.attributes.colors.slice(0, 3).map((color) => (
+            {product.attributes.colors.map((color) => (
               <div
                 key={color}
                 title={color}
@@ -108,7 +119,7 @@ export default function ProductCard({
                 style={{ background: color.replace(/\s+/g, "") }}
               />
             ))}{" "}
-            ....
+
           </div>
         </div>
       </div>

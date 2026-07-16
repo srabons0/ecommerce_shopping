@@ -1,5 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+
 const COLLECTIONS = [
   {
     id: "summer",
@@ -71,125 +74,133 @@ const COLLECTIONS = [
 
 function CollectionShowcase() {
   const [hoveredId, setHoveredId] = useState(null);
-  const [activeCol, setActiveCol] = useState("summer");
-    const col = COLLECTIONS.find((c) => c.id === activeCol);
-    const accent = col.palette.primary;
+    const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const active = pathname.split("/").at(3);
+  const setCollection =(id)=>{
+    const path = pathname.split("/");
+    path[path.length - 1] = id;
+    router.push(`${path.join("/")}?${searchParams.toString()}`);
+      }
+       useEffect(() => {
+          if (active) {
+            document.getElementById("productScroll")?.scrollIntoView({
+              top: 0,
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }, [active]);
+
+
+
   return (
-    <section className="border-t border-zinc-800 bg-white px-16 py-[72px]">
+    <section className=" bg-white px-16 py-[72px]">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-3 flex items-center gap-3">
-          <div className="h-0.5 w-5" style={{ background: accent }} />
+          <div className="h-0.5 w-5" style={{ background: "red" }} />
           <span
             className="font-mono text-[9px] font-bold tracking-[0.28em]"
-            style={{ color: accent }}
+            style={{ color: "red" }}
           >
             EXPLORE MORE
           </span>
         </div>
 
-        <h2 className="mb-9 font-['Bebas_Neue'] text-[clamp(28px,4vw,52px)] tracking-wide text-white">
+        <h2 className="mb-9 font-['Bebas_Neue'] text-[clamp(28px,4vw,52px)] tracking-wide text-black">
           OTHER COLLECTIONS
         </h2>
 
-        <div className="grid grid-cols-3 gap-3">
-          {COLLECTIONS.filter((c) => c.id !== activeCol)
-            .slice(0, 3)
-            .map((c, i) => {
-              const hovered = hoveredId === c.id;
+        <div className="grid grid-cols-3 gap-4  mx-auto">
+          {COLLECTIONS.filter((collection) => collection.id !== active).map(
+            (col, i) => {
+              const hovered = hoveredId === col.id;
+              const activeCard = active === col.id;
 
               return (
                 <div
-                  key={c.id}
-                  onClick={() => handleSelect(c.id)}
-                  onMouseEnter={() => setHoveredId(c.id)}
+                  key={col.id}
+                  onClick={() => setCollection(col.id)}
+                  onMouseEnter={() => setHoveredId(col.id)}
                   onMouseLeave={() => setHoveredId(null)}
-                  className="group relative h-[220px] cursor-pointer overflow-hidden border transition-all duration-300"
+                  className="group relative h-52 cursor-pointer overflow-hidden border transition-all duration-300"
                   style={{
-                    borderColor: hovered ? c.palette.primary : "#27272a",
+                    borderColor: activeCard
+                      ? col.palette.primary
+                      : hovered
+                        ? `${col.palette.primary}88`
+                        : "#27272a",
                     transform: hovered ? "scale(.987)" : "scale(1)",
-                    animation: `cardIn .55s ease ${i * 0.1}s both`,
+                    animation: `cardIn .55s ease ${i * 0.07}s both`,
+                    boxShadow: activeCard
+                      ? `0 16px 48px ${col.palette.primary}22`
+                      : hovered
+                        ? `0 12px 40px ${col.palette.primary}18`
+                        : "none",
                   }}
                 >
-                  <img
-                    src={c.hero}
-                    alt={c.name}
+                  {activeCard && (
+                    <div className="absolute inset-x-0 top-0 z-20 h-[3px]" />
+                  )}
+
+                  <Image
+                    src={col.hero}
+                    alt={col.name}
+                    width={200}
+                    height={100}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     style={{
-                      filter: hovered
-                        ? "grayscale(.1) brightness(.4)"
-                        : "grayscale(.6) brightness(.25)",
+                      filter: activeCard
+                        ? "grayscale(.1) brightness(.50)"
+                        : "grayscale(.55) brightness(.35)",
                     }}
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#000000]  to-transparent to-50%" />
 
                   <div
                     className="absolute inset-0 transition-opacity duration-300"
                     style={{
-                      background: c.palette.primary,
-                      opacity: hovered ? 0.1 : 0,
+                      background: col.palette.primary,
+                      opacity: hovered || activeCard ? 0.09 : 0,
                     }}
                   />
 
-                  {/* Number badge */}
                   <div
-                    className="absolute left-0 top-0 px-3 py-1"
-                    style={{ background: c.palette.primary }}
+                    className="absolute left-4 top-3  font-mono text-[9px] tracking-[0.18em]"
+                    style={{ color: col.palette.primary }}
                   >
-                    <span className="font-mono text-[9px] font-bold text-black">
-                      {c.index}
-                    </span>
+                    {col.index}
                   </div>
 
-                  {/* Content */}
-                  <div className="absolute bottom-[18px] left-[18px] right-[18px]">
+                  <div className="absolute bottom-4 left-4 right-4">
                     <p
-                      className="mb-1 font-mono text-[9px] tracking-[0.14em]"
-                      style={{ color: c.palette.primary }}
+                      className="mb-1 font-mono text-[9px]   tracking-[0.14em]"
+                      style={{ color: col.palette.primary }}
                     >
-                      {c.index} · {c.subtitle}
+                      {col.subtitle}
                     </p>
 
                     <h3
-                      className="font-['Bebas_Neue'] text-[26px] leading-none tracking-wide transition-colors"
+                      className="font-['Bebas_Neue'] text-2xl leading-none tracking-wider transition-colors"
                       style={{
-                        color: hovered ? c.palette.primary : "#fff",
+                        color:
+                          hovered || activeCard ? col.palette.primary : "#fff",
                       }}
                     >
-                      {c.name}
+                      {col.name}
                     </h3>
 
-                    <div
-                      className={`mt-2 flex items-center gap-2 transition-all duration-300 ${
-                        hovered
-                          ? "translate-x-0 opacity-100"
-                          : "-translate-x-3 opacity-0"
-                      }`}
-                    >
-                      <span
-                        className="font-['Bebas_Neue'] text-xs tracking-[0.1em]"
-                        style={{ color: c.palette.primary }}
-                      >
-                        EXPLORE
-                      </span>
-
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke={c.palette.primary}
-                        strokeWidth="2"
-                      >
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                      </svg>
-                    </div>
+                    <p className="mt-1 font-mono text-[9px] text-zinc-400">
+                      {col.season}
+                    </p>
                   </div>
                 </div>
               );
-            })}
+            },
+          )}
         </div>
       </div>
     </section>

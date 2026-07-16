@@ -24,7 +24,10 @@ async function page({ searchParams, params }) {
       subCategorySlug: subCategorySlug,
       discountPercentage: { $gte: Number(1) },
     }),
-    ...(cat && { itemSlug: { $in: cat.split(",") } }),
+    ...(cat && {
+      itemSlug: { $in: cat.split(",") },
+      discountPercentage: { $gte: Number(1) },
+    }),
     ...(price && { price: { $lt: Number(price) } }),
     ...(size && { "attributes.sizes": { $in: size.split(",") } }),
     ...(colors && { "attributes.colors": { $in: colors.split(",") } }),
@@ -99,7 +102,7 @@ async function page({ searchParams, params }) {
           .lean(),
         Category.find().select("gender").lean(),
         SubCategory.find().select("name slug gender").lean(),
-        Item.find().select("name slug gender").lean(),
+        Item.find().select("name slug gender colors").lean(),
         Product.countDocuments(productFilters),
         Product.countDocuments({ discountPercentage: { $gte: Number(1) } }),
         Product.findOne()
