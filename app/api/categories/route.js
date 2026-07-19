@@ -14,11 +14,11 @@ export async function GET() {
       .lean();
 
     const withCount = [{ categories }, { total: categories.length }];
-    console.log("GET /api/categories response:", withCount);
+    // console.log("GET /api/categories response:", withCount);
     return NextResponse.json(withCount);
-    
+
   } catch (error) {
-    console.error("GET /api/categories error:", error);
+    // console.error("GET /api/categories error:", error);
     return NextResponse.json(
       { error: "Failed to fetch categories" },
       { status: 500 },

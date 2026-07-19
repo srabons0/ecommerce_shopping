@@ -13,7 +13,7 @@ export async function GET() {
     const subCategories = await SubCategory.find().lean();
 
     const withCount = [{subCategories}, {total: subCategories.length}];
-console.log("GET /api/subCategories response:", withCount);
+// console.log("GET /api/subCategories response:", withCount);
     return NextResponse.json(withCount);
   } catch (error) {
     console.error("GET /api/subCategories error:", error);

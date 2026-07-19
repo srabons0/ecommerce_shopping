@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 const COLLECTIONS = [
   {
     id: "summer",
@@ -22,10 +23,7 @@ const COLLECTIONS = [
 
     season: "SPRING / SUMMER 2025",
     pieces: 24,
-    hero: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=90",
-    lookbook:
-      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=85",
-
+    hero: "https://i.ibb.co.com/39Fn7CMj/summer.jpg",
   },
   {
     id: "winter",
@@ -47,10 +45,7 @@ const COLLECTIONS = [
 
     season: "AUTUMN / WINTER 2025",
     pieces: 31,
-    hero: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1600&q=90",
-    lookbook:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=900&q=85",
-
+    hero: "https://i.ibb.co.com/8DKs34hG/winter.webp",
   },
   {
     id: "minimal",
@@ -72,10 +67,7 @@ const COLLECTIONS = [
 
     season: "PERMANENT COLLECTION",
     pieces: 12,
-    hero: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1600&q=90",
-    lookbook:
-      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=900&q=85",
-
+    hero: "https://i.ibb.co.com/xqsnN7jz/minimal.webp",
   },
   {
     id: "trending",
@@ -97,31 +89,36 @@ const COLLECTIONS = [
 
     season: "ONGOING DROPS",
     pieces: 28,
-    hero: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1600&q=90",
-    lookbook:
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=900&q=85",
-
+    hero: "https://i.ibb.co.com/fz0kTL50/trending.webp",
   },
 ];
 function useInView(threshold = 0.12) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold });
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold },
+    );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, [threshold]);
   return [ref, visible];
 }
 
-function CollectionBody({  onCart }) {
+function CollectionBody({ onCart }) {
   const pathname = usePathname();
   const active = pathname.split("/").at(3);
-      const [activeCol, setActiveCol] = useState(active.toString());
+  const [activeCol, setActiveCol] = useState(active.toString());
   const [storyRef, storyVis] = useInView(0.1);
   const [gridRef, gridVis] = useInView(0.08);
   const [lookRef, lookVis] = useInView(0.15);
- const col = COLLECTIONS.find((c) => c.id === activeCol);
+  const col = COLLECTIONS.find((c) => c.id === activeCol);
 
   const accent = "col.palette.primary";
 
@@ -182,11 +179,13 @@ function CollectionBody({  onCart }) {
                     : "translate-x-8 opacity-0"
                 }`}
             >
-              <div className="relative aspect-[4/5] overflow-hidden border border-zinc-800">
-                <img
-                  src={col.lookbook}
-                  alt="lookbook"
-                  className="h-full w-full object-cover grayscale-[0.1] brightness-75"
+              <div className="relative aspect-[6/5] overflow-hidden border border-zinc-800">
+                <Image
+                  width={300}
+                  height={300}
+                  src={col.hero}
+                  alt={col.name}
+                  className="h-full w-full object-cover grayscale-[0.1] brightness-55"
                 />
 
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 from-100%  to-white to-5%]" />
@@ -230,10 +229,6 @@ function CollectionBody({  onCart }) {
           </div>
         </div>
       </section>
-
-
-
-
     </div>
   );
 }

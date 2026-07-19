@@ -19,7 +19,7 @@ export default function ShopProduct({ product, productCount }) {
   }, [page, pathname, router]);
 
   return (
-    <div className="min-h-175 bg-[#edecec] px-4 py-4 overflow-y-auto">
+    <div className="min-h-175 bg-[#edecec] px-4 py-4 overflow-y-auto  scrollbar-hide">
       <div
         className={` ${cardSort} grid-cols-1 px-10 pt-5
             `}

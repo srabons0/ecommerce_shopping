@@ -14,27 +14,23 @@ import { IoMdSettings } from "react-icons/io";
 function AdminSidebar() {
   return (
     <aside
-      className="sidebar fixed left-0 top-0 bottom-0 z-[200] flex w-60 flex-col border-r border-white/10 bg-[#16161a]"
+      className="sidebar fixed left-0 top-0 bottom-0 z-[200] flex w-65 flex-col border-r border-white/10 bg-[#000000]"
       id="sidebar"
     >
       <div className="sidebar-logo border-b border-white/10 px-6 pt-7 pb-5 font-['Cormorant_Garamond'] text-[26px] font-light text-white tracking-[0.15em]">
-        L<em className="not-italic text-[#f8dc96]">U</em>XE
+        L<em className="not-italic text-[#ff1717]">U</em>XE
         <div
           className="sidebar-logo-sub mt-1 text-[9px] uppercase tracking-[0.3em]
-         text-[#eddbae]"
+         text-[#f44d4d]"
         >
           Admin Panel
         </div>
       </div>
 
-      <nav className="nav-group flex-1 overflow-y-auto px-3 pt-4 pb-2 [&::-webkit-scrollbar]:w-[2px]">
-        <div className="nav-label mt-4 mb-1 px-3 text-[9px] uppercase tracking-[0.25em] text-[#6e6e7e]">
-          Main
-        </div>
-
+      <nav className="nav-group flex-1 overflow-y-auto px-3 pt-4 pb-2 ">
         <Link
-          href={"/"}
-          className="nav-item active relative mb-px flex cursor-pointer items-center gap-[11px] rounded bg-[#b8953a1f] px-3 py-2.5 text-[13px] text-[#b8953a] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[2px] before:rounded-r before:bg-[#b8953a]"
+          href={"/dashboard/admin/home"}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("dashboard")}
         >
           <MdDashboard />
@@ -42,28 +38,34 @@ function AdminSidebar() {
         </Link>
 
         <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          href={"/dashboard/admin/orders"}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("orders")}
         >
           <IoBagHandleSharp />
           Orders
-          <span className="nav-badge ml-auto rounded-full bg-[#b8953a] px-1.5 py-0.5 text-[9px] font-bold text-[#0c0c0f]">
-            24
-          </span>
         </Link>
 
         <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          href={{
+            pathname: "/dashboard/admin/product",
+            query: {
+              categories: "all",
+              subcategories: "all",
+              item: "all",
+              status:"all",
+              sortBy: "random",
+            },
+          }}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("products")}
         >
           <FaBoxes />
           Products
         </Link>
         <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          href={"/dashboard/admin/payment"}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("products")}
         >
           <FaRegCreditCard />
@@ -71,21 +73,17 @@ function AdminSidebar() {
         </Link>
 
         <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          href={"/dashboard/admin/user"}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("customers")}
         >
           <FaUsers />
           Customers
         </Link>
 
-        <div className="nav-label mt-4 mb-1 px-3 text-[9px] uppercase tracking-[0.25em] text-[#6e6e7e]">
-          Content
-        </div>
-
         <Link
           href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("blog")}
         >
           {/* SVG */}
@@ -94,32 +92,24 @@ function AdminSidebar() {
 
         <Link
           href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("promos")}
         >
           {/* SVG */}
           Promotions
         </Link>
 
-        <div className="nav-label mt-4 mb-1 px-3 text-[9px] uppercase tracking-[0.25em] text-[#6e6e7e]">
-          Analytics
-        </div>
-
         <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          href={"/dashboard/admin/analytics"}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("analytics")}
         >
           <BsGraphDown /> Analytics
         </Link>
 
-        <div className="nav-label mt-4 mb-1 px-3 text-[9px] uppercase tracking-[0.25em] text-[#6e6e7e]">
-          System
-        </div>
-
         <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          href={"/dashboard/admin/setting"}
+          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("settings")}
         >
           <IoMdSettings /> Settings
@@ -127,7 +117,7 @@ function AdminSidebar() {
 
         <Link
           href="/login"
-          className="nav-item mb-px flex items-center gap-[11px] rounded px-3 py-2.5 text-[13px] text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+          className="nav-item mb-px flex items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
         >
           <MdLogout />
           Logout
@@ -135,7 +125,7 @@ function AdminSidebar() {
       </nav>
 
       <div className="sidebar-user flex items-center gap-2.5 border-t border-white/10 px-5 py-4">
-        <div className="sidebar-avatar flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#b8953a] text-[13px] font-bold text-[#0c0c0f]">
+        <div className="sidebar-avatar flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#b8953a]  font-bold text-[#0c0c0f]">
           <FaUserGear />
         </div>
 

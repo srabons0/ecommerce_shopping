@@ -28,7 +28,7 @@ export default function RegisterPage() {
     control, name: ["name", "email", "number", "password", "recheckPassword"]
   })
 
-  console.log((value.filter(v => v?.trim()).length) * 20)
+  // console.log((value.filter(v => v?.trim()).length) * 20)
 
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -55,8 +55,8 @@ export default function RegisterPage() {
   };
 
   const onSubmit = async (registerData) => {
-    console.log(errors)
-    console.log(registerData)
+    // console.log(errors)
+    // console.log(registerData)
     if (registerData.password !== registerData.recheckPassword) return setError('Passwords do not match')
     setLoading(true);
     setError('')
@@ -67,7 +67,7 @@ export default function RegisterPage() {
         body: JSON.stringify({ name: registerData.name, email: registerData.email, password: registerData.password, number: registerData.number }),
       })
       const data = await res.json()
-      console.log(res, data)
+      // console.log(res, data)
       if (!res.ok) throw new Error(data.error)
       await signIn('credentials', { email: registerData.email, password: registerData.password, redirect: false })
       reset()
@@ -77,7 +77,7 @@ export default function RegisterPage() {
 
     } catch (err) {
       setError(err.message)
-      console.log(err.message)
+      // console.log(err.message)
       setLoading(false)
     }
   }

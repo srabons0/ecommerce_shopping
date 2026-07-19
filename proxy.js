@@ -45,7 +45,7 @@ export default withAuth(
  if (pathname.startsWith("/dashboard") && !token) {
    return NextResponse.redirect(new URL("/login", req.url));
  }
-      console.log(token);
+      // console.log(token);
 
     return NextResponse.next();
   },

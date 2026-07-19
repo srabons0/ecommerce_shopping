@@ -50,7 +50,7 @@ async function page({ searchParams, params }) {
    );
 
 
-  console.log(product);
+  // console.log(product);
   return (
     <div>
       {/* <CollectionsHeader></CollectionsHeader> */}

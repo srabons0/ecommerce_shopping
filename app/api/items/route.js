@@ -11,7 +11,7 @@ export async function GET() {
     const items = await Item.find().sort({ name: 1 }).lean();
 
     const withCount = [{items}, {total: items.length}];
-console.log("GET /api/items response:", withCount);
+// console.log("GET /api/items response:", withCount);
     return NextResponse.json(withCount);
   } catch (error) {
     console.error("GET /api/items error:", error);

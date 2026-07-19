@@ -87,7 +87,7 @@ const ProductModal = ({ product, open, onClose }) => {
 
       {open && (
         <div
-          className={`fixed z-100 top-1/2 rounded-xl bg-black text-white -translate-y-1/2 w-3/4 overflow-y-auto h-150
+          className={`fixed z-100 top-1/2 rounded-xl bg-black text-white -translate-y-1/2 w-3/4 overflow-y-auto h-150  scrollbar-hide
                     left-1/2 -translate-x-1/2`}
         >
           <div className="fixed right-4 top-2.5 z-20 flex gap-3 justify-center ml-auto mr-4 mt-4 items-center">
@@ -147,24 +147,25 @@ const ProductModal = ({ product, open, onClose }) => {
               </div>
               <div className="mb-8 flex items-end gap-3">
                 <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white">
-                {product.discountPercentage > 0 ? (
-                   <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white"> <span className="font-['Bebas_Neue'] text-[#FF4D4D]">
-                      $
-                      {Math.ceil(
-                        product.price -
-                          (product.price * product.discountPercentage) / 100,
-                      )}
+                  {product.discountPercentage > 0 ? (
+                    <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white">
+                      {" "}
+                      <span className="font-['Bebas_Neue'] text-[#FF4D4D]">
+                        $
+                        {Math.ceil(
+                          product.price -
+                            (product.price * product.discountPercentage) / 100,
+                        )}
+                      </span>
+                      <span className="font-mono text-lg text-zinc-500 line-through">
+                        ${product.price}
+                      </span>
                     </span>
-
-                    <span className="font-mono text-lg text-zinc-500 line-through">
+                  ) : (
+                    <span className="font-mono  text-zinc-300 ">
                       ${product.price}
                     </span>
-                    </span>
-                ) : (
-                  <span className="font-mono  text-zinc-300 ">
-                    ${product.price}
-                  </span>
-                )}
+                  )}
                 </span>
               </div>
               <div className="mb-6">

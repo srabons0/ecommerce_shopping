@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   const handleSocialLogin = () => { };
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     setLoading(true);
     const result = await signIn("credentials", {
       ...data,
@@ -38,7 +38,7 @@ export default function LoginPage() {
     if (result?.error) {
       setError("Invalid email or password!");
       setLoading(false);
-      console.log("login result error ", result.error);
+      // console.log("login result error ", result.error);
     } else {
       reset();
       toast.success('Welcome back to LUXORA!')
@@ -206,7 +206,7 @@ export default function LoginPage() {
                 transition={{
                   duration:0.4,
                   ease:"easeInOut",
-              
+
                 }}
                 className="mb-5">
                   <label
@@ -248,14 +248,14 @@ export default function LoginPage() {
                   )}
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                 animate={
                 errors.email ? {x:[0, -7, 6, -6, 7, 0] }:{}
                 }
                 transition={{
                   duration:0.4,
                   ease:"easeInOut",
-              
+
                 }}
                  className="mb-5">
                   <label

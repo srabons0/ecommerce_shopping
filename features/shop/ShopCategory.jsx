@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+
 const CATS = [
   { gender: "men" },
   { gender: "women" },
@@ -10,6 +11,7 @@ const CATS = [
 ];
 
 function ShopCategory({ category, subCategory, gender, subCat }) {
+
   const filterItems = category.filter(
     (item) => !CATS.some((g) => g.gender === item.gender),
   );
@@ -34,6 +36,7 @@ function ShopCategory({ category, subCategory, gender, subCat }) {
         ))}
 
         <div className="flex-1" />
+
         <div className="flex gap-0 overflow-x-auto">
           {subCategory
             .filter((item) => item.gender === gender)

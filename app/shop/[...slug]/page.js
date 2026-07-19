@@ -14,10 +14,11 @@ async function page({ params, searchParams }) {
   const filters = await searchParams;
   const slug = resolvedParams.slug || [];
   const subCategorySlug = slug[1];
-  const { colors, size, inStock, onSale, ratings, price, cat, page } = filters;
+  const { colors, size, inStock, onSale, ratings, price, cat, page, search } = filters;
   const sortby = slug[2];
-
+// console.log(search)
   const productFilters = {
+    ...(search && { name: search }),
     ...(!cat && { subCategorySlug: subCategorySlug }),
     ...(cat && { itemSlug: { $in: cat.split(",") } }),
     ...(inStock === "true" && { stock: { $gte: 10 } }),

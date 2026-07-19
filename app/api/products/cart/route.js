@@ -10,7 +10,7 @@ export async function GET(req) {
     const url = new URL(req.url);
     const item = url.searchParams.get("ids");
     const id = item.split(",").map((id) => new ObjectId(id));
-    console.log(id);
+    // console.log(id);
     const Products = await Product.find({
       _id: { $in: id },
     })
@@ -18,7 +18,7 @@ export async function GET(req) {
         "name slug  images price",
       )
       .lean();
-    console.log(Product.length);
+    // console.log(Product.length);
     return NextResponse.json(Products);
   } catch (error) {
     console.error("GET /api/subCategories error:", error);

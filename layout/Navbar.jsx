@@ -11,6 +11,7 @@ import NavMenuUniversal from "./NavMenu/NavMenuUniversal";
 import Cart from "@/features/cart/Cart";
 import { AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
+import Search from "@/features/search/NavSearch";
 
 const Navbar = ({category}) => {
   //  const { data: session }           = useSession()
@@ -18,6 +19,7 @@ const Navbar = ({category}) => {
   const [mobileOpen, setMobileOpen] = useState(false);
  const [search, setSearch]         = useState('')
   const [openMenu, setOpenMenu] = useState(null);
+const [openSearch, setOpenSearch] = useState(false);
 const [openCart, setOpenCart] = useState(false);
 const [user, setUser] =useState(true);
   const toggleMenu = (menu) => {
@@ -62,12 +64,14 @@ const [user, setUser] =useState(true);
             <NavMenuUniversal />
           </div>
 
-          <Link href="/dashboard/admin" className="hover:text-neutral-300">
+          <Link href="/dashboard/admin/home" className="hover:text-neutral-300">
             Dashboard
           </Link>
 
-
-          <Link href="/collections/men/summer" className="hover:text-neutral-300">
+          <Link
+            href="/collections/men/summer"
+            className="hover:text-neutral-300"
+          >
             Collections
           </Link>
 
@@ -93,7 +97,7 @@ const [user, setUser] =useState(true);
               className="w-7 h-6"
             />
           </div>
-          <Link href="/search">
+          <div onClick={() => setOpenSearch(!openSearch)}>
             <Image
               src={searchIcon}
               alt="Search"
@@ -101,7 +105,7 @@ const [user, setUser] =useState(true);
               width={28}
               height={28}
             />
-          </Link>
+          </div>
           {/* <Link href="/account">
             <Image src={avatarIcon} alt="Account" width={28} height={28} />
           </Link> */}
@@ -175,7 +179,9 @@ const [user, setUser] =useState(true);
       )}
 
       <AnimatePresence>
-        {" "}
+        {openSearch && <Search setOpenSearch={setOpenSearch}></Search>}
+      </AnimatePresence>
+      <AnimatePresence>
         {openCart && <Cart setOpenCart={setOpenCart}></Cart>}
       </AnimatePresence>
     </header>

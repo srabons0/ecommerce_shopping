@@ -38,7 +38,7 @@ export default function CollectionProduct({
   );
   const catGender = [...CATS, ...filterItems];
   return (
-    <div className="min-h-175 mt-10  bg-[#ffffff] px-4 pt-4 overflow-y-auto">
+    <div className="min-h-175 mt-10  bg-[#ffffff] px-4 pt-4 overflow-y-auto  scrollbar-hide">
       <section className="px-6  lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div
