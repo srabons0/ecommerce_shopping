@@ -1,42 +1,137 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { SiSearxng } from "react-icons/si";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ImCancelCircle } from "react-icons/im";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { useState } from "react";
+import { FaArrowRight, FaEye, FaTrash } from "react-icons/fa";
+import { Hourglass } from "react-loader-spinner";
 
-function UserList() {
+function UserList({ customer }) {
+  const [search, setSearch] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+  const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  // console.log(customer);
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  //  const { categories, subcategories, item, sortBy, status } = filters;
+  const handleSearch = async () => {
+    setProduct([]);
+    setLoading(true);
+    await fetch(`/api/user/searchUser?search=${search}`)
+      .then((res) => res.json())
+      .then(setProduct);
+    setLoading(false);
+    setHasSearched(true);
+  };
+  const handleCancelSearch = () => {
+    setSearch("");
+    setProduct([]);
+    setLoading(false);
+    setHasSearched(false);
+  };
   return (
-    <div className="mt-6 overflow-hidden rounded-lg border border-white/10 bg-zinc-900">
+    <div className="mt-6 overflow-hidden rounded-lg border border-white/10 bg-zinc-100">
       {/* Table Header */}
 
       <div className="flex flex-col gap-4 border-b border-white/10 p-6 md:flex-row md:items-center md:justify-between">
-        <h2 className="text-lg font-semibold text-white">All Customers</h2>
+        <h2 className="text-lg font-semibold text-black">All Customers</h2>
 
-        <input
-          type="text"
-          placeholder="Search..."
-          className="
-          w-full
-          rounded-lg
-          border
-          border-white/10
-          bg-zinc-800
-          px-4
-          py-2.5
-          text-sm
-          text-white
-          placeholder:text-zinc-500
-          outline-none
-          transition
-          md:w-56
-          focus:border-yellow-600
-        "
-        />
+        <div className="relative pb-3">
+          <InputGroup className="min-w-70 max-w-xs z-100 text-black bg-white">
+            <InputGroupInput
+              value={search}
+              required
+              onChange={(e) => {
+                setSearch(e.target.value);
+                search && setHasSearched(false);
+                search && setProduct([]);
+              }}
+              placeholder="Name or Email..."
+            />
+
+            <InputGroupAddon
+              className="cursor-pointer"
+              onClick={() => handleCancelSearch()}
+              align="inline-end"
+            >
+              {search && <ImCancelCircle />}
+            </InputGroupAddon>
+            <InputGroupAddon
+              className={`cursor-pointer text-black ${
+                !search.trim()
+                  ? "opacity-30 pointer-events-none text-black"
+                  : "border-l pl-2"
+              }`}
+              onClick={handleSearch}
+              align="inline-end"
+            >
+              <SiSearxng />
+            </InputGroupAddon>
+          </InputGroup>
+
+          <div className=" absolute  z-80 max-h-40 top-4 rounded-b-md bg-white w-full overflow-y-auto    scrollbar-hide">
+            {loading && (
+              <div className="flex justify-center pt-8">
+                <Hourglass
+                  visible={true}
+                  height="18"
+                  width="18"
+                  ariaLabel="hourglass-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  colors={["#ffffff", "#ffffff"]}
+                />
+              </div>
+            )}
+            {!loading && hasSearched && product.length <= 0 && search && (
+              <p className="text-center mt-5 text-gray-500 ">Not Found</p>
+            )}
+            <div className="px-1 pt-4 ">
+              {(loading || product.length > 0) &&
+                product.map((p) => (
+                  <div
+                    key={p._id}
+                    onClick={() => {
+                      params.set("search", p.name);
+                      router.push(`${pathname}?${params}`);
+                      setSearch("");
+                      setProduct([]);
+                      setLoading(false);
+                      setHasSearched(false);
+                    }}
+                    className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-black"
+                  >
+                    <span className="mr-2 text-xs">{p.name} </span>◕
+                    <span className="text-red-500 text-xs  pl-1">
+                      {p.email}
+                    </span>
+                    <span className="text-green-500 w-1/6 pl-4">
+                      <FaArrowRight />
+                    </span>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Table */}
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="border-b border-white/10 bg-zinc-800">
+          <thead className="border-b border-white/10 bg-zinc-200">
             <tr>
               {[
+                "id",
                 "Customer",
                 "Email",
                 "Spent",
@@ -50,7 +145,7 @@ function UserList() {
                   className="
                   px-6
                   py-4
-                  text-left
+                  text-center
                   text-[11px]
                   font-semibold
                   uppercase
@@ -65,95 +160,55 @@ function UserList() {
           </thead>
 
           <tbody>
-            {[
-              {
-                name: "Olivia Brown",
-                email: "olivia@example.com",
-                spent: "$2,480",
-                orders: 18,
-                joined: "Jan 2024",
-                status: "Active",
-              },
-              {
-                name: "James Wilson",
-                email: "james@example.com",
-                spent: "$1,720",
-                orders: 12,
-                joined: "Mar 2024",
-                status: "Active",
-              },
-              {
-                name: "Emma Watson",
-                email: "emma@example.com",
-                spent: "$620",
-                orders: 5,
-                joined: "Jun 2025",
-                status: "Inactive",
-              },
-              {
-                name: "Sophia Lee",
-                email: "sophia@example.com",
-                spent: "$4,150",
-                orders: 28,
-                joined: "Nov 2023",
-                status: "VIP",
-              },
-            ].map((customer) => (
+            {customer.map((customer, i) => (
               <tr
-                key={customer.email}
+                key={i}
                 className="
-                border-b
-                border-white/10
+                border-t-2
+                border-black/20
                 transition
-                hover:bg-zinc-800/70
+text-center
               "
               >
                 {/* Customer */}
 
-                <td className="px-6 py-5">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-700 font-semibold text-black">
-                      {customer.name.charAt(0)}
-                    </div>
-
-                    <span className="font-medium text-white">
-                      {customer.name}
-                    </span>
-                  </div>
+                <td className="text-xs text-gray-500 px-4">#10{i + 1}</td>
+                <td className="px-3 py-5 ">
+                  <span className="font-semibold text-black">
+                    {customer.name}
+                  </span>
                 </td>
-
-                <td className="px-6 py-5 text-zinc-300">{customer.email}</td>
-
-                <td className="px-6 py-5 font-semibold text-white">
-                  {customer.spent}
+                <td className="px-6 py-5 text-zinc-500">{customer.email}</td>
+                <td className="px-6 py-5 font-semibold text-black">
+                  {customer?.totalSpent}
                 </td>
-
-                <td className="px-6 py-5 text-zinc-300">{customer.orders}</td>
-
-                <td className="px-6 py-5 text-zinc-400">{customer.joined}</td>
-
+                <td className="px-6 py-5 text-zinc-500">{customer?.orders}</td>
+                <td className="px-6 py-5 text-zinc-600">
+                  {new Date(customer.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </td>
                 <td className="px-6 py-5">
                   <span
                     className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                      customer.status === "VIP"
-                        ? "bg-yellow-500/10 text-yellow-500"
-                        : customer.status === "Active"
-                          ? "bg-emerald-500/10 text-emerald-500"
-                          : "bg-red-500/10 text-red-500"
+                      customer.isActive === true
+                        ? "bg-green-500/10 text-green-500"
+                        : "bg-red-500/10 text-red-500"
                     }`}
                   >
-                    {customer.status}
+                    {customer.isActive ? "Active" : "Inactive"}
                   </span>
                 </td>
-
                 <td className="px-6 py-5">
                   <div className="flex gap-2">
-                    <button className="rounded bg-sky-500/10 px-3 py-2 text-xs font-medium text-sky-400 transition hover:bg-sky-500/20">
-                      View
+                    <button className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10">
+                      <FaEye className="w-4 h-4" />
                     </button>
 
-                    <button className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-400 transition hover:bg-red-500/20">
-                      Remove
+                    <button className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20">
+                      <FaTrash className="w-4 h-4" />
                     </button>
                   </div>
                 </td>
@@ -166,4 +221,4 @@ function UserList() {
   );
 }
 
-export default UserList
+export default UserList;

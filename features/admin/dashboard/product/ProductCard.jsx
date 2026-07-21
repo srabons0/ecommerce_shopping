@@ -64,13 +64,22 @@ export default function ProductCard({ product, page }) {
             <FaHeartBroken className="w-5 h-5" />
           )}
         </button>
-        <button
-          onClick={() => setOpen(true)}
-          className={`absolute bottom-4  left-4 right-4 py-3 font-semibold transition-all duration-300 rounded-xl bg-white text-black
+        <div className=" absolute bottom-4 w-full px-5 gap-2 flex">
+          <button
+            onClick={() => setOpen(true)}
+            className={`py-2 font-semibold w-full transition-all duration-300 rounded-xl bg-white text-black
               `}
-        >
-          Quick View
-        </button>
+          >
+            View
+          </button>
+          <button
+            onClick={() => setOpen(true)}
+            className={` py-2 font-semibold w-full transition-all duration-300 rounded-xl bg-white text-black
+              `}
+          >
+            Edit
+          </button>
+        </div>
       </div>
       <div className="space-y-1 p-5 mb-2">
         <p className="text-xs font-medium uppercase tracking-tight text-red-500">
@@ -119,7 +128,6 @@ export default function ProductCard({ product, page }) {
                 style={{ background: color.replace(/\s+/g, "") }}
               />
             ))}{" "}
-
           </div>
         </div>
       </div>

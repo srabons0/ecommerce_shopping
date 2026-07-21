@@ -1,14 +1,30 @@
-import React from 'react'
-import UserList from './UserList';
+"use client";
+import React from "react";
+import UserList from "./UserList";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { useEffect, useState } from "react";
+import useCardSorter from "@/store/cardSortStore";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function AdminUser() {
+function AdminUser({ customer, customerCount }) {
+  const [page, setPage] = useState(1);
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  params.set("page", page);
+  useEffect(() => {
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [page, pathname, router]);
+
   return (
-    <div  className="mx-6 mt-10 mb-20">
+    <div className="mx-6 mt-10 mb-20">
       <section>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {[
             {
-              value: "12,429",
+              value: customerCount,
               title: "Total Customers",
               change: "↑ 8.3%",
               color: "text-emerald-500",
@@ -32,7 +48,7 @@ function AdminUser() {
           rounded-lg
           border
           border-white/10
-          bg-zinc-900
+          bg-zinc-100
           p-6
           transition
           duration-300
@@ -40,7 +56,7 @@ function AdminUser() {
           hover:border-yellow-700/30
         "
             >
-              <h2 className="text-4xl font-bold text-white">{item.value}</h2>
+              <h2 className="text-4xl font-bold text-black">{item.value}</h2>
 
               <p className="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">
                 {item.title}
@@ -52,12 +68,10 @@ function AdminUser() {
             </div>
           ))}
         </div>
-
-<UserList></UserList>
-
+        <UserList customer={customer}></UserList>
       </section>
     </div>
   );
 }
 
-export default AdminUser
+export default AdminUser;

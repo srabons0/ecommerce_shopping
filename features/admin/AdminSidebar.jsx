@@ -53,7 +53,7 @@ function AdminSidebar() {
               categories: "all",
               subcategories: "all",
               item: "all",
-              status:"all",
+              status: "all",
               sortBy: "random",
             },
           }}
@@ -73,7 +73,7 @@ function AdminSidebar() {
         </Link>
 
         <Link
-          href={"/dashboard/admin/user"}
+          href={"/dashboard/admin/customer"}
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("customers")}
         >

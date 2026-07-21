@@ -13,8 +13,10 @@ export async function GET(req) {
     // console.log(email);
 
     const order = await UserOrder.find({
-       email
-    }).lean();
+      email,
+    })
+      .select("name slug  images price sizes colors quantity productID")
+      .lean();
 
     return NextResponse.json(order);
   } catch (error) {
@@ -27,10 +29,11 @@ export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
-    // console.log(body);
+    console.log(body);
     const userCart = await UserOrder.create(body);
     return NextResponse.json(userCart, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    console.log(error)
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }

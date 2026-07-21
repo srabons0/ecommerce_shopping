@@ -78,7 +78,7 @@ const ProductModal = ({ product, open, onClose }) => {
     <>
       <div
         onClick={onClose}
-        className={` fixed inset-0 z-90 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
+        className={` fixed inset-0 z-200 bg-black/70 backdrop-blur-md   ${
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -87,7 +87,7 @@ const ProductModal = ({ product, open, onClose }) => {
 
       {open && (
         <div
-          className={`fixed z-100 top-1/2 rounded-xl bg-black text-white -translate-y-1/2 w-3/4 overflow-y-auto h-150  scrollbar-hide
+          className={`fixed z-210 top-1/2 rounded-xl bg-black text-white -translate-y-1/2 w-3/4 overflow-y-auto h-150  scrollbar-hide
                     left-1/2 -translate-x-1/2`}
         >
           <div className="fixed right-4 top-2.5 z-20 flex gap-3 justify-center ml-auto mr-4 mt-4 items-center">

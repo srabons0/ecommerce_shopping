@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const orderSchema = new Schema(
   {
+    productID: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -15,24 +19,13 @@ const orderSchema = new Schema(
     slug: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
     },
     price: {
       type: Number,
       required: true,
     },
-    currency: {
-      type: String,
-      default: "BDT",
-    },
-    gender: {
-      type: String,
-      lowercase: true,
-      trim: true,
-    },
-    subCategory: String,
-    item: String,
+
     images: String,
     sizes: String,
     colors: String,
@@ -40,23 +33,6 @@ const orderSchema = new Schema(
     discountPercentage: {
       type: Number,
       default: 0,
-    },
-    isOnSale: {
-      type: Boolean,
-      default: false,
-    },
-    paymentMethod: {
-      type: String,
-      default: "none",
-    },
-    paymentStatus: {
-      type: String,
-      default: "Pending",
-    },
-
-    orderStatus: {
-      type: String,
-      default: "Pending",
     },
   },
   {

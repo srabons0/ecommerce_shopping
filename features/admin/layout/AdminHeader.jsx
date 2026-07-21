@@ -7,6 +7,60 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { BsPersonCircle } from "react-icons/bs";
 
+
+
+// export const pageInfo = {
+//   dashboard: {
+//     title: "Dashboard",
+//     description:
+//       "Monitor sales, orders, revenue, and store performance in real time.",
+//   },
+
+//   products: {
+//     title: "Product Management",
+//     description: "Create, update, organize, and manage your product catalog.",
+//   },
+
+//   categories: {
+//     title: "Categories",
+//     description: "Organize products into categories for easier navigation.",
+//   },
+
+//   orders: {
+//     title: "Order Management",
+//     description: "Track customer orders, payments, and fulfillment status.",
+//   },
+
+//   customers: {
+//     title: "Customer Management",
+//     description:
+//       "View customer profiles, purchase history, and account activity.",
+//   },
+
+//   reviews: {
+//     title: "Customer Reviews",
+//     description:
+//       "Monitor ratings, moderate reviews, and improve customer trust.",
+//   },
+
+//   inventory: {
+//     title: "Inventory",
+//     description: "Track stock levels and manage product availability.",
+//   },
+
+//   analytics: {
+//     title: "Analytics",
+//     description: "Gain insights into sales, traffic, and customer behavior.",
+//   },
+
+//   settings: {
+//     title: "Settings",
+//     description: "Configure your store, users, security, and preferences.",
+//   },
+// };
+
+
+
 export default function AdminHeader({path, name, desc}) {
   const { data: session } = useSession();
   console.log(session);

@@ -50,11 +50,11 @@ function AdminProductTool({
   return (
     <div className="flex flex-col w-full">
       <div className="text-4xl text-end font-semibold py-8 bg-black text-white uppercase px-10">
-        Total Product: {productCount}
+        Total Products: {productCount}
       </div>
       <div className="flex flex-row justify-between items-center py-3 px-10 w-full bg-black">
         <div className="relative pb-3">
-          <InputGroup className="min-w-70 max-w-xs z-130 text-white bg-black">
+          <InputGroup className="min-w-70 max-w-xs z-100 text-white bg-black">
             <InputGroupInput
               value={search}
               required
@@ -63,7 +63,7 @@ function AdminProductTool({
                 search && setHasSearched(false);
                 search && setProduct([]);
               }}
-              placeholder="Search..."
+              placeholder="Product name..."
             />
 
             <InputGroupAddon
@@ -86,7 +86,7 @@ function AdminProductTool({
             </InputGroupAddon>
           </InputGroup>
 
-          <div className=" absolute  z-100 max-h-40 top-5 rounded-b-md bg-black w-full overflow-y-auto    scrollbar-hide">
+          <div className=" absolute  z-80 max-h-40 top-5 rounded-b-md bg-black w-full overflow-y-auto    scrollbar-hide">
             {loading && (
               <div className="flex justify-center pt-8">
                 <Hourglass

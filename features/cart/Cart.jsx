@@ -7,6 +7,7 @@ import useCartData from "@/store/cartStore";
 import { useSession } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 function Cart({ setOpenCart }) {
   const cartData = useCartData((state) => state.cartData);
@@ -14,7 +15,6 @@ function Cart({ setOpenCart }) {
   const [cart, setCart] = useState([]);
   const [cartProduct, setCartProduct] = useState([]);
   const { data: session } = useSession();
-
   useEffect(() => {
     if (session) {
       const fetchData = async () => {
@@ -23,7 +23,7 @@ function Cart({ setOpenCart }) {
         );
         const data = await res.json();
         setCartProduct(data);
-        // console.log(data);
+        console.log(data);
       };
       fetchData();
       return;
@@ -221,11 +221,13 @@ function Cart({ setOpenCart }) {
         <div className="flex gap-4">
           <button
             onClick={() => setOpenCart(false)}
-            className="btn btn-outline flex-1"
+            className="w-1/2  text-center"
           >
             Continue Shopping
           </button>
-          <button className="btn btn-neutral flex-1">Checkout →</button>
+          <Link href={"/checkout"} className="w-1/2 text-center ">
+            Checkout →
+          </Link>
         </div>
       </div>
       <Toaster position="top-left" reverseOrder={false} />

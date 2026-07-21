@@ -104,11 +104,7 @@ async function page({ searchParams }) {
         ]),
       ),
     );
-  // console.log(subCategory.map((i)=> i.slug));
-  // console.log(itemCategory);
-  // console.log(itemCategory.map((i) => i.subCategorySlug));
-
-  return (
+   return (
     <div className=" w-full">
       <AdminHeader
         path={"Products"}

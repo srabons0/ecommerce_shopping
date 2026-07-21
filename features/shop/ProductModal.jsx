@@ -26,6 +26,7 @@ const ProductModal = ({ product, open, onClose }) => {
     }
     if (session) {
       const order = {
+        productID: product._id,
         name: product.name,
         email: session.user.email,
         slug: product.slug,

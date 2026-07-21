@@ -29,8 +29,8 @@ const ProductSchema = new Schema(
     },
 
     category: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
+      type: String,
+      required: true,
     },
 
     subCategory: String,
@@ -43,7 +43,7 @@ const ProductSchema = new Schema(
       type: String,
       lowercase: true,
       trim: true,
-      enum: ["men", "women", "couple", "kids", "unisex","universal"],
+      enum: ["men", "women", "couple", "kids", "unisex", "universal"],
     },
 
     brand: String,
@@ -60,7 +60,6 @@ const ProductSchema = new Schema(
       default: 0,
     },
 
-
     attributes: {
       sizes: [String],
       colors: [String],
@@ -76,8 +75,6 @@ const ProductSchema = new Schema(
 
     tags: [String],
 
-
-
     ratings: {
       average: {
         type: Number,
@@ -90,11 +87,11 @@ const ProductSchema = new Schema(
       },
 
       breakdown: {
-        "5": { type: Number, default: 0 },
-        "4": { type: Number, default: 0 },
-        "3": { type: Number, default: 0 },
-        "2": { type: Number, default: 0 },
-        "1": { type: Number, default: 0 },
+        5: { type: Number, default: 0 },
+        4: { type: Number, default: 0 },
+        3: { type: Number, default: 0 },
+        2: { type: Number, default: 0 },
+        1: { type: Number, default: 0 },
       },
     },
 
@@ -148,11 +145,10 @@ const ProductSchema = new Schema(
       metaDescription: String,
       keywords: [String],
     },
-
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.models.Product ||
