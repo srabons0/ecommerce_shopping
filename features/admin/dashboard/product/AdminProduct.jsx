@@ -15,8 +15,6 @@ export default function AdminProduct({ product, productCount, filters }) {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   params.set("page", page);
-  // console.log("pathname", pathname);
-  // console.log("filters", filters.page);
   useEffect(() => {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }, [page, pathname, router]);

@@ -1,29 +1,36 @@
 import React from "react";
 import OrderList from "./OrderList";
 
-function AdminOrder() {
+function AdminOrder({
+  order,
+  orderCount,
+  pending,
+  delivered,
+  cancelled,
+  filters,
+}) {
   return (
     <div className="mx-6 mt-10 mb-20">
       <section>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
             {
-              value: "1,284",
+              value: orderCount,
               title: "Total Orders",
               icon: "📦",
             },
             {
-              value: "24",
+              value: pending,
               title: "Pending Orders",
-              icon: "⏳",
+              icon: "🕓",
             },
             {
-              value: "156",
+              value: delivered,
               title: "Shipped Orders",
               icon: "🚚",
             },
             {
-              value: "18",
+              value: cancelled,
               title: "Cancelled Orders",
               icon: "❌",
             },
@@ -31,23 +38,24 @@ function AdminOrder() {
             <div
               key={item.title}
               className="
-          rounded
+          rounded-lg
           border
           border-white/10
-          bg-zinc-900
-          p-5
+          bg-zinc-100
+          p-6
           transition
+          duration-300
           hover:-translate-y-1
           hover:border-yellow-700/30
         "
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold text-white">
+                  <h2 className="text-4xl font-bold text-black">
                     {item.value}
                   </h2>
 
-                  <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">
                     {item.title}
                   </p>
                 </div>
@@ -60,7 +68,7 @@ function AdminOrder() {
               items-center
               justify-center
               rounded
-              bg-zinc-800
+              border-2
               text-lg
             "
                 >
@@ -70,7 +78,7 @@ function AdminOrder() {
             </div>
           ))}
         </div>
-        <OrderList></OrderList>
+        <OrderList order={order} filters={filters}></OrderList>
       </section>
     </div>
   );

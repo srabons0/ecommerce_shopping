@@ -7,7 +7,6 @@ export async function GET(req) {
     await connectDB;
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email");
-    console.log("email", email);
     const user = await User.findOne({email}).lean();
     return NextResponse.json(user);
   } catch (error) {

@@ -99,7 +99,6 @@ setDiscount([]);
 const handleDiscountChange = (value)=>{
   setDiscount((prev)=>(prev.includes(value)? []: [value]))
 }
-// console.log(category)
   const colorFilter = [...new Set(category.flatMap((i) => i.colors))];
 
   return (

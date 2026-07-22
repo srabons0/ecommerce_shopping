@@ -1,55 +1,54 @@
-import { NextResponse } from 'next/server'
-import bcrypt from 'bcryptjs'
-import { connectDB } from '@/lib/mongodb'
-import User from '@/models/User'
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import { connectDB } from "@/lib/mongodb";
+import User from "@/models/User";
 
 export async function POST(request) {
   try {
-    const { name, email, password, number } = await request.json()
+    const { name, email, password, number } = await request.json();
 
-    // Basic validation
     if (!name || !email || !password) {
       return NextResponse.json(
-        { error: 'Name, email and password are required' },
-        { status: 400 }
-      )
+        { error: "Name, email and password are required" },
+        { status: 400 },
+      );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
-        { error: 'Password must be at least 6 characters' },
-        { status: 400 }
-      )
+        { error: "Password must be at least 6 characters" },
+        { status: 400 },
+      );
     }
 
-    await connectDB()
+    await connectDB();
 
-    // Check if email already taken
-    const existing = await User.findOne({ email: email.toLowerCase() })
+    const existing = await User.findOne({ email: email.toLowerCase() });
     if (existing) {
       return NextResponse.json(
-        { error: 'This Email already exists' },
-        { status: 409 }
-      )
+        { error: "This Email already exists" },
+        { status: 409 },
+      );
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12)
+    const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create user
     const user = await User.create({
-      name:     name.trim(),
-      email:    email.toLowerCase().trim(),
-      number:  number.trim(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      number: number.trim(),
       password: hashedPassword,
-    })
+    });
 
     return NextResponse.json(
-      { message: 'Account created successfully', userId: user._id },
-      { status: 201 }
-    )
+      { message: "Account created successfully", userId: user._id },
+      { status: 201 },
+    );
   } catch (error) {
-    console.error('Register error:', error)
-    return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })
+    console.error("Register error:", error);
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 },
+    );
   }
 }

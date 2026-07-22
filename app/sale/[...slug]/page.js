@@ -9,7 +9,7 @@ import Category from "@/models/Category";
 import Item from "@/models/Item";
 import Product from "@/models/Product";
 import SubCategory from "@/models/SubCategory";
-import React from "react";
+
 
 async function page({ searchParams, params }) {
   const resolvedParams = await params;
@@ -115,6 +115,7 @@ async function page({ searchParams, params }) {
     ),
   );
 
+
   return (
     <div className="w-full h-full relative">
       <SalesHeader productCount={totalProductCount}></SalesHeader>
@@ -133,10 +134,12 @@ async function page({ searchParams, params }) {
         ></SalesSidebar>
         <div className="flex flex-col w-full h-full ">
           <SalesProductTool></SalesProductTool>
-          <SalesProduct
-            product={product}
-            productCount={productCount}
-          ></SalesProduct>
+
+            <SalesProduct
+              product={product}
+              productCount={productCount}
+            ></SalesProduct>
+
         </div>
       </div>
     </div>

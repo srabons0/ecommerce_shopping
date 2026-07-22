@@ -1,4 +1,4 @@
-// import { Button } from "@/components/ui/button"
+
 import * as React from "react"
 import {
   DropdownMenu,
@@ -6,8 +6,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -160,7 +158,7 @@ function NavMenu({}) {
     ))}
   </DropdownMenuGroup>
 </DropdownMenuContent>
-      
+
     </DropdownMenu>
   )
 }

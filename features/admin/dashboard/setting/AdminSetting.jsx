@@ -7,7 +7,7 @@ function AdminSetting() {
 
 
         <div className="grid  gap-6 lg:grid-cols-2">
-          {/* ================= General Settings ================= */}
+          
 
           <div className="rounded-lg border border-white/10 bg-zinc-900 p-6 lg:col-span-2">
             <h2 className="mb-6 text-lg font-semibold text-white">
@@ -68,7 +68,7 @@ function AdminSetting() {
             </button>
           </div>
 
-          {/* ================= Notifications ================= */}
+          
 
           <div className="rounded-lg border border-white/10 bg-zinc-900 p-6">
             <h2 className="mb-6 text-lg font-semibold text-white">
@@ -109,7 +109,7 @@ function AdminSetting() {
                   <p className="mt-1 text-xs text-zinc-500">{item.desc}</p>
                 </div>
 
-                {/* Toggle */}
+                
 
                 <button
                   className={`relative h-7 w-14 rounded-full transition ${
@@ -126,7 +126,7 @@ function AdminSetting() {
             ))}
           </div>
 
-          {/* ================= Password ================= */}
+          
 
           <div className="rounded-lg border border-white/10 bg-zinc-900 p-6">
             <h2 className="mb-6 text-lg font-semibold text-white">

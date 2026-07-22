@@ -3,8 +3,14 @@ import AdminHeader from "@/features/admin/layout/AdminHeader";
 
 function page() {
   return (
-    <div>
-      <AdminHeader></AdminHeader>
+    <div className="w-full">
+      <AdminHeader
+        path={"Payment"}
+        name={" Payment Management"}
+        desc={
+          "Manage payment methods, billing details, and transaction history."
+        }
+      ></AdminHeader>
       <AdminPaymentHistory></AdminPaymentHistory>
     </div>
   );

@@ -1,6 +1,6 @@
-"use client"
-import Link from 'next/link';
-import React from 'react'
+"use client";
+import Link from "next/link";
+import React from "react";
 import { MdDashboard } from "react-icons/md";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { FaBoxes } from "react-icons/fa";
@@ -8,10 +8,11 @@ import { FaUsers } from "react-icons/fa";
 import { BsGraphDown } from "react-icons/bs";
 import { FaUserGear } from "react-icons/fa6";
 import { FaRegCreditCard } from "react-icons/fa";
-import { MdLogout } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
-
+import { BsPersonSquare } from "react-icons/bs";
+import { useSession } from "next-auth/react";
 function AdminSidebar() {
+  const { data: session } = useSession();
   return (
     <aside
       className="sidebar fixed left-0 top-0 bottom-0 z-[200] flex w-65 flex-col border-r border-white/10 bg-[#000000]"
@@ -38,7 +39,12 @@ function AdminSidebar() {
         </Link>
 
         <Link
-          href={"/dashboard/admin/orders"}
+          href={{
+            pathname: "/dashboard/admin/orders",
+            query: {
+              status: "all",
+            },
+          }}
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("orders")}
         >
@@ -73,7 +79,12 @@ function AdminSidebar() {
         </Link>
 
         <Link
-          href={"/dashboard/admin/customer"}
+          href={{
+            pathname: "/dashboard/admin/customer",
+            query: {
+              status: "all",
+            },
+          }}
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("customers")}
         >
@@ -86,7 +97,6 @@ function AdminSidebar() {
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("blog")}
         >
-          {/* SVG */}
           Blog Posts
         </Link>
 
@@ -95,7 +105,6 @@ function AdminSidebar() {
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("promos")}
         >
-          {/* SVG */}
           Promotions
         </Link>
 
@@ -116,26 +125,32 @@ function AdminSidebar() {
         </Link>
 
         <Link
-          href="/login"
+          href="/dashboard/admin/profile"
           className="nav-item mb-px flex items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
         >
-          <MdLogout />
-          Logout
+          <BsPersonSquare />
+          Profile
         </Link>
       </nav>
 
       <div className="sidebar-user flex items-center gap-2.5 border-t border-white/10 px-5 py-4">
-        <div className="sidebar-avatar flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#b8953a]  font-bold text-[#0c0c0f]">
+        <Link
+          href="/dashboard/admin/profile"
+          className="sidebar-avatar flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#b8953a]  font-bold text-[#0c0c0f]"
+        >
           <FaUserGear />
-        </div>
+        </Link>
 
         <div>
-          <div className="sidebar-user-name text-xs font-semibold text-white">
-            Profile
-          </div>
+          <Link
+            href="/profile"
+            className="sidebar-user-name text-xs font-semibold text-white"
+          >
+            {session?.user.name}
+          </Link>
 
           <div className="sidebar-user-role text-[10px] text-[#6e6e7e]">
-            Super Admin
+            Admin
           </div>
         </div>
       </div>
@@ -143,4 +158,4 @@ function AdminSidebar() {
   );
 }
 
-export default AdminSidebar
+export default AdminSidebar;

@@ -57,10 +57,10 @@ export async function POST(req) {
       let price = product.price;
 
       if (product.isOnSale) {
-        price = price - (price * product.discountPercentage) / 100;
+        price = Math.ceil(price - (price * product.discountPercentage) / 100);
       }
 
-      total += Math.round(price * item.quantity);
+      total += Math.ceil(price * item.quantity);
     }
 
     const paymentIntent = await stripe.paymentIntents.create({

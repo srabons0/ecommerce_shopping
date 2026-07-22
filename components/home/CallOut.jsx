@@ -46,7 +46,7 @@ function CallOut() {
 
   return (
     <section className="grid min-h-[480px] grid-cols-1 bg-black lg:grid-cols-2">
-      {/* Left Side */}
+      
       <div className="flex flex-col justify-center border-r border-[#242424] p-8 lg:p-18">
         <div className="mb-5 flex items-center gap-2.5">
           <div className="h-2 w-2 bg-[#00FFFF]" />
@@ -74,7 +74,7 @@ function CallOut() {
         </div>
       </div>
 
-      {/* Right Side */}
+      
       <div className="relative overflow-hidden bg-[#080808]">
         <Image
           src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=85"
@@ -86,7 +86,7 @@ function CallOut() {
 
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-transparent" />
 
-        {/* Stats */}
+        
         <div className="absolute top-8 right-8 flex flex-col gap-3">
           {stats.map((item) => (
             <div

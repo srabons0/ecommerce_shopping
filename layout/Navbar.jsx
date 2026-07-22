@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
 import cartIcon from "@/assets/icons/cart-Icons.gif";
 import searchIcon from "@/assets/icons/search-Icons.gif";
 import NavMenuMen from "./NavMenu/NavMenuMen";
@@ -10,50 +9,42 @@ import NavMenuWomen from "./NavMenu/NavMenuWomen";
 import NavMenuUniversal from "./NavMenu/NavMenuUniversal";
 import Cart from "@/features/cart/Cart";
 import { AnimatePresence } from "framer-motion";
-import { useSession } from "next-auth/react";
 import Search from "@/features/search/NavSearch";
 
-const Navbar = ({category}) => {
+const Navbar = ({ category }) => {
   //  const { data: session }           = useSession()
   const [session, setSession] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
- const [search, setSearch]         = useState('')
+  const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(null);
-const [openSearch, setOpenSearch] = useState(false);
-const [openCart, setOpenCart] = useState(false);
-const [user, setUser] =useState(true);
+  const [openSearch, setOpenSearch] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
+  const [user, setUser] = useState(true);
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
   const doSearch = (e) => {
-    e.preventDefault()
-    if (!search.trim()) return
-    router.push(`/shop?search=${encodeURIComponent(search.trim())}`)
-    setSearch('')
-    setSearchFocus(false)
-  }
+    e.preventDefault();
+    if (!search.trim()) return;
+    router.push(`/shop?search=${encodeURIComponent(search.trim())}`);
+    setSearch("");
+    setSearchFocus(false);
+  };
 
-   const NAV = [
-    { label: 'Shop',       href: '/shop'       },
-    { label: 'Categories', href: '/categories' },
-    { label: 'About',      href: '/about'      },
-  ]
+  const NAV = [
+    { label: "Shop", href: "/shop" },
+    { label: "Categories", href: "/categories" },
+    { label: "About", href: "/about" },
+  ];
 
   return (
     <header className=" fixed z-100 w-full border-b border-neutral-800 bg-[#0505056c] text-white backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        {/* Logo */}
         <Link href="/" className="text-2xl font-bold tracking-wider">
           LUXORA
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-          {/* <Dropdown label="Men">
-            <MegaMenu items={menLinks} />
-
-          </Dropdown> */}
-          <div>{/* <NavMenu /> */}</div>
           <div>
             <NavMenuMen />
           </div>
@@ -86,7 +77,6 @@ const [user, setUser] =useState(true);
           </Link>
         </nav>
 
-        {/* Right Side */}
         <div className="hidden items-center gap-6 md:flex">
           <div onClick={() => setOpenCart(true)}>
             <Image
@@ -106,9 +96,7 @@ const [user, setUser] =useState(true);
               height={28}
             />
           </div>
-          {/* <Link href="/account">
-            <Image src={avatarIcon} alt="Account" width={28} height={28} />
-          </Link> */}
+
           {!user ? (
             <Link
               href="/dashboard/Profile"
@@ -121,7 +109,6 @@ const [user, setUser] =useState(true);
           )}
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="lg:hidden border flex items-center justify-center w-10 h-10
@@ -141,10 +128,8 @@ const [user, setUser] =useState(true);
         </button>
       </div>
 
-      {/* Mobile Sidebar */}
       {mobileOpen && (
         <div className="lg:hidden border-t border-border py-4 space-y-1 animate-fade-in">
-          {/* Mobile search */}
           <form onSubmit={doSearch} className="pb-3">
             <input
               type="text"

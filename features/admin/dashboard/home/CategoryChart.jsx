@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function CategoryChart() {
   return (
@@ -8,8 +8,6 @@ function CategoryChart() {
         <h3 className="text-[15px] font-semibold text-white">Category Split</h3>
 
         <p className="mb-5 mt-1 text-xs text-zinc-500">This Month</p>
-
-        {/* Donut */}
 
         <div className="flex justify-center">
           <div className="relative h-40 w-40">
@@ -24,8 +22,6 @@ function CategoryChart() {
             <div className="absolute inset-5 rounded-full bg-zinc-900" />
           </div>
         </div>
-
-        {/* Legend */}
 
         <div className="mt-8 space-y-3">
           <div className="flex items-center text-sm text-zinc-300">
@@ -57,4 +53,4 @@ function CategoryChart() {
   );
 }
 
-export default CategoryChart
+export default CategoryChart;

@@ -11,12 +11,17 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       match: [/.+\@.+\..+/, "Please use a valid email address"],
     },
-    password: { type: String, minlength: 6, required: true }, // undefined for Google OAuth users
+    password: { type: String, minlength: 6, required: true },
     number: { type: String, required: true },
     role: { type: String, enum: ["user", "admin"], default: "user" },
     image: { type: String, default: "" },
     address: { type: String, default: "" },
     isActive: { type: Boolean, default: true },
+    userStatus: {
+      type: String,
+      enum: ["active", "inactive", "blocked"],
+      default: "active",
+    },
     orders: { type: Number, default: 0 },
     totalSpent: { type: Number, default: 0 },
   },

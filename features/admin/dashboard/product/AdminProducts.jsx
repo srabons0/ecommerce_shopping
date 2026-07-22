@@ -11,7 +11,6 @@ function AdminProducts() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
-  // const setCardSort = useCardSorter((state) => state.setCardSort);
   const sort = pathname.split("/").at(4);
   return (
     <div className="mx-6 mt-10 mb-20">
@@ -140,9 +139,6 @@ function AdminProducts() {
             ))}
           </select>
         </div>
-
-        {/* Product Grid */}
-
       </section>
     </div>
   );

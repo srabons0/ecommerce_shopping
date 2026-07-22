@@ -26,9 +26,8 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [showPw, setShowPw] = useState(false);
 
-  const handleSocialLogin = () => { };
+  const handleSocialLogin = () => {};
   const onSubmit = async (data) => {
-    // console.log(data);
     setLoading(true);
     const result = await signIn("credentials", {
       ...data,
@@ -38,12 +37,13 @@ export default function LoginPage() {
     if (result?.error) {
       setError("Invalid email or password!");
       setLoading(false);
-      // console.log("login result error ", result.error);
     } else {
       reset();
-      toast.success('Welcome back to LUXORA!')
+      toast.success("Welcome back to LUXORA!");
       setLoading(false);
-      setTimeout(() => { router.push(callbackUrl); }, 2000)
+      setTimeout(() => {
+        router.push(callbackUrl);
+      }, 2000);
       router.refresh();
     }
   };
@@ -65,10 +65,12 @@ export default function LoginPage() {
             opacity: 0,
           }}
           transition={{
-            duration: 0.7, delay: 0.25,
+            duration: 0.7,
+            delay: 0.25,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="w-1/2 lg:block hidden h-screen bg-black">
+          className="w-1/2 lg:block hidden h-screen bg-black"
+        >
           <div className="relative">
             <div className="absolute top-12 left-14 z-40 flex flex-col gap-1">
               <h1 className="font-serif text-4xl font-light tracking-[0.18em] text-[#F5F1E8]">
@@ -79,7 +81,6 @@ export default function LoginPage() {
                 La Muse Moderne
               </p>
             </div>
-
 
             <div className="absolute z-40 left-15 top-120">
               <h2 className="font-['Cormorant_Garamond'] text-[clamp(28px,3.5vw,46px)] font-light leading-[1.2] text-[#F5F1E8]">
@@ -98,7 +99,7 @@ export default function LoginPage() {
             <div className="bg-[linear-gradient(135deg,_#221303_0%,_#0b0b11_48%,_#0f2205_100%)] z-20 absolute w-full h-screen"></div>
           </div>
         </motion.div>
-        </AnimatePresence>
+      </AnimatePresence>
       <AnimatePresence mode="wait">
         <motion.div
           initial={{
@@ -114,16 +115,21 @@ export default function LoginPage() {
             opacity: 0,
           }}
           transition={{
-            duration: 0.7, delay: 0.25,
+            duration: 0.7,
+            delay: 0.25,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="lg:w-1/2 w-full h-screen bg-white relative">
+          className="lg:w-1/2 w-full h-screen bg-white relative"
+        >
           <div className="flex-1 flex items-center  h-screen justify-center bg-[#faf9f6] overflow-y-auto p-10 relative z-1">
             <div className="w-full max-w-105 animate-[formReveal_1s_cubic-bezier(0.16,1,0.3,1)_0.3s_both]">
               <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-[#b8953a] before:block before:h-px before:w-6 before:bg-[#b8953a]">
                 Welcome back
               </div>
-              <Link href='/' className="absolute top-13 right-10 z-40 p-2 flex flex-col gap-1 border-2 border-black rounded-full hover:border">
+              <Link
+                href="/"
+                className="absolute top-13 right-10 z-40 p-2 flex flex-col gap-1 border-2 border-black rounded-full hover:border"
+              >
                 <FaHome className="text-black md:w-6 md:h-6" />
               </Link>
               <h1 className="mb-2 font-['Cormorant_Garamond'] text-[42px] font-normal leading-none text-[#0c0c0f]">
@@ -200,15 +206,13 @@ export default function LoginPage() {
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <motion.div
-                animate={
-                errors.email ? {x:[0, -7, 6, -6, 7, 0] }:{}
-                }
-                transition={{
-                  duration:0.4,
-                  ease:"easeInOut",
-
-                }}
-                className="mb-5">
+                  animate={errors.email ? { x: [0, -7, 6, -6, 7, 0] } : {}}
+                  transition={{
+                    duration: 0.4,
+                    ease: "easeInOut",
+                  }}
+                  className="mb-5"
+                >
                   <label
                     htmlFor="email"
                     className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
@@ -230,13 +234,12 @@ export default function LoginPage() {
                           message: "Please enter a valid email address",
                         },
                       })}
-                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm outline-none transition-all focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${error.email ? "border-red-500" : ""
-                        }`}
+                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm outline-none transition-all focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${
+                        error.email ? "border-red-500" : ""
+                      }`}
                     />
 
-                    <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]">
-                      {/* svg */}
-                    </div>
+                    <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]"></div>
 
                     <div className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#b8953a] transition-transform duration-300 peer-focus:scale-x-100"></div>
                   </div>
@@ -249,15 +252,13 @@ export default function LoginPage() {
                 </motion.div>
 
                 <motion.div
-                animate={
-                errors.email ? {x:[0, -7, 6, -6, 7, 0] }:{}
-                }
-                transition={{
-                  duration:0.4,
-                  ease:"easeInOut",
-
-                }}
-                 className="mb-5">
+                  animate={errors.email ? { x: [0, -7, 6, -6, 7, 0] } : {}}
+                  transition={{
+                    duration: 0.4,
+                    ease: "easeInOut",
+                  }}
+                  className="mb-5"
+                >
                   <label
                     htmlFor="password"
                     className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
@@ -273,16 +274,15 @@ export default function LoginPage() {
                       {...register("password", {
                         required: "Password is required",
                       })}
-                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm outline-none transition-all focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${error.password ? "border-red-500" : ""
-                        }`}
+                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm outline-none transition-all focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${
+                        error.password ? "border-red-500" : ""
+                      }`}
                     />
 
                     <div
                       onClick={() => setShowPw(!showPw)}
                       className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-[#8a8a8a] transition-colors hover:text-[#b8953a]"
-                    >
-                      {/* Eye SVG */}
-                    </div>
+                    ></div>
 
                     <div className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#b8953a] transition-transform duration-300 peer-focus:scale-x-100"></div>
                   </div>
@@ -319,21 +319,28 @@ export default function LoginPage() {
 
                 <button
                   type="submit"
-                  className={`group relative w-full overflow-hidden rounded-sm ${loading ? "bg-[#c4a23e]" : "bg-[#0c0c0f]"} py-3.75 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#faf9f6] transition hover:-translate-y-[px] active:translate-y-0 ${loading ? "loading" : ""
-                    }`}
+                  className={`group relative w-full overflow-hidden rounded-sm ${loading ? "bg-[#c4a23e]" : "bg-[#0c0c0f]"} py-3.75 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#faf9f6] transition hover:-translate-y-[px] active:translate-y-0 ${
+                    loading ? "loading" : ""
+                  }`}
                 >
                   <span className="relative z-10">
-                    {loading ? <div className="flex items-center justify-center gap-1">Finding account
-                      <MagnifyingGlass
-                        visible={true}
-                        height="27"
-                        width="27"
-                        ariaLabel="magnifying-glass-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="magnifying-glass-wrapper"
-                        glassColor="#c0efff"
-                        color="#ffffff"
-                      /></div> : "Sign In to LUXORA"}
+                    {loading ? (
+                      <div className="flex items-center justify-center gap-1">
+                        Finding account
+                        <MagnifyingGlass
+                          visible={true}
+                          height="27"
+                          width="27"
+                          ariaLabel="magnifying-glass-loading"
+                          wrapperStyle={{}}
+                          wrapperClass="magnifying-glass-wrapper"
+                          glassColor="#c0efff"
+                          color="#ffffff"
+                        />
+                      </div>
+                    ) : (
+                      "Sign In to LUXORA"
+                    )}
                   </span>
 
                   <span className="absolute inset-0 -translate-x-full bg-linear-to-br from-[#b8953a] to-[#c4a23e] transition-transform duration-500 group-hover:translate-x-0"></span>
@@ -346,17 +353,15 @@ export default function LoginPage() {
                   href="/register"
                   className="font-semibold text-[#0c0c0f] underline-offset-4  hover:text-gray-400  "
                 >
-                  {" "} Create one →
+                  {" "}
+                  Create one →
                 </Link>
               </div>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-      />
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }

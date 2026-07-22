@@ -1,9 +1,7 @@
-
 import CollectionBody from "@/features/collection/CollectionBody";
 import CollectionIndex from "@/features/collection/CollectionIndex";
 import CollectionNews from "@/features/collection/CollectionNews";
 import CollectionProduct from "@/features/collection/CollectionProduct";
-import CollectionsHeader from "@/features/collection/CollectionsHeader";
 import CollectionShowcase from "@/features/collection/CollectionShowcase";
 import { connectDB } from "@/lib/mongodb";
 import Category from "@/models/Category";
@@ -50,10 +48,8 @@ async function page({ searchParams, params }) {
    );
 
 
-  // console.log(product);
   return (
     <div>
-      {/* <CollectionsHeader></CollectionsHeader> */}
       <CollectionIndex></CollectionIndex>
       <CollectionBody></CollectionBody>
       <CollectionProduct

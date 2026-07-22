@@ -19,10 +19,8 @@ function UserList({ customer }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  // console.log(customer);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
-  //  const { categories, subcategories, item, sortBy, status } = filters;
   const handleSearch = async () => {
     setProduct([]);
     setLoading(true);
@@ -40,91 +38,109 @@ function UserList({ customer }) {
   };
   return (
     <div className="mt-6 overflow-hidden rounded-lg border border-white/10 bg-zinc-100">
-      {/* Table Header */}
-
       <div className="flex flex-col gap-4 border-b border-white/10 p-6 md:flex-row md:items-center md:justify-between">
         <h2 className="text-lg font-semibold text-black">All Customers</h2>
+        <div className="flex items-center pb-3 gap-3">
+          <div className="relative">
+            <InputGroup className="min-w-70 max-w-xs z-100 text-black bg-white">
+              <InputGroupInput
+                value={search}
+                required
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  search && setHasSearched(false);
+                  search && setProduct([]);
+                }}
+                placeholder="Name or Email..."
+              />
 
-        <div className="relative pb-3">
-          <InputGroup className="min-w-70 max-w-xs z-100 text-black bg-white">
-            <InputGroupInput
-              value={search}
-              required
-              onChange={(e) => {
-                setSearch(e.target.value);
-                search && setHasSearched(false);
-                search && setProduct([]);
-              }}
-              placeholder="Name or Email..."
-            />
+              <InputGroupAddon
+                className="cursor-pointer"
+                onClick={() => handleCancelSearch()}
+                align="inline-end"
+              >
+                {search && <ImCancelCircle />}
+              </InputGroupAddon>
+              <InputGroupAddon
+                className={`cursor-pointer text-black ${
+                  !search.trim()
+                    ? "opacity-30 pointer-events-none text-black"
+                    : "border-l pl-2"
+                }`}
+                onClick={handleSearch}
+                align="inline-end"
+              >
+                <SiSearxng />
+              </InputGroupAddon>
+            </InputGroup>
 
-            <InputGroupAddon
-              className="cursor-pointer"
-              onClick={() => handleCancelSearch()}
-              align="inline-end"
-            >
-              {search && <ImCancelCircle />}
-            </InputGroupAddon>
-            <InputGroupAddon
-              className={`cursor-pointer text-black ${
-                !search.trim()
-                  ? "opacity-30 pointer-events-none text-black"
-                  : "border-l pl-2"
-              }`}
-              onClick={handleSearch}
-              align="inline-end"
-            >
-              <SiSearxng />
-            </InputGroupAddon>
-          </InputGroup>
-
-          <div className=" absolute  z-80 max-h-40 top-4 rounded-b-md bg-white w-full overflow-y-auto    scrollbar-hide">
-            {loading && (
-              <div className="flex justify-center pt-8">
-                <Hourglass
-                  visible={true}
-                  height="18"
-                  width="18"
-                  ariaLabel="hourglass-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  colors={["#ffffff", "#ffffff"]}
-                />
+            <div className=" absolute  z-80 max-h-40 top-4 rounded-b-md bg-white w-full overflow-y-auto    scrollbar-hide">
+              {loading && (
+                <div className="flex justify-center pt-8">
+                  <Hourglass
+                    visible={true}
+                    height="18"
+                    width="18"
+                    ariaLabel="hourglass-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    colors={["#ffffff", "#ffffff"]}
+                  />
+                </div>
+              )}
+              {!loading && hasSearched && product.length <= 0 && search && (
+                <p className="text-center mt-5 text-gray-500 ">Not Found</p>
+              )}
+              <div className="px-1 pt-4 ">
+                {(loading || product.length > 0) &&
+                  product.map((p) => (
+                    <div
+                      key={p._id}
+                      onClick={() => {
+                        params.set("search", p.name);
+                        router.push(`${pathname}?${params}`);
+                        setSearch("");
+                        setProduct([]);
+                        setLoading(false);
+                        setHasSearched(false);
+                      }}
+                      className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-black"
+                    >
+                      <span className="mr-2 text-xs">{p.name} </span>◕
+                      <span className="text-red-500 text-xs  pl-1">
+                        {p.email}
+                      </span>
+                      <span className="text-green-500 w-1/6 pl-4">
+                        <FaArrowRight />
+                      </span>
+                    </div>
+                  ))}
               </div>
-            )}
-            {!loading && hasSearched && product.length <= 0 && search && (
-              <p className="text-center mt-5 text-gray-500 ">Not Found</p>
-            )}
-            <div className="px-1 pt-4 ">
-              {(loading || product.length > 0) &&
-                product.map((p) => (
-                  <div
-                    key={p._id}
-                    onClick={() => {
-                      params.set("search", p.name);
-                      router.push(`${pathname}?${params}`);
-                      setSearch("");
-                      setProduct([]);
-                      setLoading(false);
-                      setHasSearched(false);
-                    }}
-                    className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-black"
-                  >
-                    <span className="mr-2 text-xs">{p.name} </span>◕
-                    <span className="text-red-500 text-xs  pl-1">
-                      {p.email}
-                    </span>
-                    <span className="text-green-500 w-1/6 pl-4">
-                      <FaArrowRight />
-                    </span>
-                  </div>
-                ))}
             </div>
           </div>
+          <select
+            value={status}
+            onChange={(e) => {
+              params.set("status", e.target.value);
+              params.set("page", 1);
+              router.push(`${pathname}?${params}`);
+            }}
+            className="select rounded-lg w-40 h-8  text-black text-center px-3 py-1 border-[#6d6d6d] border "
+          >
+            {[
+              { v: "all", l: "All Status" },
+              { v: "active", l: "Active" },
+              { v: "inactive", l: "Inactive" },
+              { v: "blocked", l: "Blocked" },
+              { v: "admin", l: "Admin" },
+            ].map((items, i) => (
+              <option key={i} className="bg-white text-black " value={items.v}>
+                {items.l}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
-
-      {/* Table */}
 
       <div className="overflow-x-auto">
         <table className="w-full">
@@ -170,8 +186,6 @@ function UserList({ customer }) {
 text-center
               "
               >
-                {/* Customer */}
-
                 <td className="text-xs text-gray-500 px-4">#10{i + 1}</td>
                 <td className="px-3 py-5 ">
                   <span className="font-semibold text-black">

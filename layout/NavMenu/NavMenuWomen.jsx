@@ -1,4 +1,4 @@
-// import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import * as React from "react"
 import {
@@ -63,7 +63,7 @@ function NavMenuWomen() {
     <DropdownMenu  modal={false} open={open} onOpenChange={setOpen} className="">
        <DropdownMenuTrigger asChild>
               <button  className="flex items-center gap-1 outline-none focus:outline-none focus:ring-0" onMouseEnter={() => setOpen(true)}
-                
+
                 >Women{open ? <IoIosArrowUp /> : <IoIosArrowDown />} </button>
             </DropdownMenuTrigger>
 
@@ -91,12 +91,12 @@ function NavMenuWomen() {
                     ))}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
-              </DropdownMenuSub>                  
+              </DropdownMenuSub>
     ))}
 
   </DropdownMenuGroup>
 </DropdownMenuContent>
-      
+
     </DropdownMenu>
   )
 }

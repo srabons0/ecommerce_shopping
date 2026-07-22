@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { MdDeleteForever } from "react-icons/md";
 import Image from "next/image";
@@ -8,32 +8,38 @@ import { useSession } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import CartTableSkeleton from "@/components/ui/loadingSkeleton/CartTableSkeleton";
+
 
 function Cart({ setOpenCart }) {
   const cartData = useCartData((state) => state.cartData);
   const removeCartData = useCartData((state) => state.removeCartData);
+  const [loading, setLoading] = useState(false);
   const [cart, setCart] = useState([]);
   const [cartProduct, setCartProduct] = useState([]);
   const { data: session } = useSession();
   useEffect(() => {
     if (session) {
       const fetchData = async () => {
+        setLoading(true);
         const res = await fetch(
           `/api/products/userCart?email=${session.user.email}`,
         );
         const data = await res.json();
         setCartProduct(data);
-        console.log(data);
+        setLoading(false);
       };
       fetchData();
+
       return;
     }
     const itemsId = cartData.map((i) => i._id);
     const fetchData = async () => {
+      setLoading(true);
       const res = await fetch(`/api/products/cart?ids=${itemsId.join(",")}`);
       const data = await res.json();
       setCart(data);
-      // console.log(data);
+      setLoading(false);
     };
     fetchData();
     return;
@@ -53,14 +59,13 @@ function Cart({ setOpenCart }) {
       })
     : cartProduct;
 
-  // console.log("cartProductData", cartProductData);
+
 
   const handleCartDelete = async (p) => {
     if (session) {
       const req = await fetch(`/api/products/userCart/${p._id}`, {
         method: "DELETE",
       });
-      // console.log(req);
       if (req.ok) {
         toast.success("Successfully Delete!");
         setCartProduct((pre) => pre.filter((i) => i._id !== p._id));
@@ -69,11 +74,21 @@ function Cart({ setOpenCart }) {
     removeCartData(p._id, p.sizes, p.colors);
   };
 
-  const totalPrice = cartProductData.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
 
+  const { totalPrice } = useMemo(() => {
+    const totalPrice = cartProductData.reduce(
+      (acc, item) =>
+        acc +
+        Math.ceil(
+          (item.price - (item.price * item.discountPercentage) / 100) *
+            item.quantity,
+        ),
+      0,
+    );
+    return {
+      totalPrice,
+    };
+  }, [cartProductData]);
   return (
     <motion.aside
       initial={{ x: "100%", opacity: 0 }}
@@ -127,70 +142,83 @@ function Cart({ setOpenCart }) {
               </tr>
             </thead>
             <tbody className="">
-              {cartProductData.map((p, i) => (
-                <tr key={i} className="hover">
-                  <td className="w-2/5 py-2.5">
-                    <div className="flex items-center gap-4 px-2">
-                      <Image
-                        src={p.images}
-                        alt={p.name}
-                        width={300}
-                        height={300}
-                        className="w-9 h-9 md:w-15 md:h-15 rounded-xl object-cover"
-                      />
-                      <div>
-                        <h2 className="font-semibold text-[12px] lg:text-[16px]">
-                          {p.name}
-                        </h2>
-                        <p className="text-xs lg:text-sm text-gray-500 flex items-center">
-                          <div
-                            className="w-3 h-3 mr-1 rounded-2xl"
-                            style={{ background: p.colors }}
-                          ></div>{" "}
-                          • Size: {p.sizes}
-                        </p>
+              {loading ? (
+                <CartTableSkeleton></CartTableSkeleton>
+              ) : (
+                cartProductData.map((p, i) => (
+                  <tr key={i} className="hover">
+                    <td className="w-2/5 py-2.5">
+                      <div className="flex items-center gap-4 px-2">
+                        <Image
+                          src={p.images}
+                          alt={p.name}
+                          width={300}
+                          height={300}
+                          className="w-9 h-9 md:w-15 md:h-15 rounded-xl object-cover"
+                        />
+                        <div>
+                          <h2 className="font-semibold text-[12px] lg:text-[16px]">
+                            {p.name}
+                          </h2>
+                          <p className="text-xs lg:text-sm text-gray-500 flex items-center">
+                            <div
+                              className="w-3 h-3 mr-1 rounded-2xl"
+                              style={{ background: p.colors }}
+                            ></div>{" "}
+                            • Size: {p.sizes}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex justify-center">
-                      <span className="flex md:h-7 md:w-8 w-6 items-center justify-center font-semibold">
-                        {p.quantity}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="text-center">
-                    {p.oldPrice && (
-                      <p className="text-xs line-through text-gray-400">
-                        ${p.oldPrice}
+                    </td>
+                    <td>
+                      <div className="flex justify-center">
+                        <span className="flex md:h-7 md:w-8 w-6 items-center justify-center font-semibold">
+                          {p.quantity}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <p className="text-base font-bold">
+                        {p.discountPercentage ? (
+                          <span className="text-sm text-gray-400 mr-2 line-through">
+                            ${p.price}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                        $
+                        {Math.ceil(
+                          p.price - (p.price * p.discountPercentage) / 100,
+                        )}
                       </p>
-                    )}
-                    <p className="font-bold">${p.price}</p>
-                  </td>
-                  <td className="text-center font-bold">
-                    ${p.price * p.quantity}
-                  </td>
-                  <td>
-                    <motion.button
-                      onClick={() => handleCartDelete(p)}
-                      whileHover={{
-                        scale: 1.1,
-                      }}
-                      whileTap={{
-                        scale: 0.9,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 15,
-                      }}
-                      className="text-red-500"
-                    >
-                      <MdDeleteForever className="w-5 h-5" />
-                    </motion.button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="text-center font-bold">
+                      $
+                      {Math.ceil(p.price - (p.price * p.discountPercentage) / 100) *
+                        p.quantity}
+                    </td>
+                    <td>
+                      <motion.button
+                        onClick={() => handleCartDelete(p)}
+                        whileHover={{
+                          scale: 1.1,
+                        }}
+                        whileTap={{
+                          scale: 0.9,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 15,
+                        }}
+                        className="text-red-500"
+                      >
+                        <MdDeleteForever className="w-5 h-5" />
+                      </motion.button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

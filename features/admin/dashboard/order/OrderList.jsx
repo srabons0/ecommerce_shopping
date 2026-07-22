@@ -1,69 +1,170 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { SiSearxng } from "react-icons/si";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ImCancelCircle } from "react-icons/im";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { useState, useMemo } from "react";
+import { FaArrowRight, FaEye, FaTrash } from "react-icons/fa";
+import { Hourglass } from "react-loader-spinner";
 
-function OrderList() {
+function OrderList({ order, filters }) {
+  const [search, setSearch] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+  const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { status } = filters;
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const handleSearch = async () => {
+    setProduct([]);
+    setLoading(true);
+    await fetch(`/api/orders/searchOrder?search=${search}`)
+      .then((res) => res.json())
+      .then(setProduct);
+    setLoading(false);
+    setHasSearched(true);
+  };
+  const handleCancelSearch = () => {
+    setSearch("");
+    setProduct([]);
+    setLoading(false);
+    setHasSearched(false);
+  };
+  const totalItems = useMemo(() => {
+    return order.map((i) =>
+      i.items.reduce((acc, item) => acc + item.quantity, 0),
+    );
+  }, [order]);
+
   return (
-    <div className="mt-6 overflow-hidden rounded border border-white/10 bg-zinc-900">
-      {/* Header */}
-
+    <div className="mt-6 overflow-hidden rounded border border-white/10 bg-zinc-100">
       <div className="flex flex-col gap-4 border-b border-white/10 p-6 lg:flex-row lg:items-center lg:justify-between">
-        <h2 className="text-lg font-semibold text-white">All Orders</h2>
+        <h2 className="text-lg font-semibold text-black">All Orders</h2>
 
-        <div className="flex flex-wrap gap-3">
-          <input
-            type="text"
-            placeholder="Search orders..."
-            className="
-            w-48
-            rounded
-            border
-            border-white/10
-            bg-zinc-800
-            px-4
-            py-2
-            text-sm
-            text-white
-            placeholder:text-zinc-500
-            outline-none
-            focus:border-yellow-700
-          "
-          />
+        <div className="flex items-center pb-3 gap-3">
+          <div className="relative ">
+            <InputGroup className="min-w-70 max-w-xs z-100 text-black bg-white">
+              <InputGroupInput
+                value={search}
+                required
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  search && setHasSearched(false);
+                  search && setProduct([]);
+                }}
+                placeholder="Name, Id or Phone"
+              />
+
+              <InputGroupAddon
+                className="cursor-pointer"
+                onClick={() => handleCancelSearch()}
+                align="inline-end"
+              >
+                {search && <ImCancelCircle />}
+              </InputGroupAddon>
+              <InputGroupAddon
+                className={`cursor-pointer text-black ${
+                  !search.trim()
+                    ? "opacity-30 pointer-events-none text-black"
+                    : "border-l pl-2"
+                }`}
+                onClick={handleSearch}
+                align="inline-end"
+              >
+                <SiSearxng />
+              </InputGroupAddon>
+            </InputGroup>
+
+            <div className=" absolute  z-80 max-h-40 top-4 rounded-b-md bg-white w-full overflow-y-auto    scrollbar-hide">
+              {loading && (
+                <div className="flex justify-center pt-8">
+                  <Hourglass
+                    visible={true}
+                    height="18"
+                    width="18"
+                    ariaLabel="hourglass-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    colors={["#ffffff", "#ffffff"]}
+                  />
+                </div>
+              )}
+              {!loading && hasSearched && product.length <= 0 && search && (
+                <p className="text-center mt-5 text-gray-500 ">Not Found</p>
+              )}
+              <div className="px-1 pt-4 ">
+                {(loading || product.length > 0) &&
+                  product.map((p) => (
+                    <div
+                      key={p._id}
+                      onClick={() => {
+                        params.set("search", p.name);
+                        router.push(`${pathname}?${params}`);
+                        setSearch("");
+                        setProduct([]);
+                        setLoading(false);
+                        setHasSearched(false);
+                      }}
+                      className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-black"
+                    >
+                      <span className="mr-2 text-xs">
+                        {p.shipping.fullName}{" "}
+                      </span>
+                      ◕
+                      <span className="text-red-500 text-xs  pl-1">
+                        {p.orderNumber}
+                      </span>
+                      <span className="text-green-500 w-1/6 pl-4">
+                        <FaArrowRight />
+                      </span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
 
           <select
-            className="
-            w-40
-            rounded
-            border
-            border-white/10
-            bg-zinc-800
-            px-4
-            py-2
-            text-sm
-            text-white
-            outline-none
-            focus:border-yellow-700
-          "
+            value={status}
+            onChange={(e) => {
+              params.set("status", e.target.value);
+              params.set("page", 1);
+              router.push(`${pathname}?${params}`);
+            }}
+            className="select rounded-lg w-40 h-8  text-black text-center px-3 py-1 border-[#6d6d6d] border "
           >
-            <option>All Status</option>
-            <option>Delivered</option>
-            <option>In Transit</option>
-            <option>Processing</option>
-            <option>Cancelled</option>
+            {[
+              { v: "all", l: "All Status" },
+              { v: "pending", l: "Pending" },
+              { v: "confirmed", l: "Confirmed" },
+              { v: "processing", l: "Processing" },
+              { v: "delivered", l: "Delivered" },
+            ].map((items, i) => (
+              <option key={i} className="bg-white text-black " value={items.v}>
+                {items.l}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
-      {/* Orders Table */}
-
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-white/10 bg-zinc-800">
+            <tr className="border-b border-white/10 bg-zinc-200">
               {[
                 "Order ID",
                 "Customer",
-                "Product",
+                "Quantity",
                 "Amount",
                 "Status",
+                "Method",
                 "Date",
                 "Actions",
               ].map((item) => (
@@ -72,7 +173,7 @@ function OrderList() {
                   className="
                   px-6
                   py-4
-                  text-left
+                  text-center
                   text-[11px]
                   font-semibold
                   uppercase
@@ -87,81 +188,74 @@ function OrderList() {
           </thead>
 
           <tbody>
-            {[
-              {
-                id: "#LX1001",
-                customer: "John Doe",
-                product: "Luxury Blazer",
-                amount: "$180",
-                status: "Delivered",
-                date: "12 Mar",
-              },
-              {
-                id: "#LX1002",
-                customer: "Emma Watson",
-                product: "Classic Coat",
-                amount: "$250",
-                status: "Processing",
-                date: "13 Mar",
-              },
-              {
-                id: "#LX1003",
-                customer: "James Smith",
-                product: "Premium Shirt",
-                amount: "$95",
-                status: "In Transit",
-                date: "14 Mar",
-              },
-              {
-                id: "#LX1004",
-                customer: "Sophia Lee",
-                product: "Casual Jacket",
-                amount: "$150",
-                status: "Cancelled",
-                date: "15 Mar",
-              },
-            ].map((order) => (
+            {order.map((order) => (
               <tr
-                key={order.id}
-                className="border-b border-white/10 hover:bg-zinc-800"
+                key={order._id}
+                className="border-b border-white/10 text-center "
               >
-                <td className="px-6 py-5 font-medium text-white">{order.id}</td>
+                <td className="px-6 py-5 font-medium text-sm text-zinc-600">
+                  {order.orderNumber}
+                </td>
 
-                <td className="px-6 py-5 text-zinc-300">{order.customer}</td>
+                <td className="px-6 py-5 text-zinc-600">
+                  {order.shipping.fullName}
+                </td>
 
-                <td className="px-6 py-5 text-zinc-300">{order.product}</td>
+                <td className="px-6 py-5 text-zinc-600">
+                  {order.items.reduce((acc, item) => acc + item.quantity, 0)}
+                </td>
 
-                <td className="px-6 py-5 font-semibold text-white">
-                  {order.amount}
+                <td className="px-6 py-5 font-semibold text-black">
+                  ${order.total}
                 </td>
 
                 <td className="px-6 py-5">
                   <span
                     className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold
                     ${
-                      order.status === "Delivered"
+                      order.orderStatus === "Delivered"
                         ? "bg-emerald-500/10 text-emerald-500"
-                        : order.status === "Processing"
+                        : order.orderStatus === "Processing"
                           ? "bg-blue-500/10 text-blue-400"
-                          : order.status === "In Transit"
+                          : order.orderStatus === "pending"
                             ? "bg-orange-500/10 text-orange-400"
                             : "bg-red-500/10 text-red-400"
                     }`}
                   >
-                    {order.status}
+                    {order.orderStatus}
+                  </span>
+                </td>
+                <td className="px-6 py-5">
+                  <span
+                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold
+                    ${
+                      order.paymentMethod === "stripe"
+                        ? "bg-emerald-500/10 text-emerald-500"
+                        : order.paymentMethod === "cod"
+                          ? "bg-blue-500/10 text-blue-400"
+                          : "bg-red-500/10 text-red-400"
+                    }`}
+                  >
+                    {order.paymentMethod}
                   </span>
                 </td>
 
-                <td className="px-6 py-5 text-zinc-400">{order.date}</td>
+                <td className="px-6 py-5 text-zinc-600">
+                  {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </td>
 
-                <td className="px-6 py-5">
+                <td className="pl-7 py-5">
                   <div className="flex gap-2">
-                    <button className="rounded bg-blue-500/10 px-3 py-2 text-xs text-blue-400 hover:bg-blue-500/20">
-                      View
+                    <button className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10">
+                      <FaEye className="w-4 h-4" />
                     </button>
 
-                    <button className="rounded bg-red-500/10 px-3 py-2 text-xs text-red-400 hover:bg-red-500/20">
-                      Delete
+                    <button className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20">
+                      <FaTrash className="w-4 h-4" />
                     </button>
                   </div>
                 </td>
@@ -174,4 +268,4 @@ function OrderList() {
   );
 }
 
-export default OrderList
+export default OrderList;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function RevenueChart() {
   return (
@@ -17,13 +17,11 @@ function RevenueChart() {
             Monthly
           </button>
 
-                  <button className="rounded-full border border-white/10 px-4 py-1 text-xs text-zinc-400 hover:border-yellow-600 hover:text-yellow-500">
+          <button className="rounded-full border border-white/10 px-4 py-1 text-xs text-zinc-400 hover:border-yellow-600 hover:text-yellow-500">
             Yearly
           </button>
         </div>
       </div>
-
-      {/* Bars */}
 
       <div className="flex h-44 items-end gap-3">
         {[60, 75, 90, 55, 82, 70, 100, 78, 84, 66, 92, 72].map(
@@ -43,8 +41,6 @@ function RevenueChart() {
         )}
       </div>
 
-      {/* Month Labels */}
-
       <div className="mt-3 flex text-center text-[10px] text-zinc-500">
         {["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"].map(
           (m) => (
@@ -58,4 +54,4 @@ function RevenueChart() {
   );
 }
 
-export default RevenueChart
+export default RevenueChart;

@@ -16,7 +16,6 @@ async function page({ params, searchParams }) {
   const subCategorySlug = slug[1];
   const { colors, size, inStock, onSale, ratings, price, cat, page, search } = filters;
   const sortby = slug[2];
-// console.log(search)
   const productFilters = {
     ...(search && { name: search }),
     ...(!cat && { subCategorySlug: subCategorySlug }),

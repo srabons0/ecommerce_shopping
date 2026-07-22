@@ -9,16 +9,12 @@ import { promise } from "zod";
 export async function GET() {
   try {
     await connectDB();
-    const categories = await Category.find()
-      .select("_id name slug")
-      .lean();
+    const categories = await Category.find().select("_id name slug").lean();
 
     const withCount = [{ categories }, { total: categories.length }];
-    // console.log("GET /api/categories response:", withCount);
-    return NextResponse.json(withCount);
 
+    return NextResponse.json(withCount);
   } catch (error) {
-    // console.error("GET /api/categories error:", error);
     return NextResponse.json(
       { error: "Failed to fetch categories" },
       { status: 500 },

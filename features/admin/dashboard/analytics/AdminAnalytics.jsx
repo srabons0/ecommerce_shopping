@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 function AdminAnalytics() {
   return (
-    <div  className="mx-6 mt-10 mb-20">
+    <div className="mx-6 mt-10 mb-20">
       <section>
         <div className="grid gap-5 lg:grid-cols-2">
           {[
@@ -53,13 +53,9 @@ function AdminAnalytics() {
           hover:-translate-y-1
         "
             >
-              {/* Title */}
-
               <h3 className="mb-6 text-lg font-semibold text-white">
                 {card.title}
               </h3>
-
-              {/* Items */}
 
               <div className="space-y-4">
                 {card.items.map((item, index) => (
@@ -78,8 +74,6 @@ function AdminAnalytics() {
               "
                   >
                     <p className="flex-1 text-sm text-zinc-300">{item}</p>
-
-                    {/* Progress */}
 
                     <div className="h-1 w-20 overflow-hidden rounded-full bg-zinc-800">
                       <div
@@ -100,4 +94,4 @@ function AdminAnalytics() {
   );
 }
 
-export default AdminAnalytics
+export default AdminAnalytics;

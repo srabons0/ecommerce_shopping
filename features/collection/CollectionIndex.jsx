@@ -94,7 +94,6 @@ function CollectionIndex() {
   return (
     <div className="border-b border-zinc-800 bg-white px-16 py-20">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
         <div className="mb-3 flex items-center gap-3">
           <div className="h-0.5 w-6 bg-red-600" />
           <span className="font-mono text-[9px] font-bold tracking-[0.3em] text-red-600">
@@ -108,7 +107,6 @@ function CollectionIndex() {
           <span className="text-red-600">COLLECTIONS.</span>
         </h2>
 
-        {/* Grid */}
         <div className="grid grid-cols-4 gap-4  mx-auto">
           {COLLECTIONS.map((col, i) => {
             const hovered = hoveredId === col.id;

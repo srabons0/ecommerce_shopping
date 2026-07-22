@@ -116,7 +116,6 @@ function CollectionBody({ onCart }) {
   const active = pathname.split("/").at(3);
   const [activeCol, setActiveCol] = useState(active.toString());
   const [storyRef, storyVis] = useInView(0.1);
-  const [gridRef, gridVis] = useInView(0.08);
   const [lookRef, lookVis] = useInView(0.15);
   const col = COLLECTIONS.find((c) => c.id === activeCol);
 
@@ -124,7 +123,6 @@ function CollectionBody({ onCart }) {
 
   return (
     <div style={{ background: col.palette.bg }}>
-      {/* ── STORY SECTION ── */}
       <section
         ref={storyRef}
         className="px-6 py-24 lg:px-16"
@@ -132,7 +130,6 @@ function CollectionBody({ onCart }) {
       >
         <div className="mx-auto max-w-7xl">
           <div className="grid items-center gap-20 lg:grid-cols-2">
-            {/* Left */}
             <div
               className={`transition-all duration-700 ease-[cubic-bezier(.23,1,.32,1)]
                 ${
@@ -169,7 +166,6 @@ function CollectionBody({ onCart }) {
               </div>
             </div>
 
-            {/* Right */}
             <div
               ref={lookRef}
               className={`relative transition-all duration-700 delay-150 ease-[cubic-bezier(.23,1,.32,1)]
@@ -190,7 +186,6 @@ function CollectionBody({ onCart }) {
 
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 from-100%  to-white to-5%]" />
 
-                {/* Stats */}
                 <div className="absolute bottom-5 right-5 flex flex-col gap-2">
                   {[
                     { v: col.pieces + "+", l: "PIECES" },
@@ -215,7 +210,6 @@ function CollectionBody({ onCart }) {
                   ))}
                 </div>
 
-                {/* Corner */}
                 <div
                   className="absolute left-0 top-0 h-0 w-0"
                   style={{

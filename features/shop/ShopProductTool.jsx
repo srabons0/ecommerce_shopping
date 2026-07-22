@@ -36,10 +36,6 @@ function ShopProductTool() {
     setLoading(false);
     setHasSearched(true);
 
-    //  console.log("loading", Boolean(!loading));
-    //  console.log(Boolean(hasSearched));
-    //  console.log(Boolean(search));
-    //  console.log(Boolean(product.length <= 0));
   };
   const handleCancelSearch = () => {
     setSearch("");

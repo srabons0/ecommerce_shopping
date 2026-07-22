@@ -1,5 +1,4 @@
 import AdminProduct from "@/features/admin/dashboard/product/AdminProduct";
-import AdminProducts from "@/features/admin/dashboard/product/AdminProducts";
 import AdminProductTool from "@/features/admin/dashboard/product/AdminProductTool";
 import AdminHeader from "@/features/admin/layout/AdminHeader";
 import { connectDB } from "@/lib/mongodb";
@@ -111,7 +110,6 @@ async function page({ searchParams }) {
         name={" Product Management"}
         desc={"Manage products, inventory, pricing and product visibility."}
       ></AdminHeader>
-      {/* <AdminProducts></AdminProducts> */}
       <AdminProductTool
         category={category}
         subCategory={subCategory}

@@ -27,7 +27,6 @@ function AdminProductTool({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const { categories, subcategories, item, sortBy, status } = filters;

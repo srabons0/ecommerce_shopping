@@ -70,7 +70,6 @@ const FeaturedProduct = () => {
   }, []);
 
   const addToCart = (product) => {
-    // console.log("Add to cart:", product);
   };
 
   const generateColor = (count) => {

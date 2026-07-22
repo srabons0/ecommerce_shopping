@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import { IoPersonOutline } from "react-icons/io5";
-import { useState } from 'react'
-import Link from 'next/link'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useState } from "react";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { MdOutlineMail } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
@@ -19,23 +19,22 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
-    reset, getValues, control,
+    reset,
+    getValues,
+    control,
     formState: { errors },
   } = useForm();
 
-
   const value = useWatch({
-    control, name: ["name", "email", "number", "password", "recheckPassword"]
-  })
+    control,
+    name: ["name", "email", "number", "password", "recheckPassword"],
+  });
 
-  // console.log((value.filter(v => v?.trim()).length) * 20)
-
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [togglePassword, setTogglePassword] = useState(false)
-  const [error, setError] = useState('')
-  const [step, setStep] = useState(true) // 1 = name/email, 2 = password
-
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [togglePassword, setTogglePassword] = useState(false);
+  const [error, setError] = useState("");
+  const [step, setStep] = useState(true);
 
   const handleNext = async () => {
     const value = getValues();
@@ -49,38 +48,45 @@ export default function RegisterPage() {
       return setError("Phone Number is required");
     }
 
-    setError("")
+    setError("");
     setStep(false);
-
   };
 
   const onSubmit = async (registerData) => {
-    // console.log(errors)
-    // console.log(registerData)
-    if (registerData.password !== registerData.recheckPassword) return setError('Passwords do not match')
+    if (registerData.password !== registerData.recheckPassword)
+      return setError("Passwords do not match");
     setLoading(true);
-    setError('')
+    setError("");
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: registerData.name, email: registerData.email, password: registerData.password, number: registerData.number }),
-      })
-      const data = await res.json()
-      // console.log(res, data)
-      if (!res.ok) throw new Error(data.error)
-      await signIn('credentials', { email: registerData.email, password: registerData.password, redirect: false })
-      reset()
-      toast.success('Welcome to LUXORA! Account created successfully!')
-      setTimeout(() => { router.push('/') }, 2000)
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: registerData.name,
+          email: registerData.email,
+          password: registerData.password,
+          number: registerData.number,
+        }),
+      });
+      const data = await res.json();
 
-
+      if (!res.ok) throw new Error(data.error);
+      await signIn("credentials", {
+        email: registerData.email,
+        password: registerData.password,
+        redirect: false,
+      });
+      reset();
+      toast.success("Welcome to LUXORA! Account created successfully!");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     } catch (err) {
-      setError(err.message)
-      // console.log(err.message)
-      setLoading(false)
+      setError(err.message);
+
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="lg:flex lg:flex-row-reverse h-screen overflow-x-hidden">
@@ -103,7 +109,8 @@ export default function RegisterPage() {
             delay: 0.3,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="lg:w-1/2 h-screen lg:block hidden bg-black">
+          className="lg:w-1/2 h-screen lg:block hidden bg-black"
+        >
           <div className="relative">
             <div className="absolute top-12 right-14 z-40 flex flex-col gap-1">
               <h1 className="font-serif text-4xl font-light tracking-[0.18em] text-[#F5F1E8]">
@@ -114,17 +121,21 @@ export default function RegisterPage() {
                 La Muse Moderne
               </p>
             </div>
-            <div className="absolute z-40 right-15 top-50
- mb-10 font-serif text-[22px] font-light italic leading-[1.5] text-white/60">
-              {"\""}Fashion is the armor
+            <div
+              className="absolute z-40 right-15 top-50
+ mb-10 font-serif text-[22px] font-light italic leading-[1.5] text-white/60"
+            >
+              {'"'}Fashion is the armor
               <br />
-              to survive everyday life.{"\""}
+              to survive everyday life.{'"'}
             </div>
 
             <div className="absolute top-110 right-18 z-40 mt-auto">
               <div className="mb-9 flex items-start gap-5 opacity-100">
                 <div>
-                  <div className={`${step ? "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/30 bg-[#B8953A]/10 text-xs font-semibold text-[#B8953A]" : "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/30 text-xs font-semibold text-white/60"}`}>
+                  <div
+                    className={`${step ? "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/30 bg-[#B8953A]/10 text-xs font-semibold text-[#B8953A]" : "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/30 text-xs font-semibold text-white/60"}`}
+                  >
                     01
                   </div>
                   <div className="ml-[17px] h-6 w-[2px] bg-[#B8953A]/15"></div>
@@ -142,7 +153,9 @@ export default function RegisterPage() {
 
               <div className="mb-9 flex items-start gap-5 opacity-40">
                 <div>
-                  <div className={`${!step ? "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/80 bg-[#B8953A]/30 text-xs font-semibold text-[#ffcb48]" : "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/30 text-xs font-semibold text-white/60"}`}>
+                  <div
+                    className={`${!step ? "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/80 bg-[#B8953A]/30 text-xs font-semibold text-[#ffcb48]" : "flex h-9 w-9 items-center justify-center rounded-full border border-[#B8953A]/30 text-xs font-semibold text-white/60"}`}
+                  >
                     02
                   </div>
                   <div className="ml-[17px] h-6 w-[2px] bg-[#B8953A]/15"></div>
@@ -157,10 +170,7 @@ export default function RegisterPage() {
                   </p>
                 </div>
               </div>
-
-
             </div>
-
 
             <Image
               src={registerImage}
@@ -186,24 +196,26 @@ export default function RegisterPage() {
             opacity: 0,
           }}
           transition={{
-            duration: 0.7, delay: 0.3,
+            duration: 0.7,
+            delay: 0.3,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="flex lg:w-1/2  items-center h-screen justify-center overflow-y-auto bg-[#faf9f6] p-10">
+          className="flex lg:w-1/2  items-center h-screen justify-center overflow-y-auto bg-[#faf9f6] p-10"
+        >
           <div className="w-full max-w-[460px]" id="formBox">
-            {/* PROGRESS */}
             <div className="mb-9" id="progressWrap">
               <div className="mb-[10px] h-[3px] rounded bg-black/10">
                 <div
                   id="progressFill"
-                  style={{ width: `${((value.filter(v => v?.trim()).length) * 20)}%` }}
+                  style={{
+                    width: `${value.filter((v) => v?.trim()).length * 20}%`,
+                  }}
                   className="h-full rounded bg-gradient-to-r from-[#b8953a] to-[#d4af5a] transition-all duration-500 ease-out"
                 />
               </div>
               <div className="flex items-center justify-end text-[11px] uppercase tracking-[0.1em] text-[#8a8a8a]">
-
                 <span id="stepPct" className="font-semibold text-[#b8953a]">
-                  {(value.filter(v => v?.trim()).length) * 20}%
+                  {value.filter((v) => v?.trim()).length * 20}%
                 </span>
               </div>
             </div>
@@ -221,17 +233,19 @@ export default function RegisterPage() {
                   <p className="mb-8 text-sm leading-7 text-[#8a8a8a]">
                     Tell us a bit about yourself to create your LUXE account.
                   </p>
-                  {/* Name */}
+
                   <motion.div
                     animate={
-                      error === "Username is required" ? { x: [0, -7, 6, -6, 7, 0] } : {}
+                      error === "Username is required"
+                        ? { x: [0, -7, 6, -6, 7, 0] }
+                        : {}
                     }
                     transition={{
                       duration: 0.4,
                       ease: "easeInOut",
-
-                    }} className="grid grid-cols-1 gap-4">
-
+                    }}
+                    className="grid grid-cols-1 gap-4"
+                  >
                     <div className="mb-[18px]">
                       <label
                         htmlFor="firstName"
@@ -261,18 +275,22 @@ export default function RegisterPage() {
                       </div>
                     </div>
                   </motion.div>
-                  {error === "Username is required" && (<p className="mb-2 text-xs text-red-500">{error}</p>)}
-                  {/* Email */}
+                  {error === "Username is required" && (
+                    <p className="mb-2 text-xs text-red-500">{error}</p>
+                  )}
+
                   <motion.div
                     animate={
-                      error === "Email is required" ? { x: [0, -7, 6, -6, 7, 0] } : {}
+                      error === "Email is required"
+                        ? { x: [0, -7, 6, -6, 7, 0] }
+                        : {}
                     }
                     transition={{
                       duration: 0.4,
                       ease: "easeInOut",
-
                     }}
-                    className="mb-[18px]">
+                    className="mb-[18px]"
+                  >
                     <label
                       htmlFor="regEmail"
                       className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
@@ -306,18 +324,22 @@ export default function RegisterPage() {
                       Please enter a valid email.
                     </div>
                   </motion.div>
-                  {error === "Email is required" && (<p className="mb-2 text-xs text-red-500">{error}</p>)}
-                  {/* Phone */}
+                  {error === "Email is required" && (
+                    <p className="mb-2 text-xs text-red-500">{error}</p>
+                  )}
+
                   <motion.div
                     animate={
-                      error === "Phone Number is required" ? { x: [0, -7, 6, -6, 7, 0] } : {}
+                      error === "Phone Number is required"
+                        ? { x: [0, -7, 6, -6, 7, 0] }
+                        : {}
                     }
                     transition={{
                       duration: 0.4,
                       ease: "easeInOut",
-
                     }}
-                    className="mb-[18px]">
+                    className="mb-[18px]"
+                  >
                     <label
                       htmlFor="phone"
                       className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
@@ -335,19 +357,18 @@ export default function RegisterPage() {
                       />
                     </div>
                   </motion.div>
-                  {error === "Phone Number is required" && (<p className="mb-2 text-xs text-red-500">{error}</p>)}
+                  {error === "Phone Number is required" && (
+                    <p className="mb-2 text-xs text-red-500">{error}</p>
+                  )}
 
-
-                  {/* Buttons */}
                   <div className="flex items-center gap-3">
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={() => handleNext()}
                       className="group relative flex-1 overflow-hidden rounded-sm bg-[#0c0c0f] py-[14px] text-[12px] font-semibold uppercase tracking-[0.2em] text-[#faf9f6] transition hover:-translate-y-[1px]"
                     >
                       <span className="absolute inset-0 -translate-x-full bg-gradient-to-br from-[#b8953a] to-[#c4a23e] transition-transform duration-300 group-hover:translate-x-0" />
-                      <span className="relative z-10">
-                        Continue →
-                      </span>
+                      <span className="relative z-10">Continue →</span>
                     </button>
                   </div>
                 </div>
@@ -365,17 +386,15 @@ export default function RegisterPage() {
                   <p className="mb-8 text-sm leading-7 text-[#8a8a8a]">
                     Choose a strong password to keep your account secure.
                   </p>
-                  {/* Password */}
+
                   <motion.div
-                    animate={
-                      errors.password ? { x: [0, -7, 6, -6, 7, 0] } : {}
-                    }
+                    animate={errors.password ? { x: [0, -7, 6, -6, 7, 0] } : {}}
                     transition={{
                       duration: 0.4,
                       ease: "easeInOut",
-
                     }}
-                    className="mb-[18px]">
+                    className="mb-[18px]"
+                  >
                     <label
                       htmlFor="regPass"
                       className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
@@ -387,7 +406,7 @@ export default function RegisterPage() {
                         type={togglePassword ? "text" : "password"}
                         placeholder="Create a strong password"
                         {...register("password", {
-                          required: "Password is required"
+                          required: "Password is required",
                         })}
                         className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                       />
@@ -408,11 +427,10 @@ export default function RegisterPage() {
                   </motion.div>
                   {errors.password && (
                     <p className="mb-1 text-xs text-red-500">
-                      {errors.password?.message
-                      }
+                      {errors.password?.message}
                     </p>
                   )}
-                  {/* Confirm Password */}
+
                   <motion.div
                     animate={
                       errors.recheckPassword ? { x: [0, -7, 6, -6, 7, 0] } : {}
@@ -420,12 +438,10 @@ export default function RegisterPage() {
                     transition={{
                       duration: 0.4,
                       ease: "easeInOut",
-
                     }}
-                    className="mb-[18px]">
-                    <label
-                      className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
-                    >
+                    className="mb-[18px]"
+                  >
+                    <label className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]">
                       Confirm Password
                     </label>
                     <div className="relative">
@@ -435,23 +451,22 @@ export default function RegisterPage() {
                         placeholder="Repeat your password"
                         {...register("recheckPassword", {
                           required: "Re-enter your password",
-                          validate: value =>
-                            value === getValues("password") || "Passwords do not match",
+                          validate: (value) =>
+                            value === getValues("password") ||
+                            "Passwords do not match",
                         })}
                         className="w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                       />
-
                     </div>
-                    {
-                      errors.recheckPassword && (
-                        <p className="mt-1 text-xs text-red-500">
-                          {
-                            errors.recheckPassword?.message
-                          }
-                        </p>
-                      )}
+                    {errors.recheckPassword && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {errors.recheckPassword?.message}
+                      </p>
+                    )}
                     {error && (
-                      <div className="mb-1 mt-1 text-[11px] text-red-500">{error}</div>
+                      <div className="mb-1 mt-1 text-[11px] text-red-500">
+                        {error}
+                      </div>
                     )}
                   </motion.div>
 
@@ -482,16 +497,22 @@ export default function RegisterPage() {
                       <span className="absolute inset-0 -translate-x-full bg-linear-to-br from-[#b8953a] to-[#c4a23e] transition-transform duration-300 group-hover:translate-x-0" />
 
                       <span className="relative z-10">
-                        {loading ? <div className="flex items-center justify-center gap-1">Creating account
-                          <Hourglass
-                            visible={true}
-                            height="18"
-                            width="18"
-                            ariaLabel="hourglass-loading"
-                            wrapperStyle={{}}
-                            wrapperClass=""
-                            colors={['#ffffff', '#ffffff']}
-                          /></div> : "Create Account on LUXORA"}
+                        {loading ? (
+                          <div className="flex items-center justify-center gap-1">
+                            Creating account
+                            <Hourglass
+                              visible={true}
+                              height="18"
+                              width="18"
+                              ariaLabel="hourglass-loading"
+                              wrapperStyle={{}}
+                              wrapperClass=""
+                              colors={["#ffffff", "#ffffff"]}
+                            />
+                          </div>
+                        ) : (
+                          "Create Account on LUXORA"
+                        )}
                       </span>
                     </button>
                   </div>
@@ -499,16 +520,19 @@ export default function RegisterPage() {
               )}
             </form>
             <p className="text-center text-sm text-gray-500 mt-6">
-              Already have an account?{' '}
-              <Link href="/login" className="text-black font-semibold hover:text-gray-400 transition-colors">{" "} Sign in</Link>
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="text-black font-semibold hover:text-gray-400 transition-colors"
+              >
+                {" "}
+                Sign in
+              </Link>
             </p>
           </div>
-          <Toaster
-            position="top-right"
-            reverseOrder={false}
-          />
+          <Toaster position="top-right" reverseOrder={false} />
         </motion.div>
       </AnimatePresence>
     </div>
-  )
+  );
 }

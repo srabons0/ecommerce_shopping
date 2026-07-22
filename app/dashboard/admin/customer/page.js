@@ -1,14 +1,18 @@
 import AdminUser from "@/features/admin/dashboard/user/AdminUser";
 import AdminHeader from "@/features/admin/layout/AdminHeader";
+import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 
-async function page({searchParams}) {
-   const filters = await searchParams;
-   const { page, search } = filters;
+async function page({ searchParams }) {
+  const filters = await searchParams;
+  const { page, search, status } = filters;
 
-    const productFilters = {
-    ...(search && { name: search })
-  }
+  const productFilters = {
+    ...(search && { name: search }),
+    ...(status !== "all" && status !== "admin" && { userStatus: status }),
+    ...(status === "admin" && { role: status }),
+  };
+  await connectDB();
 
   const [customer, customerCount] = JSON.parse(
     JSON.stringify(
@@ -21,7 +25,6 @@ async function page({searchParams}) {
       ]),
     ),
   );
-  console.log(customer);
   return (
     <div className=" w-full">
       <AdminHeader

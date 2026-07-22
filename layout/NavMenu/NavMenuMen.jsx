@@ -1,4 +1,4 @@
-// import { Button } from "@/components/ui/button"
+
 import * as React from "react"
 import { useState } from "react"
 import {
@@ -64,7 +64,7 @@ function NavMenuMen() {
     <DropdownMenu  modal={false}  open={open} onOpenChange={setOpen} className="">
  <DropdownMenuTrigger asChild>
         <button  className="flex items-center gap-1 outline-none focus:outline-none focus:ring-0" onMouseEnter={() => setOpen(true)}
-          
+
           >Men{open ? <IoIosArrowUp /> : <IoIosArrowDown />} </button>
       </DropdownMenuTrigger>
 
@@ -92,12 +92,12 @@ function NavMenuMen() {
                     ))}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
-              </DropdownMenuSub>                  
+              </DropdownMenuSub>
     ))}
 
   </DropdownMenuGroup>
 </DropdownMenuContent>
-      
+
     </DropdownMenu>
   )
 }

@@ -9,7 +9,6 @@ export async function DELETE(req,{params}) {
   try {
     await connectDB();
 const {id} = await params;
-// console.log(id)
     const order = await UserOrder.deleteOne(
      { _id: new ObjectId(id)},
     )

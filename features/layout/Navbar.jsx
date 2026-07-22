@@ -8,10 +8,10 @@ import searchIcon from "@/assets/icons/search-Icons.gif";
 import { AnimatePresence } from "framer-motion";
 import Cart from "../cart/Cart";
 
-function Navbar({category}) {
+function Navbar({ category }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
-const [openCart, setOpenCart] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
 
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
@@ -23,12 +23,10 @@ const [openCart, setOpenCart] = useState(false);
      bg-black text-white "
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        {/* Logo */}
         <Link href="/" className="text-2xl font-bold tracking-wider">
           LUXORA
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
           <Link href="/" className="hover:text-neutral-300">
             Home
@@ -43,7 +41,10 @@ const [openCart, setOpenCart] = useState(false);
           >
             Shop
           </Link>
-          <Link href="/collections/men/summer" className="hover:text-neutral-300">
+          <Link
+            href="/collections/men/summer"
+            className="hover:text-neutral-300"
+          >
             Collections
           </Link>
 
@@ -58,7 +59,6 @@ const [openCart, setOpenCart] = useState(false);
           </Link>
         </nav>
 
-        {/* Right Side */}
         <div className="hidden items-center gap-6 md:flex">
           <div onClick={() => setOpenCart(true)}>
             <Image
@@ -78,13 +78,10 @@ const [openCart, setOpenCart] = useState(false);
               height={28}
             />
           </Link>
-          {/* <Link href="/account">
-            <Image src={avatarIcon} alt="Account" width={28} height={28} />
-          </Link> */}
+
           <Link href="/login">Login</Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileOpen(true)}
           className="md:hidden"
@@ -94,7 +91,6 @@ const [openCart, setOpenCart] = useState(false);
         </button>
       </div>
 
-      {/* Mobile Sidebar */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 bg-black/70">
           <div className="fixed left-0 top-0 z-50 h-full w-72 overflow-y-auto bg-neutral-900 p-6">

@@ -118,7 +118,6 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
         setError("Payment failed.");
         return;
       }
-      console.log(paymentIntent.id);
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: {

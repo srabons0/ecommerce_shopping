@@ -15,8 +15,6 @@ export default async function Layout({ children }) {
   return (
     <>
       <Navbar category={category}></Navbar>
-      {/* <CollectionsHeader></CollectionsHeader> */}
-
       {children}
     </>
   );

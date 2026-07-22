@@ -4,7 +4,11 @@ import AdminHeader from "@/features/admin/layout/AdminHeader";
 function page() {
   return (
     <div className=" w-full">
-      <AdminHeader></AdminHeader>
+      <AdminHeader
+        path={"Analytics"}
+        name={"All Analytics "}
+        desc={"Gain insights into sales, traffic, and customer behavior."}
+      ></AdminHeader>
       <AdminAnalytics></AdminAnalytics>
     </div>
   );

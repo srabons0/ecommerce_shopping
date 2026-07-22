@@ -59,7 +59,7 @@ export async function POST(req) {
 
     for (const item of items) {
       const product = await Product.findById(item.productID);
-      console.log(product);
+   
       if (!product) {
         return NextResponse.json(
           {
@@ -96,7 +96,7 @@ export async function POST(req) {
         price = price - (price * product.discountPercentage) / 100;
       }
 
-      const itemSubtotal = price * item.quantity;
+      const itemSubtotal = Math.ceil(price * item.quantity);
 
       subtotal += itemSubtotal;
 
@@ -113,7 +113,6 @@ export async function POST(req) {
         subtotal: itemSubtotal,
       });
 
-      // Update Product
       product.stock -= item.quantity;
       product.salesCount += item.quantity;
 
@@ -124,7 +123,7 @@ export async function POST(req) {
     const tax = 0;
     const discount = 0;
 
-    const total = subtotal + shippingFee + tax - discount;
+    const total = Math.ceil(subtotal + shippingFee + tax - discount);
 
 
     const order = await Order.create({

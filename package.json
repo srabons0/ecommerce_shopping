@@ -54,6 +54,8 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "knip": "5.61.3",
     "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4"

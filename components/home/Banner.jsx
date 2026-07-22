@@ -15,14 +15,16 @@ const slides = [
     title: "Premium Drop Shoulder",
     subtitle: "Luxury Streetwear Collection",
     img: banner1,
-    description: "Redefine your look with high-end silhouettes crafted to perfection.",
+    description:
+      "Redefine your look with high-end silhouettes crafted to perfection.",
   },
   {
     id: 2,
     title: "Men’s & Women’s Fashion",
     subtitle: "Minimal • Elegant • Modern",
     img: banner2,
-    description: "Discover timeless essentials curated for sophisticated fashion.",
+    description:
+      "Discover timeless essentials curated for sophisticated fashion.",
   },
   {
     id: 3,
@@ -40,10 +42,8 @@ const slides = [
   },
 ];
 
-export default function Banner({category}) {
-   const [index, setIndex] = useState(0);
-
-  // Auto slide every 4 seconds
+export default function Banner({ category }) {
+  const [index, setIndex] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % slides.length);
@@ -62,9 +62,8 @@ export default function Banner({category}) {
           pauseOnMouseEnter: true,
           disableOnInteraction: false,
         }}
-         direction={'vertical'}
+        direction={"vertical"}
         pagination={{ clickable: true, dynamicBullets: true }}
-        // navigation
         className="h-[80vh] min-h-170"
       >
         {slides.map((slide) => (
@@ -82,66 +81,64 @@ export default function Banner({category}) {
               </div>
               <div className="absolute inset-0 bg-slate-950/40" />
               <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6 py-16 text-white sm:px-10 lg:px-16">
-                 <div className="container mx-auto px-6 h-full flex items-center">
+                <div className="container mx-auto px-6 h-full flex items-center">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={slides[index].id}
+                      initial={{ opacity: 0, x: 80 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -80 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="grid grid-cols-1 md:grid-cols-1 gap-10 items-center w-full"
+                    >
+                      <div className="space-y-6">
+                        <p className="text-sm tracking-[4px] uppercase text-gray-200">
+                          {slides[index].subtitle}
+                        </p>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={slides[index].id}
-            initial={{ opacity: 0, x: 80 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -80 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="grid grid-cols-1 md:grid-cols-1 gap-10 items-center w-full"
-          >
-            {/* LEFT CONTENT */}
-            <div className="space-y-6">
-              <p className="text-sm tracking-[4px] uppercase text-gray-200">
-                {slides[index].subtitle}
-              </p>
+                        <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+                          {slides[index].title}
+                        </h1>
 
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-                {slides[index].title}
-              </h1>
+                        <p className="text-gray-200 max-w-md text-lg">
+                          {slides[index].description}
+                        </p>
 
-              <p className="text-gray-200 max-w-md text-lg">
-                {slides[index].description}
-              </p>
+                        <div className="flex gap-4 pt-5">
+                          <Link
+                            href={`/shop/men/${category.find((items) => items.gender === "men").slug}/newest`}
+                          >
+                            <motion.button
+                              whileHover={{ scale: 1.05 }}
+                              className="px-6 py-3 rounded-full bg-[#E8FF47] text-black font-semibold"
+                            >
+                              Shop Now
+                            </motion.button>
+                          </Link>
 
-              <div className="flex gap-4 pt-5">
-                <Link  href={`/shop/men/${(category.find((items)=> items.gender === "men")).slug}/newest`}><motion.button
-                  whileHover={{ scale: 1.05 }}
-                  className="px-6 py-3 rounded-full bg-[#E8FF47] text-black font-semibold"
-                >
-                  Shop Now
-                </motion.button></Link>
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            className="px-6 py-3 rounded-full border border-white text-white font-semibold"
+                          >
+                            Explore
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  className="px-6 py-3 rounded-full border border-white text-white font-semibold"
-                >
-                  Explore
-                </motion.button>
-              </div>
-            </div>
-
-            {/* RIGHT IMAGE */}
-           
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* DOT INDICATORS */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === i ? "bg-[#E8FF47] w-8" : "bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setIndex(i)}
+                      className={`w-3 h-3 rounded-full transition-all ${
+                        index === i ? "bg-[#E8FF47] w-8" : "bg-white/40"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </SwiperSlide>

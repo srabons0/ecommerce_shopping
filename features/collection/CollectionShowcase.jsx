@@ -70,35 +70,30 @@ const COLLECTIONS = [
   },
 ];
 
-
-
 function CollectionShowcase() {
   const [hoveredId, setHoveredId] = useState(null);
-    const router = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const active = pathname.split("/").at(3);
-  const setCollection =(id)=>{
+  const setCollection = (id) => {
     const path = pathname.split("/");
     path[path.length - 1] = id;
     router.push(`${path.join("/")}?${searchParams.toString()}`);
-      }
-       useEffect(() => {
-          if (active) {
-            document.getElementById("productScroll")?.scrollIntoView({
-              top: 0,
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        }, [active]);
-
-
+  };
+  useEffect(() => {
+    if (active) {
+      document.getElementById("productScroll")?.scrollIntoView({
+        top: 0,
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [active]);
 
   return (
     <section className=" bg-white px-16 py-[72px]">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
         <div className="mb-3 flex items-center gap-3">
           <div className="h-0.5 w-5" style={{ background: "red" }} />
           <span

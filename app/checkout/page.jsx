@@ -12,9 +12,26 @@ export default function CheckoutPage() {
   const { data: session } = useSession();
   const [cartItems, setCartItems] = useState([]);
   const [user, setUser] = useState([]);
+
   const totalItems = useMemo(() => {
     return cartItems.reduce((acc, item) => acc + item.quantity, 0);
   }, [cartItems]);
+
+const {totalPrice} = useMemo(() => {
+   const totalPrice = cartItems.reduce(
+      (acc, item) =>
+        acc +
+        Math.ceil(
+          (item.price - (item.price * item.discountPercentage) / 100) *
+            item.quantity,
+        ),
+      0,
+    );
+    return {
+      totalPrice,
+    };
+}, [cartItems]);
+
 
   useEffect(() => {
     if (session) {
@@ -24,13 +41,13 @@ export default function CheckoutPage() {
         );
         const data = await res.json();
         setCartItems(data);
-        console.log(data);
+
       };
       const fetchUserData = async () => {
         const res = await fetch(`/api/user/info?email=${session.user.email}`);
         const data = await res.json();
         setUser(data);
-        console.log(data);
+
       };
 
       fetchData();
@@ -61,7 +78,6 @@ export default function CheckoutPage() {
           throw new Error(`Request failed: ${res.status}`);
         }
         const data = await res.json();
-        console.log(data);
         if (data.success) {
           setClientSecret(data.clientSecret);
         } else {
@@ -86,13 +102,11 @@ export default function CheckoutPage() {
   }
 
   return (
-  <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="mb-8 text-3xl font-bold">Checkout</h1>
 
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-
-
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -109,25 +123,21 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-
-
           <div className="space-y-5">
             {cartItems.map((item) => (
               <div
                 key={item._id}
                 className="flex gap-4 rounded-2xl border border-gray-200 p-4 transition-all duration-300 hover:shadow-md"
               >
-
-
                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
                   <Image
                     src={item.images}
-                    alt={item.name} width={300} height={300}
+                    alt={item.name}
+                    width={300}
+                    height={300}
                     className="h-full w-full object-cover"
                   />
                 </div>
-
-
 
                 <div className="flex flex-1 flex-col">
                   <div className="flex items-start justify-between">
@@ -142,7 +152,20 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="text-right">
-                      <p className="text-lg font-bold">৳{item.price}</p>
+                      <p className="text-lg font-bold">
+                        {item.discountPercentage ? (
+                          <span className="text-sm text-gray-400 mr-2 line-through">
+                            ${item.price}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                        $
+                        {Math.ceil(
+                          item.price -
+                            (item.price * item.discountPercentage) / 100,
+                        )}
+                      </p>
 
                       <p className="text-sm text-gray-500">x {item.quantity}</p>
                     </div>
@@ -172,19 +195,11 @@ export default function CheckoutPage() {
             ))}
           </div>
 
-
-
           <div className="mt-8 space-y-4 border-t pt-6">
             <div className="flex justify-between text-gray-600">
               <span>Subtotal</span>
 
-              <span>
-                $
-                {cartItems.reduce(
-                  (acc, item) => acc + item.price * item.quantity,
-                  0,
-                )}
-              </span>
+              <span>${totalPrice}</span>
             </div>
 
             <div className="flex justify-between text-gray-600">
@@ -193,23 +208,14 @@ export default function CheckoutPage() {
               <span>$100</span>
             </div>
 
-
             <div className="border-t pt-4">
               <div className="flex items-center justify-between">
                 <span className="text-lg font-bold">Total</span>
 
-                <span className="text-2xl font-bold">
-                  ৳
-                  {cartItems.reduce(
-                    (acc, item) => acc + item.price * item.quantity,
-                    0,
-                  )+100}
-                </span>
+                <span className="text-2xl font-bold">$ {totalPrice+100}</span>
               </div>
             </div>
           </div>
-
-
         </div>
         <div>
           {loading && !clientSecret && <p>Loading payment...</p>}

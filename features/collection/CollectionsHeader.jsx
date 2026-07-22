@@ -1,7 +1,6 @@
-"use client"
-import React, { useState } from 'react'
-import CollectionIndex from './CollectionIndex';
-
+"use client";
+import React, { useState } from "react";
+import CollectionIndex from "./CollectionIndex";
 
 const COLLECTIONS = [
   {
@@ -433,8 +432,7 @@ const COLLECTIONS = [
 ];
 function CollectionsHeader() {
   const [activeCol, setActiveCol] = useState("summer");
-    const [indexVisible, setIndexVisible] = useState(false);
-
+  const [indexVisible, setIndexVisible] = useState(false);
 
   const handleSelect = (id) => {
     setActiveCol(id);
@@ -444,7 +442,6 @@ function CollectionsHeader() {
 
   return (
     <div className="relative">
-      {/* Toggle button */}
       <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-950 px-[60px] py-4">
         <div className="flex gap-2 overflow-x-auto">
           {COLLECTIONS.map((c) => (
@@ -480,7 +477,6 @@ function CollectionsHeader() {
         </button>
       </div>
 
-      {/* Expandable full index grid */}
       <div
         className={`overflow-hidden transition-all duration-500 ease-in-out ${
           indexVisible ? "max-h-[800px]" : "max-h-0"
@@ -492,4 +488,4 @@ function CollectionsHeader() {
   );
 }
 
-export default CollectionsHeader
+export default CollectionsHeader;

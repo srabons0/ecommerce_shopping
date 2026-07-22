@@ -19,8 +19,6 @@ function NavSearch({ setOpenSearch }) {
   const [hasSearched, setHasSearched] = useState(false);
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
-  // console.log(pathname);
-
   const handleSearch = async() => {
       setHasSearched(true);
     setLoading(true);
@@ -30,7 +28,6 @@ function NavSearch({ setOpenSearch }) {
     setLoading(false);
     setHasSearched(true);
   };
-  // console.log(product);
   return (
     <motion.div
       initial={{ y: "-100%", opacity: 0 }}

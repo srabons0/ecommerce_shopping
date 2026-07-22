@@ -3,18 +3,12 @@ import RecentOrder from "./RecentOrder";
 import CategoryChart from "./CategoryChart";
 import RevenueChart from "./RevenueChart";
 
-function DashboardHome() {
+function DashboardHome({ order }) {
   return (
     <div className="mb-20">
       <div className="flex-1  mx-6 py-8">
-        {/* Dashboard */}
         <section>
-
-
-          {/* Stats */}
           <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-2">
-            {/* Revenue */}
-
             <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
               <div className="mb-4 flex justify-between">
                 <div>
@@ -34,13 +28,10 @@ function DashboardHome() {
                 </div>
               </div>
 
-
               <p className="mt-3 text-sm font-medium text-emerald-500">
                 ↑ 12.5% vs Feb
               </p>
             </div>
-
-            {/* Orders */}
 
             <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-blue-500/30">
               <div className="mb-4 flex justify-between">
@@ -61,13 +52,10 @@ function DashboardHome() {
                 </div>
               </div>
 
-
               <p className="mt-3 text-sm font-medium text-emerald-500">
                 ↑ 8.3%
               </p>
             </div>
-
-            {/* Customers */}
 
             <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-emerald-500/30">
               <div className="mb-4 flex justify-between">
@@ -88,12 +76,8 @@ function DashboardHome() {
                 </div>
               </div>
 
-
-
               <p className="mt-3 text-sm font-medium text-red-500">↓ 2.1%</p>
             </div>
-
-            {/* Rating */}
 
             <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
               <div className="mb-4 flex justify-between">
@@ -114,7 +98,6 @@ function DashboardHome() {
                 </div>
               </div>
 
-            
               <p className="mt-3 text-sm font-medium text-emerald-500">
                 ↑ 0.2 this quarter
               </p>
@@ -122,13 +105,13 @@ function DashboardHome() {
           </div>
         </section>
       </div>
-      {/* Charts */}
+
       <div className="mt-6 grid gap-4 mx-6 lg:grid-cols-[2fr_1fr]">
         <RevenueChart></RevenueChart>
         <CategoryChart></CategoryChart>
       </div>
 
-      <RecentOrder></RecentOrder>
+      <RecentOrder order={order}></RecentOrder>
     </div>
   );
 }
