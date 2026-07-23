@@ -40,14 +40,19 @@ export default async function PaymentSuccessPage({ searchParams }) {
 
         <div className="mt-8 flex flex-col gap-4">
           <Link
-            href="/shop"
+            href="/"
             className="rounded-lg bg-black py-3 text-center text-white"
           >
-            Continue Shopping
+            Home
           </Link>
 
           <Link
-            href="/dashboard/orders"
+            href={{
+              pathname: "/dashboard/admin/orders",
+              query: {
+                status: "all",
+              },
+            }}
             className="rounded-lg border py-3 text-center"
           >
             View My Orders

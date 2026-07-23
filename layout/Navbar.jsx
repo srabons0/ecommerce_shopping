@@ -10,19 +10,15 @@ import NavMenuUniversal from "./NavMenu/NavMenuUniversal";
 import Cart from "@/features/cart/Cart";
 import { AnimatePresence } from "framer-motion";
 import Search from "@/features/search/NavSearch";
+import { useSession } from "next-auth/react";
 
 const Navbar = ({ category }) => {
-  //  const { data: session }           = useSession()
-  const [session, setSession] = useState(false);
+  const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [openMenu, setOpenMenu] = useState(null);
   const [openSearch, setOpenSearch] = useState(false);
   const [openCart, setOpenCart] = useState(false);
-  const [user, setUser] = useState(true);
-  const toggleMenu = (menu) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
+
   const doSearch = (e) => {
     e.preventDefault();
     if (!search.trim()) return;
@@ -97,12 +93,25 @@ const Navbar = ({ category }) => {
             />
           </div>
 
-          {!user ? (
+          {session ? (
             <Link
-              href="/dashboard/Profile"
-              className="border border-white rounded-full p-1"
+              href={
+                session?.user.role === "admin"
+                  ? "/dashboard/admin/profile"
+                  : "/dashboard/profile"
+              }
             >
-              <p className="w-5 h-5">o</p>
+              <Image
+                src={
+                  session?.user?.image ||
+                  "https://i.ibb.co.com/NYF9QTQ/images.png"
+                }
+                className="w-8 h-8 rounded-full object-cover"
+                width={100}
+                height={100}
+                alt={session?.user?.name}
+                priority
+              />
             </Link>
           ) : (
             <Link href="/login">Login</Link>

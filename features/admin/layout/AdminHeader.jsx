@@ -55,7 +55,7 @@ export default function AdminHeader({ path, name, desc }) {
               alt=""
               width={100}
               height={100}
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 object-cover rounded-full"
             />
           ) : (
             <BsPersonCircle className="h-10 w-10 " />

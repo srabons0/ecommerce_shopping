@@ -7,12 +7,13 @@ import cartIcon from "@/assets/icons/cart-Icons.gif";
 import searchIcon from "@/assets/icons/search-Icons.gif";
 import { AnimatePresence } from "framer-motion";
 import Cart from "../cart/Cart";
+import { useSession } from "next-auth/react";
 
 function Navbar({ category }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [openCart, setOpenCart] = useState(false);
-
+const {data:session } = useSession();
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
@@ -78,8 +79,29 @@ function Navbar({ category }) {
               height={28}
             />
           </Link>
-
-          <Link href="/login">Login</Link>
+          {session ? (
+            <Link
+              href={
+                session?.user.role === "admin"
+                  ? "/dashboard/admin/profile"
+                  : "/dashboard/profile"
+              }
+            >
+              <Image
+                src={
+                  session?.user?.image ||
+                  "https://i.ibb.co.com/NYF9QTQ/images.png"
+                }
+                className="w-8 h-8 rounded-full object-cover"
+                width={100}
+                height={100}
+                alt={session?.user?.name}
+                priority
+              />
+            </Link>
+          ) : (
+            <Link href="/login">Login</Link>
+          )}
         </div>
 
         <button
@@ -175,7 +197,6 @@ function Navbar({ category }) {
         </div>
       )}
       <AnimatePresence>
-        {" "}
         {openCart && <Cart setOpenCart={setOpenCart}></Cart>}
       </AnimatePresence>
     </header>
