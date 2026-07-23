@@ -1,10 +1,7 @@
 "use client";
 import React from "react";
 import UserList from "./UserList";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
-import useCardSorter from "@/store/cardSortStore";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function AdminUser({ customer, customerCount }) {
