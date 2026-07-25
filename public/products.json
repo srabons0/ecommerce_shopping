@@ -34,10 +34,8 @@
       ],
       "fit": "Oversized",
       "material": "Polyester",
-      "pattern": "Printed",
-      "occasion": "Casual",
-      "season": "All Season",
-      "careInstructions": "Machine wash cold, do not bleach, tumble dry low"
+      "pattern": "Printed"
+
     },
 
     "tags": [
@@ -70,6 +68,7 @@
     "isBestSeller": false,
     "isOnSale": false,
     "discountPercentage": 0,
+    "collection":"summer",
     "seo": {
       "metaTitle": "Heritage T-Shirts | YourStore",
       "metaDescription": "Shop heritage t-shirts at the best price. Classic and graphic tees for everyday wear",

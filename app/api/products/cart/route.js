@@ -2,7 +2,6 @@ import { connectDB } from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
-import { slugify } from "zod";
 
 export async function GET(req) {
   try {

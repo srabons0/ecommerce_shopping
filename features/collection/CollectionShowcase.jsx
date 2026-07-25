@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const COLLECTIONS = [
   {
@@ -72,6 +72,7 @@ const COLLECTIONS = [
 
 function CollectionShowcase() {
   const [hoveredId, setHoveredId] = useState(null);
+  const firstRender = useRef(true);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -82,6 +83,10 @@ function CollectionShowcase() {
     router.push(`${path.join("/")}?${searchParams.toString()}`);
   };
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     if (active) {
       document.getElementById("productScroll")?.scrollIntoView({
         top: 0,

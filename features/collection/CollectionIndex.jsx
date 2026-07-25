@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 const COLLECTIONS = [
   {
     id: "summer",
@@ -71,6 +71,7 @@ const COLLECTIONS = [
 
 function CollectionIndex() {
   const [hoveredId, setHoveredId] = useState(null);
+    const firstRender = useRef(true)
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -83,7 +84,12 @@ function CollectionIndex() {
   };
 
   useEffect(() => {
-    if (active) {
+    console.log("first",firstRender.current);
+     if (firstRender.current) {
+       firstRender.current = false;
+       return;
+     }
+    else {
       document.getElementById("productScroll")?.scrollIntoView({
         top: 0,
         behavior: "smooth",

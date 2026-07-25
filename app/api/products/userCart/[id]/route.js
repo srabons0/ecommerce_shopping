@@ -1,10 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
-import Product from "@/models/Product";
 import UserOrder from "@/models/UserOrder";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
-import { slugify } from "zod";
-
 export async function DELETE(req,{params}) {
   try {
     await connectDB();

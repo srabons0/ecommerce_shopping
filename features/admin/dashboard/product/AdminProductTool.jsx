@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { SiSearxng } from "react-icons/si";
-import useCardSorter from "@/store/cardSortStore";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ImCancelCircle } from "react-icons/im";
 import {
@@ -9,7 +8,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Search } from "lucide-react";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { Hourglass } from "react-loader-spinner";

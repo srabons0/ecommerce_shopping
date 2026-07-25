@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import CartTableSkeleton from "@/components/ui/loadingSkeleton/CartTableSkeleton";
-
+import { BsCart3 } from "react-icons/bs";
 
 function Cart({ setOpenCart }) {
   const cartData = useCartData((state) => state.cartData);
@@ -129,7 +129,7 @@ function Cart({ setOpenCart }) {
         </motion.button>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-2 py-2">
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-2 py-2">
         <div className="overflow-hidden rounded-xl border">
           <table className="table w-full">
             <thead className="bg-gray-50">
@@ -194,8 +194,9 @@ function Cart({ setOpenCart }) {
                     </td>
                     <td className="text-center font-bold">
                       $
-                      {Math.ceil(p.price - (p.price * p.discountPercentage) / 100) *
-                        p.quantity}
+                      {Math.ceil(
+                        p.price - (p.price * p.discountPercentage) / 100,
+                      ) * p.quantity}
                     </td>
                     <td>
                       <motion.button
@@ -219,8 +220,18 @@ function Cart({ setOpenCart }) {
                   </tr>
                 ))
               )}
+
             </tbody>
           </table>
+          {cartProductData.length === 0 && (
+
+                <div className="flex flex-col justify-center items-center gap-5 my-10">
+                    <BsCart3 className="text-4xl"/>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Your cart is empty
+                  </h2>
+                </div>
+             )}
         </div>
       </div>
 

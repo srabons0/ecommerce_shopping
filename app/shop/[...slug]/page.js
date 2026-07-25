@@ -77,7 +77,7 @@ async function page({ params, searchParams }) {
         .limit(limit)
         .sort(sort)
         .select(
-          "name slug gender images price stock isOnSale description shortDescription currency attributes ratings discountPercentage item subCategory",
+          "name slug gender images price stock isOnSale description shortDescription currency attributes ratings discountPercentage item subCategory brand",
         )
         .lean(),
     ),

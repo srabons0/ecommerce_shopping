@@ -92,9 +92,6 @@ async function page({ searchParams }) {
             .skip((page - 1) * limit)
             .limit(limit)
             .sort(sort)
-            .select(
-              "name slug gender images price stock isOnSale description shortDescription currency attributes ratings discountPercentage item subCategory",
-            )
             .lean(),
           Category.find().select("gender").lean(),
           SubCategory.find().select("name slug gender").lean(),
@@ -104,7 +101,7 @@ async function page({ searchParams }) {
       ),
     );
    return (
-    <div className=" w-full">
+    <div className=" w-full relative">
       <AdminHeader
         path={"Products"}
         name={" Product Management"}
