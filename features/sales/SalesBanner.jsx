@@ -4,12 +4,15 @@ import Image from "next/image";
 import React, { useState } from "react";
 import ProductModal from "./ProductModal";
 
-
-
 function SalesBanner({ mostDiscount }) {
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const [open, setOpen] = useState(false);
-
+  const openView = (product) => {
+    setSelectedProduct(product);
+  };
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
   return (
     <div className="">
       <div className="mx-auto max-w-full">
@@ -104,10 +107,10 @@ function SalesBanner({ mostDiscount }) {
             </div>
 
             <div className="flex flex-col items-end gap-4">
-                <motion.button
+              <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setOpen(true)}
+                onClick={() => openView(mostDiscount)}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 className="bg-[#fd3636] px-9 py-3 font-['Bebas_Neue'] text-base tracking-[0.14em] text-white  hover:bg-[#ed4e4e] cursor-pointer"
               >
@@ -117,11 +120,13 @@ function SalesBanner({ mostDiscount }) {
           </div>
         </div>
       </div>
-      <ProductModal
-        product={mostDiscount}
-        open={open}
-        onClose={setOpen}
-      ></ProductModal>
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          open={open}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }

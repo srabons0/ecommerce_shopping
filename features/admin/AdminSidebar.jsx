@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { MdDashboard } from "react-icons/md";
 import { IoBagHandleSharp } from "react-icons/io5";
-import { FaBoxes } from "react-icons/fa";
+import { FaBoxes, FaHome } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { BsGraphDown } from "react-icons/bs";
 import { FaUserGear } from "react-icons/fa6";
@@ -130,6 +130,13 @@ function AdminSidebar() {
         >
           <BsPersonSquare />
           Profile
+        </Link>
+        <Link
+          href="/"
+          className="nav-item mb-px flex items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
+        >
+          <FaHome />
+          Home
         </Link>
       </nav>
 

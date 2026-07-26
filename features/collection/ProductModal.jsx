@@ -1,29 +1,55 @@
 "use client";
+
 import useCartData from "@/store/cartStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FaHeart, FaHeartBroken, FaStar } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
+
 const ProductModal = ({ product, open, onClose }) => {
   const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(
-    product.attributes.colors[0],
-  );
+  const [selectedColor, setSelectedColor] = useState(null);
   const [qty, setQty] = useState(1);
-  const [tab, setTab] = useState("details");
+  const [tab, setTab] = useState("overview");
   const [added, setAdded] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
   const setCartData = useCartData((state) => state.setCartData);
   const { data: session } = useSession();
 
+  const colors = useMemo(() => {
+    return Array.isArray(product?.attributes?.colors)
+      ? product.attributes.colors
+      : [];
+  }, [product]);
+
+  const sizes = useMemo(() => {
+    return Array.isArray(product?.attributes?.sizes)
+      ? product.attributes.sizes
+      : [];
+  }, [product]);
+
+  const price = Number(product?.price ?? 0);
+  const discountPercentage = Number(product?.discountPercentage ?? 0);
+  const discountedPrice =
+    discountPercentage > 0
+      ? Math.ceil(price - (price * discountPercentage) / 100)
+      : price;
+  const ratingValue = Number(product?.ratings?.average ?? 0);
+  const ratingCount = Number(product?.ratings?.count ?? 0);
+
   if (!product) return null;
 
-  const handleAdd = async (product) => {
+  const handleAdd = async () => {
     if (!selectedSize) {
-      return Swal.fire("Select Your Size");
+      return Swal.fire({ title: "Please select a size", icon: "warning" });
     }
+
+    if (!selectedColor) {
+      setSelectedColor(colors[0]);
+    }
+
     if (session) {
       const order = {
         productID: product._id,
@@ -38,32 +64,34 @@ const ProductModal = ({ product, open, onClose }) => {
         discountPercentage: product.discountPercentage,
         quantity: qty,
         sizes: selectedSize,
-        colors: selectedColor,
+        colors: selectedColor || colors[0],
       };
 
       try {
-        const res = await fetch("/api/products/userCart", {
+        await fetch("/api/products/userCart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(order),
         });
-        setAdded(true);
       } catch (error) {
         console.error("Fetch Error:", error);
       }
+
+      setAdded(true);
       setTimeout(() => {
         setAdded(false);
-        onClose();
+        onClose?.();
       }, 1000);
       return;
     }
+
     const items = {
       _id: product._id,
       sizes: selectedSize,
       quantity: qty,
-      colors: selectedColor,
+      colors: selectedColor || colors[0],
     };
 
     setCartData(items);
@@ -71,229 +99,301 @@ const ProductModal = ({ product, open, onClose }) => {
 
     setTimeout(() => {
       setAdded(false);
-      onClose();
+      onClose?.();
     }, 1000);
   };
 
   return (
     <>
       <div
-        onClick={onClose}
-        className={` fixed inset-0 z-90 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
-          open
+        onClick={() => onClose?.()}
+        className={`fixed inset-0 z-90 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
+          product
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
         }`}
       />
 
-      {open && (
-        <div
-          className={`fixed z-100 top-1/2 rounded-xl bg-black text-white -translate-y-1/2 w-3/4 overflow-y-auto h-150  scrollbar-hide
-                    left-1/2 -translate-x-1/2`}
-        >
-          <div className="fixed right-4 top-2.5 z-20 flex gap-3 justify-center ml-auto mr-4 mt-4 items-center">
+      {product && (
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6">
+          <div className="relative w-full max-w-6xl overflow-hidden rounded-[32px] border border-zinc-200 bg-white text-zinc-900 shadow-[0_30px_90px_-25px_rgba(15,23,42,0.45)]">
             <button
-              onClick={() => setWishlisted(!wishlisted)}
-              className={`transition-colors  ${
-                wishlisted ? "text-red-600" : "text-red-300  hover:text-red-500"
-              }`}
+              type="button"
+              onClick={() => onClose?.()}
+              className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-zinc-700 shadow-sm transition hover:bg-white"
             >
-              {wishlisted ? (
-                <FaHeart className="w-6 h-6" />
-              ) : (
-                <FaHeartBroken className="w-6 h-6" />
-              )}
+              <ImCross className="text-sm" />
             </button>
-            <button
-              onClick={() => onClose(false)}
-              className=" flex h-9 w-9 items-center justify-center rounded-full text-lg hover:bg-stone-800 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700"
-            >
-              <ImCross />
-            </button>
-          </div>
-          <div className="flex ">
-            <div className=" w-1/2 bg-stone-100 dark:bg-zinc-900">
-              <Image
-                src={product.images}
-                alt={product.name}
-                width={300}
-                height={300}
-                className="h-full w-full object-cover "
-              />
-              {product.discountPercentage > 0 && (
-                <span className="absolute left-3 top-3 rounded-full bg-red-500 px-3 py-1.5 text-xs font-bold tracking-wide text-white shadow-md">
-                  -{product.discountPercentage}% OFF
-                </span>
-              )}
-            </div>
-            <div className="w-1/2 p-8">
-              <div className="mb-2 flex items-center">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-amber-500">
-                  {product.subCategory} · {product.gender}
-                </p>
-              </div>
-              <h1 className="mb-2 text-3xl font-bold leading-tight  dark:text-white">
-                {product.name}
-              </h1>
-              <div className="mb-5 flex items-center gap-0.5">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <FaStar
-                    key={i}
-                    className={`w-3.5 h-3.5 mb-1 ${i < product.ratings?.average ? "text-yellow-600" : "text-gray-400"}`}
-                  />
-                ))}
-                <span className="text-sm ml-2 text-zinc-500 dark:">
-                  {product.ratings.average} · {product.ratings.count} reviews
-                </span>
-              </div>
-              <div className="mb-8 flex items-end gap-3">
-                <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white">
-                  {product.discountPercentage > 0 ? (
-                    <span className="text-3xl font-bold flex gap-3 items-center  dark:text-white">
-                      {" "}
-                      <span className="font-['Bebas_Neue'] text-[#FF4D4D]">
-                        $
-                        {Math.ceil(
-                          product.price -
-                            (product.price * product.discountPercentage) / 100,
-                        )}
-                      </span>
-                      <span className="font-mono text-lg text-zinc-500 line-through">
-                        ${product.price}
-                      </span>
-                    </span>
-                  ) : (
-                    <span className="font-mono  text-zinc-300 ">
-                      ${product.price}
+
+            <div className="flex flex-col lg:flex-row">
+              <div className="relative w-full bg-zinc-100 lg:w-[46%]">
+                <Image
+                  src={product?.images || "/placeholder.jpg"}
+                  alt={product?.name || "Product"}
+                  width={800}
+                  height={1000}
+                  className="h-full min-h-80 w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-zinc-950/60 via-zinc-950/10 to-transparent" />
+
+                <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+                  {product?.isFeatured && (
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-900">
+                      Featured
                     </span>
                   )}
-                </span>
-              </div>
-              <div className="mb-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">
-                  Color
-                </p>
+                  {discountPercentage > 0 && (
+                    <span className="rounded-full bg-rose-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white">
+                      -{discountPercentage}%
+                    </span>
+                  )}
+                </div>
 
-                <div className="flex gap-2">
-                  {product.attributes.colors.map((color, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedColor(color)}
-                      style={{ backgroundColor: color.replace(/\s+/g, "") }}
-                      className={`h-7 w-7 rounded-full border border-white transition-all ${
-                        selectedColor === color
-                          ? "ring-2 ring-amber-500 ring-offset-2"
-                          : "ring-2 ring-transparent"
-                      }`}
-                    />
-                  ))}
+                <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-white/10 flex gap-2 items-center justify-center px-3 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-white backdrop-blur">
+                  <span
+                    className={`h-2 w-2  rounded-full ${
+                      product.stock <= 5 ? "bg-red-500" : "bg-emerald-600"
+                    }`}
+                  />
+                  <span>
+                    {product?.stock > 5
+                      ? `${product.stock} in stock`
+                      : `Only ${product.stock} left`}
+                  </span>
                 </div>
               </div>
-              <div className="mb-6">
-                <p className="mb-3 text-xs gap-1 flex items-center font-bold uppercase tracking-widest text-zinc-500">
-                  Size
-                  {selectedSize && (
-                    <span className="text-amber-500 ">- {selectedSize}</span>
+
+              <div className="w-full p-5 sm:p-7 relative lg:w-[54%] lg:p-8">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                      {product?.subCategory || "Category"} ·{" "}
+                      {product?.gender || "Unisex"}
+                    </p>
+                    <h2 className="mt-2 text-2xl font-semibold text-zinc-950 sm:text-3xl">
+                      {product?.name || "Product name"}
+                    </h2>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setWishlisted((prev) => !prev)}
+                    className={`absolute right-17 top-4.5 rounded-full p-3 transition ${
+                      wishlisted
+                        ? "bg-rose-100 text-rose-600"
+                        : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                    }`}
+                  >
+                    {wishlisted ? (
+                      <FaHeart className="h-4 w-4" />
+                    ) : (
+                      <FaHeartBroken className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
+
+                <div className="mb-4 flex flex-wrap items-center gap-3 text-sm text-zinc-600">
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: 5 }, (_, index) => {
+                      const filled = index < Math.round(ratingValue);
+                      return (
+                        <FaStar
+                          key={index}
+                          className={`h-3.5 w-3.5 ${filled ? "text-amber-500" : "text-zinc-300"}`}
+                        />
+                      );
+                    })}
+                    <span className="ml-1 font-medium text-zinc-700">
+                      {ratingValue.toFixed(1)}
+                    </span>
+                  </div>
+                  <span>•</span>
+                  <span>{ratingCount} reviews</span>
+                  <span>•</span>
+                  <span>{product?.brand || "Brand"}</span>
+                </div>
+
+                <div className="mb-4 flex items-end gap-3">
+                  {discountPercentage > 0 ? (
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-zinc-400 line-through">
+                        {product?.currency || "BDT"} {price}
+                      </span>
+                      <span className="text-2xl font-semibold text-rose-600">
+                        {product?.currency || "BDT"} {discountedPrice}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-2xl font-semibold text-zinc-950">
+                      {product?.currency || "BDT"} {price}
+                    </span>
                   )}
+                </div>
+
+                <p className="mb-6 text-sm leading-6 text-zinc-600">
+                  {product?.shortDescription ||
+                    product?.description ||
+                    "A refined everyday piece crafted for comfort and style."}
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {product.attributes.sizes.map((size) => (
+
+                <div className="mb-5">
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                    Color
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {colors.map((color) => (
+                      <button
+                        key={color}
+                        type="button"
+                        onClick={() => setSelectedColor(color)}
+                        className={`h-8 w-8 rounded-full border-2 transition ${
+                          (selectedColor || colors[0]) === color
+                            ? "border-zinc-950"
+                            : "border-zinc-200"
+                        }`}
+                        style={{ backgroundColor: color }}
+                        title={color}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <div className="mb-2 flex items-center justify-between">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                      Size
+                    </p>
+                    {selectedSize && (
+                      <span className="text-sm font-medium text-zinc-700">
+                        Selected: {selectedSize}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {sizes.map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setSelectedSize(size)}
+                        className={`rounded-full border px-3 py-2 text-sm font-semibold transition ${
+                          selectedSize === size
+                            ? "border-zinc-950 bg-zinc-950 text-white"
+                            : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+                  <div className="flex items-center justify-between rounded-full border border-zinc-200 bg-zinc-50 px-3 py-2">
                     <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`rounded border px-2 py-1 text-sm font-semibold transition-all ${
-                        selectedSize === size
-                          ? "border-amber-500 bg-amber-500 text-white"
-                          : "border-stone-300  hover:border-amber-500 dark:border-zinc-700 dark:text-white"
+                      type="button"
+                      onClick={() => setQty((value) => Math.max(1, value - 1))}
+                      className="px-2 text-lg font-semibold text-zinc-600"
+                    >
+                      −
+                    </button>
+                    <span className="min-w-8 text-center text-sm font-semibold text-zinc-950">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQty((value) => value + 1)}
+                      className="px-2 text-lg font-semibold text-zinc-600"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleAdd}
+                    className={`flex-1 rounded-full px-4 py-3 text-sm font-semibold transition ${
+                      added
+                        ? "bg-emerald-600 text-white"
+                        : "bg-zinc-950 text-white hover:bg-zinc-800"
+                    }`}
+                  >
+                    {added ? "Added to cart" : "Add to cart"}
+                  </button>
+                </div>
+
+                <div className="mb-4 flex border-b border-zinc-200">
+                  {[
+                    { key: "overview", label: "Overview" },
+                    { key: "details", label: "Details" },
+                    { key: "shipping", label: "Shipping" },
+                  ].map((item) => (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={() => setTab(item.key)}
+                      className={`-mb-px border-b-2 px-3 py-2 text-sm font-semibold transition ${
+                        tab === item.key
+                          ? "border-zinc-950 text-zinc-950"
+                          : "border-transparent text-zinc-500 hover:text-zinc-800"
                       }`}
                     >
-                      {size}
+                      {item.label}
                     </button>
                   ))}
                 </div>
-              </div>
-              <div className="mb-6 flex gap-3">
-                <div className="flex items-center rounded border border-stone-300 dark:border-zinc-700">
-                  <button
-                    onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    className="px-2 py-1 text-lg text-zinc-500 transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                  >
-                    −
-                  </button>
-                  <span className="min-w-11 text-center font-bold  dark:text-white">
-                    {qty}
-                  </span>
-                  <button
-                    onClick={() => setQty((q) => q + 1)}
-                    className="px-2 py-1 text-lg text-zinc-500 transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                  >
-                    +
-                  </button>
+
+                <div className="space-y-3 text-sm leading-6 text-zinc-600">
+                  {tab === "overview" && (
+                    <p>
+                      {product?.description ||
+                        "A refined everyday piece crafted for comfort and style."}
+                    </p>
+                  )}
+
+                  {tab === "details" && (
+                    <div className="grid gap-3  lg:grid-cols-4">
+                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                          Fit
+                        </p>
+                        <p className="mt-1 font-semibold text-zinc-900">
+                          {product?.attributes?.fit || "Classic fit"}
+                        </p>
+                      </div>
+                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                          Material
+                        </p>
+                        <p className="mt-1 font-semibold text-zinc-900">
+                          {product?.attributes?.material || "Premium fabric"}
+                        </p>
+                      </div>
+                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                          Pattern
+                        </p>
+                        <p className="mt-1 font-semibold text-zinc-900">
+                          {product?.attributes?.pattern || "Minimal"}
+                        </p>
+                      </div>
+                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                          Brand
+                        </p>
+                        <p className="mt-1 font-semibold text-zinc-900">
+                          {product?.brand || "Brand"}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {tab === "shipping" && (
+                    <div className="space-y-2">
+                      <p>Free standard shipping on orders over BDT 2,000.</p>
+                      <p>Express delivery is available at checkout.</p>
+                      <p>Easy 30-day returns and exchanges.</p>
+                    </div>
+                  )}
                 </div>
-
-                <button
-                  onClick={() => handleAdd(product)}
-                  className={`flex-1 rounded px-4 py-1  text-xs font-bold tracking-[0.15em] text-black transition ${
-                    added
-                      ? "bg-green-700 text-white"
-                      : "bg-white hover:bg-zinc-200 dark:bg-white dark: dark:hover:bg-zinc-200"
-                  }`}
-                >
-                  {added ? "✓ ADDED TO CART" : "ADD TO CART"}
-                </button>
-              </div>
-              <div className="mb-6 flex items-center gap-2">
-                <span
-                  className={`h-2 w-2 rounded-full ${
-                    product.stock > 5 ? "bg-green-600" : "bg-orange-500"
-                  }`}
-                />
-
-                <span className="text-sm text-zinc-500 dark:">
-                  {product.stock > 5
-                    ? `In Stock — ${product.stock} available`
-                    : `Only ${product.stock} left — order soon`}
-                </span>
-              </div>
-
-              <div className="mb-5 flex border-b border-stone-300 dark:border-zinc-700">
-                {["description", "reviews", "shipping"].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => setTab(item)}
-                    className={`-mb-px border-b-2 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] transition ${
-                      tab === item
-                        ? "border-amber-500  dark:text-white"
-                        : "border-transparent text-zinc-500 hover: dark:hover:text-white"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-              <div className="space-y-4 text-sm leading-7 text-zinc-600 dark:">
-                {tab !== "reviews" && tab !== "shipping" ? (
-                  <p>{product.description}</p>
-                ) : (
-                  <></>
-                )}
-
-                {tab === "reviews" && (
-                  <p>
-                    Excellent quality and very comfortable to wear. The fabric
-                    feels premium, the fit is true to size, and the stitching is
-                    well done. After several washes, it still looks and feels
-                    like new. Highly recommended!
-                  </p>
-                )}
-
-                {tab === "shipping" && (
-                  <p>
-                    Free standard shipping on orders over $100. Express delivery
-                    available at checkout. International shipping to 80+
-                    countries. Easy 30-day returns — no questions asked.
-                  </p>
-                )}
               </div>
             </div>
           </div>

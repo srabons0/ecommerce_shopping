@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import useCardSorter from "@/store/cardSortStore";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import ProductModal from "./ProductModal";
 const CATS = [
   { gender: "men" },
   { gender: "women" },
@@ -17,11 +17,10 @@ export default function CollectionProduct({
   product,
   productCount,
   category,
-  subCategory,
   gender,
 }) {
   const [page, setPage] = useState(1);
-  const cardSort = useCardSorter((state) => state.cardSort);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -37,6 +36,14 @@ export default function CollectionProduct({
     (item) => !CATS.some((g) => g.gender === item.gender),
   );
   const catGender = [...CATS, ...filterItems];
+
+ const openView = (product) => {
+   setSelectedProduct(product);
+ };
+ const closeModal = () => {
+   setSelectedProduct(null);
+ };
+
   return (
     <div className="min-h-175 mt-10  bg-[#ffffff] px-4 pt-4 overflow-y-auto  scrollbar-hide">
       <section className="px-6  lg:px-16">
@@ -47,7 +54,7 @@ export default function CollectionProduct({
           >
             <div>
               <div className=" flex items-center gap-3">
-                <div className="h-[2px] w-5" style={{ background: "red" }} />
+                <div className="h-0.5 w-5" style={{ background: "red" }} />
                 <span
                   className="font-mono text-[9px] font-bold tracking-[0.28em]"
                   style={{ color: "red" }}
@@ -98,10 +105,21 @@ export default function CollectionProduct({
             `}
       >
         {product.map((product) => (
-          <ProductCard key={product._id} product={product} page={page} />
+          <ProductCard
+            key={product._id}
+            product={product}
+            openView={openView}
+            page={page}
+          />
         ))}
       </div>
-
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          open={open}
+          onClose={closeModal}
+        />
+      )}
       {productCount > 15 && (
         <div className="mt-7 mb-5 w-full gap-1 flex text-white justify-center items-center ">
           <div

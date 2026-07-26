@@ -5,10 +5,13 @@ import ProductCard from "./ProductCard";
 import useCardSorter from "@/store/cardSortStore";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import ProductModal from "./ProductModal";
 
 export default function SalesProduct({ product, productCount }) {
   const [page, setPage] = useState(1);
   const cardSort = useCardSorter((state) => state.cardSort);
+   const [open, setOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,6 +21,13 @@ export default function SalesProduct({ product, productCount }) {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }, [page, pathname, router]);
 
+  const openView = (product) => {
+    setSelectedProduct(product);
+  };
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="min-h-175 bg-[#edecec] px-4 py-4 overflow-y-auto  scrollbar-hide">
       <div
@@ -25,10 +35,22 @@ export default function SalesProduct({ product, productCount }) {
             `}
       >
         {product.map((product) => (
-          <ProductCard key={product._id} product={product} page={page} />
+          <ProductCard
+            key={product._id}
+            product={product}
+            page={page}
+            openView={openView}
+          />
         ))}
       </div>
 
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          open={open}
+          onClose={closeModal}
+        />
+      )}
       {productCount > 15 && (
         <div className="mt-7 mb-5 w-full gap-1 flex text-white justify-center items-center ">
           <div

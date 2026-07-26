@@ -29,7 +29,7 @@ async function page({ searchParams, params }) {
            },
          })
            .select(
-             "name slug gender images price stock isOnSale description shortDescription currency attributes ratings discountPercentage item subCategory collection",
+             "name slug gender images price stock isOnSale description shortDescription currency attributes ratings discountPercentage item subCategory brand",
            )
            .skip((page - 1) * limit)
            .limit(limit)

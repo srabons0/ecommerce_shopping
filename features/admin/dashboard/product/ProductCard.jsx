@@ -3,13 +3,17 @@
 import { Trash } from "lucide-react";
 import { PencilLine } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import Swal from "sweetalert2";
+
+
+
 export default function ProductCard({ product, page, onOpenView, onOpenEdit }) {
   const ref = useRef(page);
-
+  const router = useRouter();
   useEffect(() => {
     if (ref.current !== page) {
       document.getElementById(`product-card`)?.scrollIntoView({
@@ -47,20 +51,22 @@ export default function ProductCard({ product, page, onOpenView, onOpenEdit }) {
           const res = await fetch(`/api/products/delete/${id}`, {
             method: "DELETE",
           });
-          console.log(res);
-          swalWithBootstrapButtons.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success",
-            customClass: {
-              confirmButton:
-                "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 ml-2",
-            },
-          });
+          if (res.ok && res.status === 200) {
+            router.refresh();
+            swalWithBootstrapButtons.fire({
+              title: "Deleted!",
+              text: "Your Product has been deleted.",
+              icon: "success",
+              customClass: {
+                confirmButton:
+                  "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 ml-2",
+              },
+            });
+          }
         } else if (result.dismiss === Swal.DismissReason.cancel)
           swalWithBootstrapButtons.fire({
             title: "Cancelled",
-            text: "Your imaginary file is safe :)",
+            text: "Your Product is safe",
             icon: "error",
           });
       });

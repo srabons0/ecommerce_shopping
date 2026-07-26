@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Layers3, Palette, Sparkles, Tag, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -37,7 +38,7 @@ export default function ProductUpdate({ product, open, onClose }) {
   const { register, handleSubmit, reset, watch } = useForm({
     defaultValues: createInitialState(product),
   });
-
+  const router = useRouter();
   useEffect(() => {
     if (open && product) {
       reset(createInitialState(product));
@@ -53,26 +54,30 @@ export default function ProductUpdate({ product, open, onClose }) {
     //todo: add pic
     const payload = {
       ...data,
-      sizes: data.sizes
-        ? data.sizes
-            .split(",")
-            .map((item) => item.trim())
-            .filter(Boolean)
-        : [],
-      colors: data.colors
-        ? data.colors
-            .split(",")
-            .map((item) => item.trim())
-            .filter(Boolean)
-        : [],
-      keywords: data.keywords
-        ? data.keywords
-            .split(",")
-            .map((item) => item.trim())
-            .filter(Boolean)
-        : [],
+      attributes: {
+        sizes: data.sizes
+          ? data.sizes
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean)
+          : [],
+        colors: data.colors
+          ? data.colors
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean)
+          : [],
+      },
+      seo: {
+        keywords: data.keywords
+          ? data.keywords
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean)
+          : [],
+      },
     };
-
+    console.log(payload);
     try {
       const response = await fetch(`/api/products/update/${product._id}`, {
         method: "PATCH",
@@ -87,9 +92,9 @@ export default function ProductUpdate({ product, open, onClose }) {
       if (!response.ok) {
         throw new Error(result?.error || "Failed to update product");
       }
-
-      console.log("Product updated", result);
-        onClose();
+      router.refresh();
+      // console.log("Product updated", result);
+      onClose();
     } catch (error) {
       console.error("Product update failed", error);
     }
@@ -211,8 +216,6 @@ export default function ProductUpdate({ product, open, onClose }) {
                         className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-3 py-2.5 outline-none transition focus:border-zinc-950"
                       />
                     </label>
-
-
                   </div>
 
                   <label className="space-y-1 text-sm font-medium text-zinc-700">

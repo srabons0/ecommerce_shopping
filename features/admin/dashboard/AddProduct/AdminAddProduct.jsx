@@ -9,9 +9,12 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { Toaster } from "react-hot-toast";
 import { toast } from "react-hot-toast";
+import { RotatingSquare } from "react-loader-spinner";
 
 const previewTabs = [
   { key: "overview", label: "Overview" },
@@ -59,11 +62,13 @@ const initialProduct = {
   },
 };
 
-function AdminAddProduct() {
+function AdminAddProduct({ category, subCategory, itemCategory }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [tagInput, setTagInput] = useState("");
   const [sizeInput, setSizeInput] = useState("");
   const [colorInput, setColorInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -75,7 +80,6 @@ function AdminAddProduct() {
   });
 
   const product = useWatch({ control });
-
   const updateField = (field, value) => {
     setValue(field, value);
   };
@@ -85,7 +89,7 @@ function AdminAddProduct() {
     if (!file) return;
 
     updateField("images", file);
-    toast.success("Image selected for preview");
+    toast.success("Image selected");
   };
 
   const addTag = () => {
@@ -113,10 +117,11 @@ function AdminAddProduct() {
     const trimmedInput = inputValue.trim();
     if (!trimmedInput) return;
 
-
     const nextValues = trimmedInput
       .split(",")
-      .map((value) => attributeKey === "colors" ? `#${value.trim()}` : value.trim())
+      .map((value) =>
+        attributeKey === "colors" ? `#${value.trim()}` : value.trim(),
+      )
       .filter(Boolean);
 
     const currentValues = (product.attributes?.[attributeKey] || []).filter(
@@ -139,13 +144,45 @@ function AdminAddProduct() {
       ),
     });
   };
-
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    if (data.images === "") {
+      return toast.error("Image is required");
+    } else if (data.attributes.sizes.length === 0) {
+      return toast.error("Sizes is required");
+    } else if (data.attributes.colors.length === 0) {
+      return toast.error("Colors is required");
+    } else if (data.tags.length === 0) {
+      return toast.error("Tags is required");
+    }
+    let imageUrl = "";
+    if (data.images) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("image", data.images);
+      try {
+        const res = await fetch(
+          `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+        const result = await res.json();
+        imageUrl = result.data.url;
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      return;
+    }
     const payload = {
       ...data,
+      category: data.gender,
+      images: imageUrl,
       price: Number(data.price || 0),
       stock: Number(data.stock || 0),
       discountPercentage: Number(data.discountPercentage || 0),
+      collection: data.collection,
       attributes: {
         ...data.attributes,
         sizes: (data.attributes?.sizes || []).filter(Boolean),
@@ -158,16 +195,32 @@ function AdminAddProduct() {
         .filter(Boolean),
       seo: {
         ...data.seo,
-        keywords: (data.seo?.keywords || [])
+        keywords: (data.tags || [])
           .join(",")
           .split(",")
           .map((keyword) => keyword.trim())
           .filter(Boolean),
       },
     };
-
-    console.log("Create product payload", payload);
-    toast.success("Product draft is ready to publish");
+    console.log(payload.images);
+    const res = await fetch(`/api/products/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
+    console.log(result);
+    if (result.success) {
+      router.refresh();
+      reset();
+      toast.success(result.message);
+    }
+    if (!result.success) {
+      toast.error(result.message);
+    }
+    setLoading(false);
   };
 
   const colorList = (product.attributes?.colors || []).filter(Boolean);
@@ -191,6 +244,7 @@ function AdminAddProduct() {
                       {...register("name", {
                         required: "Product name is required",
                       })}
+                      placeholder="Enter product name"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     {errors.name && (
@@ -203,6 +257,7 @@ function AdminAddProduct() {
                     <span>Slug</span>
                     <input
                       {...register("slug", { required: "Slug is required" })}
+                      placeholder="e.g. oversized-cotton-tshirt"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     {errors.slug && (
@@ -219,6 +274,7 @@ function AdminAddProduct() {
                         required: "Price is required",
                         min: { value: 0, message: "Price cannot be negative" },
                       })}
+                      placeholder="Enter price"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     {errors.price && (
@@ -235,6 +291,7 @@ function AdminAddProduct() {
                         required: "Stock is required",
                         min: { value: 0, message: "Stock cannot be negative" },
                       })}
+                      placeholder="Enter available stock"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     {errors.stock && (
@@ -249,23 +306,12 @@ function AdminAddProduct() {
                       {...register("currency", {
                         required: "Currency is required",
                       })}
+                      placeholder="Select currency"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     {errors.currency && (
                       <p className="text-xs text-rose-600">
                         {errors.currency.message}
-                      </p>
-                    )}
-                  </label>
-                  <label className="space-y-2 text-sm font-medium text-zinc-700">
-                    <span>SKU</span>
-                    <input
-                      {...register("sku", { required: "SKU is required" })}
-                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
-                    />
-                    {errors.sku && (
-                      <p className="text-xs text-rose-600">
-                        {errors.sku.message}
                       </p>
                     )}
                   </label>
@@ -278,6 +324,7 @@ function AdminAddProduct() {
                     {...register("shortDescription", {
                       required: "Short description is required",
                     })}
+                    placeholder="Brief summary of the product"
                     className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                   />
                   {errors.shortDescription && (
@@ -294,6 +341,7 @@ function AdminAddProduct() {
                     {...register("description", {
                       required: "Description is required",
                     })}
+                    placeholder="Write a detailed product description..."
                     className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                   />
                   {errors.description && (
@@ -312,64 +360,134 @@ function AdminAddProduct() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Category</span>
-                    <input
-                      {...register("category", {
+
+                    <select
+                      {...register("gender", {
                         required: "Category is required",
                       })}
+                      defaultValue=""
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
-                    />
-                    {errors.category && (
-                      <p className="text-xs text-rose-600">
-                        {errors.category.message}
-                      </p>
-                    )}
-                  </label>
-                  <label className="space-y-2 text-sm font-medium text-zinc-700">
-                    <span>Sub category</span>
-                    <input
-                      {...register("subCategory", {
-                        required: "Sub category is required",
-                      })}
-                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
-                    />
-                    {errors.subCategory && (
-                      <p className="text-xs text-rose-600">
-                        {errors.subCategory.message}
-                      </p>
-                    )}
-                  </label>
-                  <label className="space-y-2 text-sm font-medium text-zinc-700">
-                    <span>Item</span>
-                    <input
-                      {...register("item", { required: "Item is required" })}
-                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
-                    />
-                    {errors.item && (
-                      <p className="text-xs text-rose-600">
-                        {errors.item.message}
-                      </p>
-                    )}
-                  </label>
-                  <label className="space-y-2 text-sm font-medium text-zinc-700">
-                    <span>Gender</span>
-                    <input
-                      {...register("gender", {
-                        required: "Gender is required",
-                      })}
-                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
-                    />
+                    >
+                      <option value="" disabled>
+                        Select Category
+                      </option>
+
+                      {category.map((category, i) => (
+                        <option key={i} value={category.gender}>
+                          {category.gender}
+                        </option>
+                      ))}
+                    </select>
+
                     {errors.gender && (
                       <p className="text-xs text-rose-600">
                         {errors.gender.message}
                       </p>
                     )}
                   </label>
+
+                  <label className="space-y-2 text-sm font-medium text-zinc-700">
+                    <span>Sub Category</span>
+
+                    <select
+                      value={product.subCategorySlug}
+                      {...register("subCategory", {
+                        required: "Sub Category is required",
+                      })}
+                      onChange={(e) => {
+                        const selected = subCategory.find(
+                          (item) => item.slug === e.target.value,
+                        );
+                        setValue("subCategory", selected.name);
+                        setValue("subCategorySlug", selected.slug);
+                      }}
+                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
+                    >
+                      <option value="" disabled>
+                        Select Sub Category
+                      </option>
+
+                      {(product.gender
+                        ? subCategory.filter((i) => i.gender === product.gender)
+                        : subCategory
+                      ).map((item) => (
+                        <option key={item.slug} value={item.slug}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+
+                    {errors.subCategory && (
+                      <p className="text-xs text-rose-600">
+                        {errors.subCategory.message}
+                      </p>
+                    )}
+                  </label>
+
+                  <label className="space-y-2 text-sm font-medium text-zinc-700">
+                    <span>Item</span>
+
+                    <select
+                      value={product.item}
+                      {...register("item", {
+                        required: "Item is required",
+                      })}
+                      onChange={(e) => {
+                        const selected = itemCategory.find(
+                          (item) => item.slug === e.target.value,
+                        );
+
+                        setValue("item", selected.name);
+                        setValue("itemSlug", selected.slug);
+                      }}
+                      className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
+                    >
+                      <option value="" disabled>
+                        Select Item
+                      </option>
+
+                      {(product.subCategorySlug
+                        ? itemCategory.filter(
+                            (i) =>
+                              i.subCategorySlug === product.subCategorySlug,
+                          )
+                        : product.gender
+                          ? itemCategory.filter(
+                              (i) => i.gender === product.gender,
+                            )
+                          : itemCategory
+                      ).map((cate, i) => (
+                        <option
+                          key={i}
+                          className="bg-black text-white"
+                          value={cate.slug}
+                        >
+                          {cate.name}
+                        </option>
+                      ))}
+                    </select>
+
+                    {errors.item && (
+                      <p className="text-xs text-rose-600">
+                        {errors.item.message}
+                      </p>
+                    )}
+                  </label>
+
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Brand</span>
                     <input
-                      {...register("brand")}
+                      {...register("brand", {
+                        required: "Brand is required",
+                      })}
+                      placeholder="Enter brand name"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
+                    {errors.brand && (
+                      <p className="text-xs text-rose-600">
+                        {errors.brand.message}
+                      </p>
+                    )}
                   </label>
                   <div className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Product image</span>
@@ -395,30 +513,63 @@ function AdminAddProduct() {
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Fit</span>
                     <input
-                      {...register("attributes.fit")}
+                      {...register("attributes.fit", {
+                        required: "Fit is required",
+                      })}
+                      placeholder="e.g. Regular Fit"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
+                    {errors.attributes?.fit && (
+                      <p className="text-xs text-rose-600">
+                        {errors.attributes.fit.message}
+                      </p>
+                    )}
                   </label>
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Material</span>
                     <input
-                      {...register("attributes.material")}
+                      {...register("attributes.material", {
+                        required: "Material is required",
+                      })}
+                      placeholder="e.g. 100% Cotton"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
+                    {errors.attributes?.material && (
+                      <p className="text-xs text-rose-600">
+                        {errors.attributes.material.message}
+                      </p>
+                    )}
                   </label>
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Pattern</span>
                     <input
-                      {...register("attributes.pattern")}
+                      {...register("attributes.pattern", {
+                        required: "Pattern is required",
+                      })}
+                      placeholder="e.g. Solid, Printed, Striped"
+
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
+                    {errors.attributes?.pattern && (
+                      <p className="text-xs text-rose-600">
+                        {errors.attributes.pattern.message}
+                      </p>
+                    )}
                   </label>
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Season</span>
                     <input
-                      {...register("collection")}
+                      {...register("collection", {
+                        required: "Season is required",
+                      })}
+                      placeholder="e.g. summer"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
+                    {errors.collection && (
+                      <p className="text-xs text-rose-600">
+                        {errors.collection.message}
+                      </p>
+                    )}
                   </label>
                 </div>
 
@@ -451,7 +602,7 @@ function AdminAddProduct() {
                           addAttributeValue("sizes", sizeInput, setSizeInput);
                         }
                       }}
-                      placeholder="Add size and press Enter"
+                      placeholder="Select available sizes"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     <button
@@ -499,7 +650,7 @@ function AdminAddProduct() {
                           );
                         }
                       }}
-                      placeholder="Add color and press Enter"
+                      placeholder="Select available colors"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
                     <button
@@ -524,9 +675,17 @@ function AdminAddProduct() {
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Meta title</span>
                     <input
-                      {...register("seo.metaTitle")}
+                      {...register("seo.metaTitle", {
+                        required: "Meta title is required",
+                      })}
+                      placeholder="Enter SEO title"
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                     />
+                    {errors.seo?.metaTitle && (
+                      <p className="text-xs text-rose-600">
+                        {errors.seo.metaTitle.message}
+                      </p>
+                    )}
                   </label>
                   <label className="space-y-2 text-sm font-medium text-zinc-700">
                     <span>Tags</span>
@@ -558,7 +717,7 @@ function AdminAddProduct() {
                               addTag();
                             }
                           }}
-                          placeholder="Add tag and press Enter"
+                          placeholder="Enter tags (comma separated)"
                           className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                         />
                         <button
@@ -576,9 +735,17 @@ function AdminAddProduct() {
                   <span>Meta description</span>
                   <textarea
                     rows={2}
-                    {...register("seo.metaDescription")}
+                    {...register("seo.metaDescription", {
+                      required: "Meta description is required",
+                    })}
+                    placeholder="Enter SEO meta description"
                     className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
                   />
+                  {errors.seo?.metaDescription && (
+                    <p className="text-xs text-rose-600">
+                      {errors.seo.metaDescription.message}
+                    </p>
+                  )}
                 </label>
 
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -609,21 +776,48 @@ function AdminAddProduct() {
                       type="number"
                       min="0"
                       max="100"
-                      {...register("discountPercentage")}
+                      {...register(
+                        "discountPercentage",
+                        Boolean(product.isOnSale) && {
+                          required: "Discount percentage is required",
+                        },
+                      )}
                       className="w-full rounded-2xl border border-zinc-200 bg-white px-3.5 py-2.5 outline-none transition focus:border-zinc-950"
-                    />
+                    />{" "}
+                    {errors.discountPercentage && (
+                      <p className="text-xs text-rose-600">
+                        {errors.discountPercentage.message}
+                      </p>
+                    )}
                   </label>
                 )}
               </section>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  Save product
-                </button>
+                {loading ? (
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-green-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
+                  >
+                    <RotatingSquare
+                      visible
+                      height="20"
+                      width="20"
+                      color="#fff"
+                      ariaLabel="loading"
+                    />
+                    <span>Creating Product...</span>
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
+                  >
+                    <CheckCircle2 className="h-4 w-4" />
+                    Save product
+                  </button>
+                )}
               </div>
             </form>
           </div>
@@ -631,7 +825,9 @@ function AdminAddProduct() {
             <div className="overflow-hidden rounded-[28px] border border-zinc-200 bg-white shadow-[0_20px_60px_-25px_rgba(15,23,42,0.35)]">
               <div className="relative min-h-70 bg-zinc-950">
                 {product.images ? (
-                  <Image width={300} height={300}
+                  <Image
+                    width={300}
+                    height={300}
                     src={
                       typeof product.images === "string"
                         ? product.images
@@ -677,9 +873,9 @@ function AdminAddProduct() {
 
                 <div className="mt-4 flex flex-wrap gap-2">
                   {tagList.length > 0 ? (
-                    tagList.map((tag) => (
+                    tagList.map((tag, i) => (
                       <span
-                        key={tag}
+                        key={i}
                         className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-700"
                       >
                         #{tag}
@@ -746,7 +942,7 @@ function AdminAddProduct() {
                     <div className="space-y-3">
                       <div className="grid gap-3 sm:grid-cols-2">
                         {[
-                          ["Category", product.category || "—"],
+                          ["Category", product.gender || "—"],
                           ["Sub category", product.subCategory || "—"],
                           ["Item", product.item || "—"],
                           ["Gender", product.gender || "—"],
@@ -849,9 +1045,9 @@ function AdminAddProduct() {
                         </span>
                         <div className="mt-2 flex flex-wrap gap-2">
                           {tagList.length > 0 ? (
-                            tagList.map((tag) => (
+                            tagList.map((tag, i) => (
                               <span
-                                key={tag}
+                                key={i}
                                 className="rounded-full bg-zinc-950 px-3 py-1 text-xs font-semibold text-white"
                               >
                                 {tag}
@@ -872,6 +1068,7 @@ function AdminAddProduct() {
           </aside>
         </div>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }

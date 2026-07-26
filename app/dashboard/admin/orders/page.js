@@ -27,6 +27,7 @@ async function page({ searchParams }) {
       ]),
     ),
   );
+  console.log(order)
   return (
     <div className=" w-full">
       <AdminHeader

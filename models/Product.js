@@ -32,7 +32,7 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-
+    collection: String,
     subCategory: String,
     subCategorySlug: String,
 
@@ -50,7 +50,7 @@ const ProductSchema = new Schema(
 
     sku: {
       type: String,
-      unique: true,
+      default:""
     },
 
     images: String,
@@ -66,11 +66,6 @@ const ProductSchema = new Schema(
       fit: String,
       material: String,
       pattern: String,
-      sleeveType: String,
-      neckType: String,
-      occasion: String,
-      season: String,
-      careInstructions: String,
     },
 
     tags: [String],
@@ -145,6 +140,9 @@ const ProductSchema = new Schema(
       metaDescription: String,
       keywords: [String],
     },
+  },
+  {
+    suppressReservedKeysWarning: true,
   },
   {
     timestamps: true,

@@ -4,12 +4,11 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
-import ProductModal from "./ProductModal";
 
-export default function ProductCard({ product, page }) {
-  const [open, setOpen] = useState(false);
+export default function ProductCard({ product, page, openView }) {
   const [wished, setWished] = useState(false);
   const ref = useRef(page);
+
   useEffect(() => {
     if (ref.current !== page) {
       document.getElementById("productScroll")?.scrollIntoView({
@@ -21,27 +20,55 @@ export default function ProductCard({ product, page }) {
     }
   }, [page]);
 
+  const price = Number(product?.price ?? 0);
+  const discountPercentage = Number(product?.discountPercentage ?? 0);
+  const discountedPrice =
+    discountPercentage > 0
+      ? Math.ceil(price - (price * discountPercentage) / 100)
+      : price;
+  const colors = Array.isArray(product?.attributes?.colors)
+    ? product.attributes.colors.slice(0, 3)
+    : [];
+  const ratingValue = Number(product?.ratings?.average ?? 0);
+
   return (
     <div
       id="productScroll"
-      className={`group overflow-hidden rounded-xl   bg-[#ffffff] text-black transition-all duration-300 border-zinc-200 border
-      `}
+      className="group overflow-hidden rounded-[20px] border border-zinc-200 bg-white shadow-[0_12px_30px_-18px_rgba(15,23,42,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_-16px_rgba(15,23,42,0.4)]"
     >
-      <div className="relative aspect-4/4 overflow-hidden">
+      <div className="relative aspect-6/7 overflow-hidden">
         <Image
-          src={product.images}
-          alt={product.name}
-          width={300}
-          height={300}
-          className="h-full w-full object-cover "
+          src={product?.images || "/placeholder.jpg"}
+          alt={product?.name || "Product"}
+          width={400}
+          height={500}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
-        {product.discountPercentage > 0 && (
-          <span className="absolute left-3 top-3 rounded-full bg-red-500 px-3 py-1.5 text-xs font-bold tracking-wide text-white shadow-md">
-            -{product.discountPercentage}% OFF
+        <div className="absolute inset-0 bg-linear-to-t from-zinc-950/70 via-zinc-950/10 to-transparent" />
+
+        {discountPercentage > 0 && (
+          <span className="absolute left-3 top-3 rounded-full bg-rose-600 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white">
+            -{discountPercentage}%
           </span>
         )}
-        <span className="absolute right-3 bottom-18 flex items-center gap-2 rounded-full bg-[#ffffff46] px-3 py-1 text-xs font-semibold text-gray-900 shadow-md backdrop-blur">
+
+        <button
+          type="button"
+          onClick={() => setWished((prev) => !prev)}
+          className={`absolute right-3 top-3 rounded-full p-2 transition ${
+            wished
+              ? "bg-white text-rose-600"
+              : "bg-zinc-950/50 text-white hover:bg-white hover:text-rose-600"
+          }`}
+        >
+          {wished ? (
+            <FaHeart className="h-4 w-4" />
+          ) : (
+            <FaHeartBroken className="h-4 w-4" />
+          )}
+        </button>
+
+        <span className="absolute right-3 bottom-5 flex items-center gap-2 rounded-full bg-[#ffffff5a] px-4 py-1.5 text-xs font-semibold text-gray-900 shadow-md backdrop-blur">
           <span
             className={`h-2.5 w-2.5 flex-shrink-0 rounded-full ${
               product.stock <= 5 ? "bg-red-500" : "bg-emerald-600"
@@ -51,75 +78,79 @@ export default function ProductCard({ product, page }) {
             ? `Only ${product.stock} Left`
             : `${product.stock} In Stock`}
         </span>
-        <button
-          onClick={() => {
-            setWished(!wished);
-          }}
-          className={`absolute right-3 top-3 rounded-full p-2 transition
-          ${wished ? "text-red-600 bg-white" : "text-red-400 bg-[#0000003b] hover:text-red-500"}`}
-        >
-          {wished ? (
-            <FaHeart className="w-5 h-5" />
-          ) : (
-            <FaHeartBroken className="w-5 h-5" />
-          )}
-        </button>
-        <button
-          onClick={() => setOpen(true)}
-          className={`absolute bottom-4  left-4 right-4 py-3 font-semibold transition-all duration-300 rounded-xl bg-white text-black
-            `}
-        >
-          Quick View
-        </button>
       </div>
-      <div className="space-y-1 p-5 mb-2">
-        <p className="text-xs font-medium uppercase tracking-tight text-red-500">
-          {product.subCategory}
-        </p>
-        <div className="flex justify-between gap-3">
-          <h3 className="text-lg font-bold ">{product.name}</h3>
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-bold line-through text-gray-500">
-              ${product.price}
-            </span>
-            <span className="text-lg font-bold text-red-500">
-              $
-              {Math.ceil(
-                product.price -
-                  (product.price * product.discountPercentage) / 100,
-              )}
-            </span>
+
+      <div className="space-y-3 p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+              {product?.subCategory || "Category"}
+            </p>
+            <h3 className="mt-1 line-clamp-2 text-base font-semibold text-zinc-950">
+              {product?.name || "Product name"}
+            </h3>
+          </div>
+          <div className="text-right">
+            {discountPercentage > 0 ? (
+              <div className="flex flex-col">
+                <span className="text-xs font-medium text-zinc-400 line-through">
+                  {product?.currency || "BDT"} {price}
+                </span>
+                <span className="text-sm font-semibold text-rose-600">
+                  {product?.currency || "BDT"} {discountedPrice}
+                </span>
+              </div>
+            ) : (
+              <span className="text-sm font-semibold text-zinc-950">
+                {product?.currency || "BDT"} {price}
+              </span>
+            )}
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
-            <div className="flex gap-0.5">
-              {Array.from({ length: 5 }, (_, i) => (
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            {Array.from({ length: 5 }, (_, index) => {
+              const filled = index < Math.round(ratingValue);
+              return (
                 <FaStar
-                  key={i}
-                  className={`w-3.5 h-3.5 ${i < product.ratings?.average ? "text-yellow-600" : "text-gray-400"}`}
+                  key={index}
+                  className={`h-3.5 w-3.5 ${filled ? "text-amber-500" : "text-zinc-300"}`}
                 />
-              ))}
-            </div>
-            {product.ratings?.average}
+              );
+            })}
+            <span className="ml-1 text-sm font-medium text-zinc-700">
+              {ratingValue.toFixed(1)}
+            </span>
           </div>
-          <div className="flex gap-1 items-center">
-            {product.attributes.colors.map((color) => (
-              <div
-                key={color}
-                title={color}
-                className="h-3 w-3 rounded-xs border border-zinc-700"
-                style={{ background: color.replace(/\s+/g, "") }}
-              />
-            ))}{" "}
-          </div>
+           <div className="flex items-center gap-2">
+          {colors.map((color) => (
+            <span
+              key={color}
+              className="h-4 w-4 rounded-full border border-zinc-300"
+              style={{ backgroundColor: color }}
+              title={color}
+            />
+          ))}
+          {Array.isArray(product?.attributes?.colors) &&
+            product.attributes.colors.length > colors.length && (
+              <span className="text-[11px] font-medium text-zinc-500">
+                +{product.attributes.colors.length - colors.length}
+              </span>
+            )}
         </div>
+        </div>
+
+
+
+        <button
+          type="button"
+          onClick={() => openView(product)}
+          className="w-full rounded-full bg-zinc-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800"
+        >
+          View details
+        </button>
       </div>
-      <ProductModal
-        product={product}
-        open={open}
-        onClose={setOpen}
-      ></ProductModal>
     </div>
   );
 }
