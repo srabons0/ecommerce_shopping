@@ -15,7 +15,7 @@ function AdminSidebar() {
   const { data: session } = useSession();
   return (
     <aside
-      className="sidebar fixed left-0 top-0 bottom-0 z-[200] flex w-65 flex-col border-r border-white/10 bg-[#000000]"
+      className="sidebar fixed left-0 top-0 bottom-0 z-200 flex w-65 flex-col border-r border-white/10 bg-[#000000]"
       id="sidebar"
     >
       <div className="sidebar-logo border-b border-white/10 px-6 pt-7 pb-5 font-['Cormorant_Garamond'] text-[26px] font-light text-white tracking-[0.15em]">
@@ -70,12 +70,12 @@ function AdminSidebar() {
           Products
         </Link>
         <Link
-          href={"/dashboard/admin/payment"}
+          href={"/dashboard/admin/ordersHistory"}
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("products")}
         >
           <FaRegCreditCard />
-          Payments
+          Orders History
         </Link>
 
         <Link
@@ -97,7 +97,8 @@ function AdminSidebar() {
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("blog")}
         >
-          <IoIosAddCircle />Add Product
+          <IoIosAddCircle />
+          Add Product
         </Link>
 
         <Link

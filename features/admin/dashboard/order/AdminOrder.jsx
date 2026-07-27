@@ -78,7 +78,8 @@ function AdminOrder({
             </div>
           ))}
         </div>
-        <OrderList order={order} filters={filters}></OrderList>
+        <OrderList  order={order} filters={filters}></OrderList>
+
       </section>
     </div>
   );

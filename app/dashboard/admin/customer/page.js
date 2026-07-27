@@ -25,6 +25,7 @@ async function page({ searchParams }) {
       ]),
     ),
   );
+  console.log(customer)
   return (
     <div className=" w-full">
       <AdminHeader
@@ -32,7 +33,11 @@ async function page({ searchParams }) {
         name={" Customer Management"}
         desc={"View customer profiles, purchase history, and account activity."}
       ></AdminHeader>
-      <AdminUser customer={customer} customerCount={customerCount}></AdminUser>
+      <AdminUser
+        customer={customer}
+        filters={filters}
+        customerCount={customerCount}
+      ></AdminUser>
     </div>
   );
 }

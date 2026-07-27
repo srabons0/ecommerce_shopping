@@ -4,7 +4,7 @@ import UserList from "./UserList";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function AdminUser({ customer, customerCount }) {
+function AdminUser({ customer, customerCount, filters }) {
   const [page, setPage] = useState(1);
   const pathname = usePathname();
   const router = useRouter();
@@ -65,7 +65,7 @@ function AdminUser({ customer, customerCount }) {
             </div>
           ))}
         </div>
-        <UserList customer={customer}></UserList>
+        <UserList customer={customer} filters={filters}></UserList>
       </section>
     </div>
   );

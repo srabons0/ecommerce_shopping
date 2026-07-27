@@ -11,9 +11,13 @@ import {
 import { useState } from "react";
 import { FaArrowRight, FaEye, FaTrash } from "react-icons/fa";
 import { Hourglass } from "react-loader-spinner";
+import UserDetailsModal from "./UserDetailsModal";
 
-function UserList({ customer }) {
+function UserList({ customer, filters }) {
   const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState([]);
+  const { status } = filters;
   const [hasSearched, setHasSearched] = useState(false);
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -217,7 +221,13 @@ text-center
                 </td>
                 <td className="px-6 py-5">
                   <div className="flex gap-2">
-                    <button className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10">
+                    <button
+                      onClick={() => {
+                        setOpen(true);
+                        setUser(customer);
+                      }}
+                      className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10"
+                    >
                       <FaEye className="w-4 h-4" />
                     </button>
 
@@ -231,6 +241,13 @@ text-center
           </tbody>
         </table>
       </div>
+      {open && (
+        <UserDetailsModal
+          open={open}
+          setOpen={setOpen}
+          user={user}
+        ></UserDetailsModal>
+      )}
     </div>
   );
 }
