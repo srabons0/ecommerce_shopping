@@ -17,17 +17,17 @@ async function page({ searchParams }) {
     JSON.stringify(
       await Promise.all([
         Order.find(productFilters)
-          .skip((page - 1) * 40)
-          .limit(40)
+          .skip((page - 1) * 15)
+          .limit(15)
           .lean(),
-        Order.countDocuments(),
+        Order.countDocuments(status !== "all" && { orderStatus: status }),
         Order.countDocuments({ orderStatus: "pending" }),
         Order.countDocuments({ orderStatus: "delivered" }),
         Order.countDocuments({ orderStatus: "cancelled" }),
       ]),
     ),
   );
-  console.log(order)
+  // console.log(order)
   return (
     <div className=" w-full">
       <AdminHeader

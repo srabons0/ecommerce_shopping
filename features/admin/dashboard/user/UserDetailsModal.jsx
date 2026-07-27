@@ -11,24 +11,22 @@ import {
   Shield,
   BadgeCheck,
   Pencil,
-  Trash2,
   Copy,
   Save,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function UserDetailsModal({
   open,
   onOpenChange,
   user,
-  onEdit,
-  onDelete,
   setOpen,
 }) {
   const [openRoleModal, setOpenRoleModal] = useState(false);
   const [role, setRole] = useState(user?.role || "");
   const [status, setStatus] = useState(user?.userStatus || "");
-
+  const router = useRouter();
   if (!user) return null;
 
   const createdDate = new Date(user.createdAt).toLocaleDateString("en-GB", {
@@ -46,6 +44,33 @@ export default function UserDetailsModal({
   });
 
   const updatedTime = new Date(user.updatedAt).toLocaleTimeString();
+
+  const handleUpdateRole = async (id, role, status) => {
+    // console.log(id, role, status);
+    try {
+      const res = await fetch(`/api/user/statusUpdate/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          role: role,
+          isActive: status === "active",
+          userStatus: status,
+        }),
+      });
+      // console.log(res);
+      if (!res.ok) {
+        throw new Error(result?.error || "Failed to update product");
+      }
+      router.refresh();
+      setOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -115,7 +140,11 @@ export default function UserDetailsModal({
                     <Image
                       width={150}
                       height={150}
-                      src={user.image}
+                      src={
+                        user.image
+                          ? user.image
+                          : "https://i.ibb.co.com/NYF9QTQ/images.png"
+                      }
                       alt={user.name}
                       className="h-36 w-36 rounded-full border-4 border-white object-cover shadow-lg"
                     />
@@ -208,27 +237,6 @@ export default function UserDetailsModal({
                     >
                       <Copy size={18} />
                       Copy User ID
-                    </button>
-
-                    <button
-                      onClick={() => onDelete(user)}
-                      className="
-                      flex
-                      w-full
-                      items-center
-                      justify-center
-                      gap-2
-                      rounded-2xl
-                      bg-red-50
-                      py-3
-                      font-semibold
-                      text-red-600
-                      transition
-                      hover:bg-red-100
-                    "
-                    >
-                      <Trash2 size={18} />
-                      Delete User
                     </button>
                   </div>
                 </div>
@@ -384,6 +392,7 @@ export default function UserDetailsModal({
           </div>
         </Dialog.Content>
       </Dialog.Portal>
+
       {openRoleModal && (
         <Dialog.Root open={openRoleModal} onOpenChange={setOpenRoleModal}>
           <Dialog.Portal>
@@ -429,7 +438,9 @@ export default function UserDetailsModal({
 
               <div className="space-y-6 p-6">
                 <div className="flex items-center gap-4 rounded-2xl border bg-zinc-50 p-4">
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     src={user.image}
                     alt={user.name}
                     className="h-14 w-14 rounded-full object-cover"
@@ -464,7 +475,6 @@ export default function UserDetailsModal({
           "
                   >
                     <option value="user">User</option>
-                    <option value="moderator">Moderator</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>
@@ -513,7 +523,7 @@ export default function UserDetailsModal({
                 </Dialog.Close>
 
                 <button
-                  //   onClick={handleUpdateRole}
+                  onClick={() => handleUpdateRole(user._id, role, status)}
                   className="
           flex
           items-center

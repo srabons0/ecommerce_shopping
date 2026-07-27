@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import OrderList from "./OrderList";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Pagination, Stack } from "@mui/material";
 
 function AdminOrder({
   order,
@@ -9,6 +12,23 @@ function AdminOrder({
   cancelled,
   filters,
 }) {
+  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  params.set("page", page);
+  useEffect(() => {
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [page, pathname, router]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      router.refresh();
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [router]);
   return (
     <div className="mx-6 mt-10 mb-20">
       <section>
@@ -78,9 +98,28 @@ function AdminOrder({
             </div>
           ))}
         </div>
-        <OrderList  order={order} filters={filters}></OrderList>
-
+        <OrderList
+          order={order}
+          orderCount={orderCount}
+          filters={filters}
+        ></OrderList>
       </section>
+      <div className="flex justify-center">
+        {orderCount > 15 && (
+          <Stack
+            spacing={2}
+            className="gap-1 flex my-5 justify-center items-center "
+          >
+            <Pagination
+              page={page}
+              onChange={(event, value) => setPage(value)}
+              count={Math.ceil(orderCount / 15)}
+              variant="outlined"
+              className="custom-pagination"
+            />
+          </Stack>
+        )}
+      </div>
     </div>
   );
 }

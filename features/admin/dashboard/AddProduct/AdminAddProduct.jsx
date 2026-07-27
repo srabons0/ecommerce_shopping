@@ -202,7 +202,7 @@ function AdminAddProduct({ category, subCategory, itemCategory }) {
           .filter(Boolean),
       },
     };
-    console.log(payload.images);
+    // console.log(payload.images);
     const res = await fetch(`/api/products/add`, {
       method: "POST",
       headers: {
@@ -211,7 +211,7 @@ function AdminAddProduct({ category, subCategory, itemCategory }) {
       body: JSON.stringify(payload),
     });
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
     if (result.success) {
       router.refresh();
       reset();

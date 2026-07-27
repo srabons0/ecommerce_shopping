@@ -12,6 +12,7 @@ import { useState } from "react";
 import { FaArrowRight, FaEye, FaTrash } from "react-icons/fa";
 import { Hourglass } from "react-loader-spinner";
 import UserDetailsModal from "./UserDetailsModal";
+import Swal from "sweetalert2";
 
 function UserList({ customer, filters }) {
   const [search, setSearch] = useState("");
@@ -39,6 +40,55 @@ function UserList({ customer, filters }) {
     setProduct([]);
     setLoading(false);
     setHasSearched(false);
+  };
+  const handleUserDelete = async (id) => {
+    try {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton:
+            "px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 ml-2",
+          cancelButton:
+            "px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel!",
+          reverseButtons: true,
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            const res = await fetch(`/api/user/delete/${id}`, {
+              method: "DELETE",
+            });
+            if (res.ok && res.status === 200) {
+              router.refresh();
+              swalWithBootstrapButtons.fire({
+                title: "Deleted!",
+                text: "Customer has been deleted.",
+                icon: "success",
+                customClass: {
+                  confirmButton:
+                    "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 ml-2",
+                },
+              });
+            }
+          } else if (result.dismiss === Swal.DismissReason.cancel)
+            swalWithBootstrapButtons.fire({
+              title: "Cancelled",
+              text: "Customer is safe",
+              icon: "error",
+            });
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="mt-6 overflow-hidden rounded-lg border border-white/10 bg-zinc-100">
@@ -198,7 +248,7 @@ text-center
                 </td>
                 <td className="px-6 py-5 text-zinc-500">{customer.email}</td>
                 <td className="px-6 py-5 font-semibold text-black">
-                  {customer?.totalSpent}
+                  ${customer?.totalSpent}
                 </td>
                 <td className="px-6 py-5 text-zinc-500">{customer?.orders}</td>
                 <td className="px-6 py-5 text-zinc-600">
@@ -210,13 +260,13 @@ text-center
                 </td>
                 <td className="px-6 py-5">
                   <span
-                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                    className={`inline-flex rounded-full uppercase px-3 py-1 text-xs font-semibold ${
                       customer.isActive === true
                         ? "bg-green-500/10 text-green-500"
                         : "bg-red-500/10 text-red-500"
                     }`}
                   >
-                    {customer.isActive ? "Active" : "Inactive"}
+                    {customer.userStatus}
                   </span>
                 </td>
                 <td className="px-6 py-5">
@@ -231,7 +281,10 @@ text-center
                       <FaEye className="w-4 h-4" />
                     </button>
 
-                    <button className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20">
+                    <button
+                      onClick={() => handleUserDelete(customer._id)}
+                      className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20"
+                    >
                       <FaTrash className="w-4 h-4" />
                     </button>
                   </div>

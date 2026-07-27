@@ -31,7 +31,7 @@ function ProfileInfo() {
     if (image) {
       const formData = new FormData();
       formData.append("image", image);
-      console.log(formData);
+      // console.log(formData);
       const res = await fetch(
         `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
         {
@@ -58,7 +58,7 @@ function ProfileInfo() {
       body: JSON.stringify(info),
     });
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
     if (result) {
       toast.success("Profile Updated Successfully!");
     }

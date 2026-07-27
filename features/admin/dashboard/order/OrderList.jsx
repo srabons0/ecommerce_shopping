@@ -14,16 +14,7 @@ import { Hourglass } from "react-loader-spinner";
 import OrderDetailsModal from "./OrderDetailsModal";
 import { Package2, Truck, Clock3, CheckCircle2, Ban } from "lucide-react";
 import Swal from "sweetalert2";
-
-const ORDER_STATUS = [
-  "pending",
-  "confirmed",
-  "processing",
-  "packed",
-  "shipped",
-  "delivered",
-  "cancelled",
-];
+import { useSession } from "next-auth/react";
 
 const statusConfig = {
   pending: {
@@ -65,6 +56,7 @@ const statusConfig = {
 function OrderList({ order, filters }) {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
   const [userOrder, setUserOrder] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [product, setProduct] = useState([]);
@@ -91,7 +83,7 @@ function OrderList({ order, filters }) {
     setHasSearched(false);
   };
 
-  const handleOrderDelete = async (id) => {
+  const handleOrderDelete = async (id, order) => {
     try {
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -114,20 +106,48 @@ function OrderList({ order, filters }) {
         })
         .then(async (result) => {
           if (result.isConfirmed) {
-            const res = await fetch(`/api/orders/delete/${id}`, {
-              method: "DELETE",
+            const response = await fetch(`/api/orderHistory`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(order),
             });
-            if (res.ok && res.status === 200) {
-              router.refresh();
-              swalWithBootstrapButtons.fire({
-                title: "Deleted!",
-                text: "Order has been deleted.",
-                icon: "success",
-                customClass: {
-                  confirmButton:
-                    "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 ml-2",
-                },
+            if (response.ok && response.status === 200) {
+              if (order.orderStatus === "delivered") {
+                const respond = await fetch(
+                  `/api/user/updateProfile?email=${session?.user?.email}`,
+                  {
+                    method: "PATCH",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      orderIncrement: 1,
+                      spentIncrement: order.total,
+                    }),
+                  },
+                );
+                const userResult = await response.json();
+                if (!respond.ok) {
+                  throw new Error(userResult?.error || "Failed to update user");
+                }
+              }
+              const res = await fetch(`/api/orders/delete/${id}`, {
+                method: "DELETE",
               });
+              if (res.ok && res.status === 200) {
+                router.refresh();
+                swalWithBootstrapButtons.fire({
+                  title: "Deleted!",
+                  text: "Order has been deleted.",
+                  icon: "success",
+                  customClass: {
+                    confirmButton:
+                      "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 ml-2",
+                  },
+                });
+              }
             }
           } else if (result.dismiss === Swal.DismissReason.cancel)
             swalWithBootstrapButtons.fire({
@@ -354,7 +374,7 @@ function OrderList({ order, filters }) {
                       </button>
 
                       <button
-                        onClick={() => handleOrderDelete(order._id)}
+                        onClick={() => handleOrderDelete(order._id, order)}
                         className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20"
                       >
                         <FaTrash className="w-4 h-4" />

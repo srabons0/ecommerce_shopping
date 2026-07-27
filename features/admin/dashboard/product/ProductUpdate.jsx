@@ -77,7 +77,7 @@ export default function ProductUpdate({ product, open, onClose }) {
           : [],
       },
     };
-    console.log(payload);
+    // console.log(payload);
     try {
       const response = await fetch(`/api/products/update/${product._id}`, {
         method: "PATCH",

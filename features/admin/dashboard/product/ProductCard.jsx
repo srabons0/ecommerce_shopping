@@ -26,7 +26,7 @@ export default function ProductCard({ product, page, onOpenView, onOpenEdit }) {
   }, [page, product._id, product.slug]);
 
   const handleDeleteItem = async (id) => {
-    console.log(id);
+    // console.log(id);
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton:

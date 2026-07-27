@@ -70,7 +70,10 @@ function AdminSidebar() {
           Products
         </Link>
         <Link
-          href={"/dashboard/admin/ordersHistory"}
+          href={{pathname:"/dashboard/admin/ordersHistory",
+            query: {
+              status: "all",
+            },}}
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("products")}
         >

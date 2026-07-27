@@ -143,7 +143,7 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
         method: "DELETE",
       });
       const cardDelete = await res.json();
-      console.log(cardDelete);
+      // console.log(cardDelete);
 
       router.push(`/payment-success?id=${data.order._id}`);
     } catch (err) {

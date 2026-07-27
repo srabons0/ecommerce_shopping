@@ -84,7 +84,7 @@ function CollectionIndex() {
   };
 
   useEffect(() => {
-    console.log("first",firstRender.current);
+    // console.log("first",firstRender.current);
      if (firstRender.current) {
        firstRender.current = false;
        return;

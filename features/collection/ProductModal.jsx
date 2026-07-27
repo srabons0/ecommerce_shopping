@@ -247,7 +247,7 @@ const ProductModal = ({ product, open, onClose }) => {
                         onClick={() => setSelectedColor(color)}
                         className={`h-8 w-8 rounded-full border-2 transition ${
                           (selectedColor || colors[0]) === color
-                            ? "border-zinc-950"
+                            ? "ring-2 ring-black ring-offset-2"
                             : "border-zinc-200"
                         }`}
                         style={{ backgroundColor: color }}

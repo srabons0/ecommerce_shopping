@@ -3,6 +3,7 @@ import React from "react";
 import UserList from "./UserList";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Pagination, Stack } from "@mui/material";
 
 function AdminUser({ customer, customerCount, filters }) {
   const [page, setPage] = useState(1);
@@ -14,6 +15,14 @@ function AdminUser({ customer, customerCount, filters }) {
   useEffect(() => {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }, [page, pathname, router]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      router.refresh();
+    }, 100000);
+
+    return () => clearInterval(interval);
+  }, [router]);
 
   return (
     <div className="mx-6 mt-10 mb-20">
@@ -67,6 +76,20 @@ function AdminUser({ customer, customerCount, filters }) {
         </div>
         <UserList customer={customer} filters={filters}></UserList>
       </section>
+      {customerCount > 25 && (
+        <Stack
+          spacing={2}
+          className="gap-1 flex my-10 justify-center items-center "
+        >
+          <Pagination
+            page={page}
+            onChange={(event, value) => setPage(value)}
+            count={Math.ceil(customerCount / 25)}
+            variant="outlined"
+            className="custom-pagination"
+          />
+        </Stack>
+      )}
     </div>
   );
 }

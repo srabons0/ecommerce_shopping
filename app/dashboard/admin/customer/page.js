@@ -21,11 +21,14 @@ async function page({ searchParams }) {
           .skip((page - 1) * 40)
           .limit(40)
           .lean(),
-        User.countDocuments(),
+        User.countDocuments(
+          status !== "admin" && status !== "all" && { userStatus: status } ||
+          status === "admin" && { role: status },
+        ),
       ]),
     ),
   );
-  console.log(customer)
+  // console.log(customer);
   return (
     <div className=" w-full">
       <AdminHeader

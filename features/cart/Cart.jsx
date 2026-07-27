@@ -59,8 +59,6 @@ function Cart({ setOpenCart }) {
       })
     : cartProduct;
 
-
-
   const handleCartDelete = async (p) => {
     if (session) {
       const req = await fetch(`/api/products/userCart/${p._id}`, {
@@ -73,7 +71,6 @@ function Cart({ setOpenCart }) {
     }
     removeCartData(p._id, p.sizes, p.colors);
   };
-
 
   const { totalPrice } = useMemo(() => {
     const totalPrice = cartProductData.reduce(
@@ -220,18 +217,16 @@ function Cart({ setOpenCart }) {
                   </tr>
                 ))
               )}
-
             </tbody>
           </table>
           {cartProductData.length === 0 && (
-
-                <div className="flex flex-col justify-center items-center gap-5 my-10">
-                    <BsCart3 className="text-4xl"/>
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Your cart is empty
-                  </h2>
-                </div>
-             )}
+            <div className="flex flex-col justify-center items-center gap-5 my-10">
+              <BsCart3 className="text-4xl" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Your cart is empty
+              </h2>
+            </div>
+          )}
         </div>
       </div>
 
@@ -264,9 +259,15 @@ function Cart({ setOpenCart }) {
           >
             Continue Shopping
           </button>
-          <Link href={"/checkout"} className="w-1/2 text-center ">
-            Checkout →
-          </Link>
+          {cartProductData.length === 0 ? (
+            <div className="w-1/2 text-gray-200 cursor-not-allowed text-center ">
+              Checkout →
+            </div>
+          ) : (
+            <Link href={"/checkout"} className="w-1/2 text-center ">
+              Checkout →
+            </Link>
+          )}
         </div>
       </div>
       <Toaster position="top-left" reverseOrder={false} />
