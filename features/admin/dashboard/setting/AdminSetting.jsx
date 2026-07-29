@@ -4,11 +4,7 @@ function AdminSetting() {
   return (
     <div className="mx-6 mt-10 mb-20">
       <section>
-
-
         <div className="grid  gap-6 lg:grid-cols-2">
-          
-
           <div className="rounded-lg border border-white/10 bg-zinc-900 p-6 lg:col-span-2">
             <h2 className="mb-6 text-lg font-semibold text-white">
               General Settings
@@ -21,7 +17,7 @@ function AdminSetting() {
                 </label>
 
                 <input
-                  defaultValue="LUXE Maison de Mode"
+                  defaultValue="EVERYDAY WEAR"
                   className="w-full rounded-lg border border-white/10 bg-zinc-800 px-4 py-3 text-white outline-none focus:border-yellow-600"
                 />
               </div>
@@ -68,8 +64,6 @@ function AdminSetting() {
             </button>
           </div>
 
-          
-
           <div className="rounded-lg border border-white/10 bg-zinc-900 p-6">
             <h2 className="mb-6 text-lg font-semibold text-white">
               Notifications
@@ -109,8 +103,6 @@ function AdminSetting() {
                   <p className="mt-1 text-xs text-zinc-500">{item.desc}</p>
                 </div>
 
-                
-
                 <button
                   className={`relative h-7 w-14 rounded-full transition ${
                     item.enabled ? "bg-yellow-600" : "bg-zinc-700"
@@ -125,8 +117,6 @@ function AdminSetting() {
               </div>
             ))}
           </div>
-
-          
 
           <div className="rounded-lg border border-white/10 bg-zinc-900 p-6">
             <h2 className="mb-6 text-lg font-semibold text-white">

@@ -6,6 +6,9 @@ import StripeProvider from "@/components/payment/StripeProvider";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
+
+
+
 export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);

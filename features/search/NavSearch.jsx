@@ -30,101 +30,174 @@ function NavSearch({ setOpenSearch }) {
   };
   return (
     <motion.div
-      initial={{ y: "-100%", opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={{ y: -100, opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ y: 0, opacity: 1, backdropFilter: "blur(18px)" }}
       exit={{
-        y: "-100%",
+        y: -100,
         opacity: 0,
         transition: {
-          duration: 0.75,
-          ease: [0.22, 1, 0.36, 1],
-          type: "spring",
-          damping: 20,
-          stiffness: 110,
+          duration: 0.3,
         },
       }}
       transition={{
-        duration: 0.45,
+        duration: 0.35,
         ease: [0.22, 1, 0.36, 1],
-        type: "spring",
-        damping: 20,
-        stiffness: 110,
       }}
-      className="absolute top-0 flex h-full w-full items-center justify-center gap-3 bg-[#000000da] p-60"
+      className="fixed inset-0 text-white z-150 flex items-start justify-center bg-black/70 px-6 pt-20 backdrop-blur-xl"
     >
-      <div className="relative">
-        <InputGroup className="max-w-xs z-30 bg-black">
-          <InputGroupInput
-            value={search}
-            required
-            onChange={(e) => {
-              setSearch(e.target.value);
-              search && setHasSearched(false);
-            }}
-            placeholder="Search..."
-          />
-          <InputGroupAddon>
-            <Search />
-          </InputGroupAddon>
-          <InputGroupAddon align="inline-end">
-            {product.length} results
-          </InputGroupAddon>
-        </InputGroup>
-        <div className=" absolute h-40 top-5 w-full overflow-y-auto  rounded-b-md p-1 py-4  scrollbar-hide">
+      <div className="w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 shadow-[0_30px_80px_rgba(0,0,0,.45)]">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-5">
+          <div>
+            <h2 className="text-2xl font-bold text-white">Search Products</h2>
+
+            
+          </div>
+
+          <button
+            onClick={() => setOpenSearch(false)}
+            className="rounded-xl bg-zinc-800 px-4 py-2 text-sm transition hover:bg-zinc-700"
+          >
+            Close
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="border-b border-zinc-800  gap-5 flex items-center justify-end  px-6 py-4">
+          <InputGroup className="h-14 rounded-2xl border border-zinc-700 bg-zinc-800">
+            <InputGroupAddon>
+              <Search className="text-zinc-400" />
+            </InputGroupAddon>
+
+            <InputGroupInput
+              value={search}
+              required
+              placeholder="Search shirts, hoodies, sneakers..."
+              className="border-0 bg-transparent text-white placeholder:text-zinc-500"
+              onChange={(e) => {
+                setSearch(e.target.value);
+                search && setHasSearched(false);
+              }}
+            />
+
+            <InputGroupAddon align="inline-end">
+              <span className="rounded-full bg-zinc-700 px-3 py-1 text-xs text-zinc-300">
+                {product.length} Results
+              </span>
+            </InputGroupAddon>
+          </InputGroup>
+          <button
+            disabled={!search.trim()}
+            onClick={handleSearch}
+            className={`
+          rounded-xl
+          px-6
+          py-3
+          font-medium
+          transition
+
+          ${
+            search.trim()
+              ? "bg-violet-600 text-white hover:bg-violet-700"
+              : "cursor-not-allowed bg-zinc-700 text-zinc-500"
+          }
+        `}
+          >
+            Search
+          </button>
+        </div>
+
+        {/* Results */}
+        <div className="max-h-72 overflow-y-auto p-5">
           {loading && (
-            <div className="flex justify-center pt-4 pb-2">
+            <div className="flex justify-center py-5">
               <Hourglass
-                visible={true}
-                height="18"
-                width="18"
-                ariaLabel="hourglass-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
+                visible
+                height="30"
+                width="30"
                 colors={["#ffffff", "#ffffff"]}
               />
             </div>
           )}
-          {product.map((p) => (
-            <div
-              key={p._id}
-              onClick={() => {
-                params.set("search", p.name);
-                router.push(`/shop/${p.gender}/${p.subCategorySlug}?${params}`);
-              }}
-              className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-white"
-            >
-              <span className="w-4/6 mr-2">{p.name} </span>◕
-              <span className="text-red-500  w-1/6 ml-1 text-xs">
-                {" "}
-                {p.gender}
-              </span>
-              <span className="text-green-500 w-1/6 pl-4">
-                {" "}
-                <FaArrowRight />
-              </span>
-            </div>
-          ))}
+
+          {!loading &&
+            product.map((p) => (
+              <div
+                key={p._id}
+                onClick={() => {
+                  params.set("search", p.name);
+
+                  router.push(
+                    `/shop/${p.gender}/${p.subCategorySlug}?${params}`,
+                  );
+                }}
+                className="
+              group
+              mb-3
+              flex
+              cursor-pointer
+              items-center
+              justify-between
+              rounded-2xl
+              border
+              border-zinc-800
+              bg-zinc-900/40
+              p-4
+              transition-all
+              duration-300
+              hover:border-violet-500/40
+              hover:bg-zinc-800
+            "
+              >
+                <div className="min-w-0 flex-1">
+                  <h3 className="truncate text-base font-semibold text-white group-hover:text-violet-300">
+                    {p.name}
+                  </h3>
+
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="rounded-full bg-violet-500/15 px-3 py-1 text-xs text-violet-300">
+                      {p.gender}
+                    </span>
+
+                    {p.category && (
+                      <span className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-400">
+                        {p.category}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="ml-6 flex items-center gap-5">
+                  {p.price && (
+                    <p className="font-bold text-white">
+                      ৳{Number(p.price).toLocaleString()}
+                    </p>
+                  )}
+
+                  <div className="rounded-full bg-zinc-800 p-3 transition group-hover:bg-violet-600">
+                    <FaArrowRight className="text-white" />
+                  </div>
+                </div>
+              </div>
+            ))}
 
           {!loading && hasSearched && product.length === 0 && (
-            <p className="text-center text-gray-500">Not Found</p>
+            <div className="py-5 text-center">
+              <Search size={40} className="mx-auto mb-4 text-zinc-600" />
+
+              <h3 className="text-xl font-semibold text-white">
+                No products found
+              </h3>
+
+              <p className="mt-2 text-zinc-500">
+                Try searching with another keyword.
+              </p>
+            </div>
           )}
         </div>
-      </div>
 
-      <div
-        className={`cursor-pointer rounded-3xl border-2 w-20 h-8 text-center p-0.5 ${
-          !search.trim() ? "opacity-30 pointer-events-none" : ""
-        }`}
-        onClick={handleSearch}
-      >
-        Search
-      </div>
-
-      <div
-        className="cursor-pointer rounded-xl border-2 w-20 h-8 text-center p-0.5"
-        onClick={() => setOpenSearch(false)}
-      >
-        Close
+        {/* Footer */}
+        <div className="flex items-center justify-end border-t border-zinc-800 px-6 py-4"></div>
       </div>
     </motion.div>
   );

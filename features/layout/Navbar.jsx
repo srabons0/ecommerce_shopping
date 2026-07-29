@@ -25,7 +25,7 @@ const {data:session } = useSession();
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link href="/" className="text-2xl font-bold tracking-wider">
-          LUXORA
+          EVERYDAY WEAR
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium md:flex">

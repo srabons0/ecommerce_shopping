@@ -10,8 +10,10 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import CartTableSkeleton from "@/components/ui/loadingSkeleton/CartTableSkeleton";
 import { BsCart3 } from "react-icons/bs";
+import useCartLength from "@/store/cartLength";
 
 function Cart({ setOpenCart }) {
+  const setCartLength = useCartLength((state) => state.setCartLength);
   const cartData = useCartData((state) => state.cartData);
   const removeCartData = useCartData((state) => state.removeCartData);
   const [loading, setLoading] = useState(false);
@@ -27,6 +29,7 @@ function Cart({ setOpenCart }) {
         );
         const data = await res.json();
         setCartProduct(data);
+        setCartLength(data.length);
         setLoading(false);
       };
       fetchData();
@@ -39,6 +42,7 @@ function Cart({ setOpenCart }) {
       const res = await fetch(`/api/products/cart?ids=${itemsId.join(",")}`);
       const data = await res.json();
       setCart(data);
+      setCartLength(data.length);
       setLoading(false);
     };
     fetchData();

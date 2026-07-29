@@ -4,6 +4,9 @@ import { connectDB } from '@/lib/mongodb';
 import User from '@/models/User';
 import { getServerSession } from 'next-auth';
 import React from 'react'
+export const metadata = {
+  title: "Dashboard",
+};
 
 async function layout({children}) {
    const session = await getServerSession(authOptions);

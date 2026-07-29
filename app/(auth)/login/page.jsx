@@ -39,7 +39,7 @@ export default function LoginPage() {
       setLoading(false);
     } else {
       reset();
-      toast.success("Welcome back to LUXORA!");
+      toast.success("Welcome back to EVERYDAY WEAR!");
       setLoading(false);
       setTimeout(() => {
         router.push(callbackUrl);
@@ -339,7 +339,7 @@ export default function LoginPage() {
                         />
                       </div>
                     ) : (
-                      "Sign In to LUXORA"
+                      "Sign In to EVERYDAY WEAR"
                     )}
                   </span>
 

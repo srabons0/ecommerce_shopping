@@ -18,11 +18,11 @@ function AdminSidebar() {
       className="sidebar fixed left-0 top-0 bottom-0 z-200 flex w-65 flex-col border-r border-white/10 bg-[#000000]"
       id="sidebar"
     >
-      <div className="sidebar-logo border-b border-white/10 px-6 pt-7 pb-5 font-['Cormorant_Garamond'] text-[26px] font-light text-white tracking-[0.15em]">
-        L<em className="not-italic text-[#ff1717]">U</em>XE
+      <div className="sidebar-logo border-b border-white/10 px-6 pt-7 pb-5  text-normal font-light text-white tracking-[0.15em]">
+        EVERY<em className="not-italic text-[#FF073A]">DAY</em> WEAR
         <div
           className="sidebar-logo-sub mt-1 text-[9px] uppercase tracking-[0.3em]
-         text-[#f44d4d]"
+         text-[#FF073A]"
         >
           Admin Panel
         </div>
@@ -70,10 +70,12 @@ function AdminSidebar() {
           Products
         </Link>
         <Link
-          href={{pathname:"/dashboard/admin/ordersHistory",
+          href={{
+            pathname: "/dashboard/admin/ordersHistory",
             query: {
               status: "all",
-            },}}
+            },
+          }}
           className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
           onClick={() => showPanel("products")}
         >
@@ -102,14 +104,6 @@ function AdminSidebar() {
         >
           <IoIosAddCircle />
           Add Product
-        </Link>
-
-        <Link
-          href={"/"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("promos")}
-        >
-          Promotions
         </Link>
 
         <Link

@@ -3,6 +3,9 @@ import Navbar from "@/features/layout/Navbar";
 import { connectDB } from "@/lib/mongodb";
 import SubCategory from "@/models/SubCategory";
 
+export const metadata = {
+  title: "Sale",
+};
 
 export default async function Layout({ children }) {
    await connectDB();

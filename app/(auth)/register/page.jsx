@@ -231,7 +231,8 @@ export default function RegisterPage() {
                     Details
                   </h1>
                   <p className="mb-8 text-sm leading-7 text-[#8a8a8a]">
-                    Tell us a bit about yourself to create your LUXE account.
+                    Tell us a bit about yourself to create your EVERYDAY WEAR
+                    account.
                   </p>
 
                   <motion.div
@@ -511,7 +512,7 @@ export default function RegisterPage() {
                             />
                           </div>
                         ) : (
-                          "Create Account on LUXORA"
+                          "Create Account on EVERYDAY WEAR"
                         )}
                       </span>
                     </button>
