@@ -1,54 +1,137 @@
-import React from "react";
+"use client";
 
-function RevenueChart() {
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+function RevenueChart({ monthlyRevenue }) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const chartData = months.map((month, index) => {
+    const item = monthlyRevenue.find((m) => m._id === index + 1);
+
+    return {
+      month,
+      revenue: item?.revenue || 0,
+    };
+  });
   return (
-    <div className="rounded border border-white/10 bg-zinc-900 p-6">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="w-full rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <div className="mb-8 flex items-center justify-between">
         <div>
-          <h3 className="text-[15px] font-semibold text-white">
-            Revenue Overview
-          </h3>
-
-          <p className="mt-1 text-xs text-zinc-500">Monthly 2025</p>
-        </div>
-
-        <div className="flex gap-2">
-          <button className="rounded-full border border-yellow-700/30 bg-yellow-700/10 px-4 py-1 text-xs text-yellow-500">
-            Monthly
-          </button>
-
-          <button className="rounded-full border border-white/10 px-4 py-1 text-xs text-zinc-400 hover:border-yellow-600 hover:text-yellow-500">
-            Yearly
-          </button>
+          <h2 className="text-xl font-bold text-zinc-900">Monthly Revenue</h2>
+          <p className="mt-1 text-sm text-zinc-500">
+            Revenue overview for this year
+          </p>
         </div>
       </div>
 
-      <div className="flex h-44 items-end gap-3">
-        {[60, 75, 90, 55, 82, 70, 100, 78, 84, 66, 92, 72].map(
-          (value, index) => (
-            <div
-              key={index}
-              className="flex flex-1 flex-col items-center gap-2"
-            >
-              <div
-                className="w-full rounded-t bg-yellow-700 transition-all hover:bg-yellow-600"
-                style={{
-                  height: `${value}%`,
-                }}
-              />
-            </div>
-          ),
-        )}
-      </div>
+      <div className="h-[400px] w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart
+            data={chartData}
+            margin={{
+              top: 20,
+              right: 20,
+              left: 10,
+              bottom: 20,
+            }}
+          >
+            <defs>
+              <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#7C3AED" stopOpacity={0.45} />
+                <stop offset="50%" stopColor="#7C3AED" stopOpacity={0.18} />
+                <stop offset="100%" stopColor="#7C3AED" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
 
-      <div className="mt-3 flex text-center text-[10px] text-zinc-500">
-        {["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"].map(
-          (m) => (
-            <div key={m} className="flex-1">
-              {m}
-            </div>
-          ),
-        )}
+            <CartesianGrid
+              strokeDasharray="4 4"
+              vertical={false}
+              stroke="#E4E4E7"
+            />
+
+            <XAxis
+              dataKey="month"
+              axisLine={false}
+              tickLine={false}
+              tick={{
+                fill: "#71717A",
+                fontSize: 13,
+              }}
+            />
+
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              width={60}
+              tick={{
+                fill: "#71717A",
+                fontSize: 13,
+              }}
+              tickFormatter={(value) => `৳${(value / 1000).toFixed(0)}k`}
+            />
+
+            <Tooltip
+              cursor={{
+                stroke: "#7C3AED",
+                strokeWidth: 1,
+                strokeDasharray: "4 4",
+              }}
+              contentStyle={{
+                borderRadius: "14px",
+                border: "none",
+                boxShadow: "0 10px 30px rgba(0,0,0,.12)",
+                padding: "10px 14px",
+              }}
+              formatter={(value) => [
+                `৳${Number(value).toLocaleString()}`,
+                "Revenue",
+              ]}
+            />
+
+            <Area
+              type="natural"
+              dataKey="revenue"
+              stroke="#7C3AED"
+              strokeWidth={3}
+              fill="url(#revenueGradient)"
+              animationBegin={300}
+              animationDuration={1500}
+              dot={{
+                r: 4,
+                fill: "#7C3AED",
+                stroke: "#fff",
+                strokeWidth: 2,
+              }}
+              activeDot={{
+                r: 7,
+                fill: "#7C3AED",
+                stroke: "#fff",
+                strokeWidth: 3,
+              }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

@@ -1,54 +1,70 @@
-import React from "react";
+"use client";
 
-function CategoryChart() {
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+const COLORS = [
+  "#8B5CF6",
+  "#3B82F6",
+  "#10B981",
+  "#F59E0B",
+  "#EF4444",
+  "#EC4899",
+];
+
+function CategoryChart({ categoryStats }) {
   return (
-    <div>
-      {" "}
-      <div className="rounded border border-white/10 bg-zinc-900 p-6">
-        <h3 className="text-[15px] font-semibold text-white">Category Split</h3>
+    <div className="h-130 my-10 w-full rounded-2xl bg-white p-6 shadow">
+      <h2 className="mb-6 text-lg font-semibold text-zinc-800">
+        Sales by Category
+      </h2>
 
-        <p className="mb-5 mt-1 text-xs text-zinc-500">This Month</p>
+      <ResponsiveContainer width="100%" height="100%" className="pb-10">
+        <PieChart>
+          <Pie
+            data={categoryStats}
+            dataKey="revenue"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={120}
+            innerRadius={70}
+            paddingAngle={3}
+            label={({ name, percent }) =>
+              `${name} ${(percent * 100).toFixed(0)}%`
+            }
+          >
+            {categoryStats.map((_, index) => (
+              <Cell key={index} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
 
-        <div className="flex justify-center">
-          <div className="relative h-40 w-40">
-            <div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background:
-                  "conic-gradient(#b8953a 0% 35%, #3498db 35% 60%, #22c55e 60% 80%, #ea580c 80% 100%)",
-              }}
-            />
+          <Tooltip
+            content={({ active, payload, label }) => {
+              if (active && payload?.length) {
+                const data = payload[0].payload;
 
-            <div className="absolute inset-5 rounded-full bg-zinc-900" />
-          </div>
-        </div>
+                return (
+                  <div className="rounded-lg bg-white p-3 shadow-lg border">
+                    <p>{label}</p>
+                    <p>Revenue: ৳{data.revenue.toLocaleString()}</p>
+                    <p>Sold: {data.sold}</p>
+                  </div>
+                );
+              }
+              return null;
+            }}
+          />
 
-        <div className="mt-8 space-y-3">
-          <div className="flex items-center text-sm text-zinc-300">
-            <span className="mr-3 h-2 w-2 rounded-full bg-yellow-700"></span>
-            Blazers
-            <span className="ml-auto font-semibold">35%</span>
-          </div>
-
-          <div className="flex items-center text-sm text-zinc-300">
-            <span className="mr-3 h-2 w-2 rounded-full bg-blue-500"></span>
-            Dresses
-            <span className="ml-auto font-semibold">25%</span>
-          </div>
-
-          <div className="flex items-center text-sm text-zinc-300">
-            <span className="mr-3 h-2 w-2 rounded-full bg-emerald-500"></span>
-            Coats
-            <span className="ml-auto font-semibold">20%</span>
-          </div>
-
-          <div className="flex items-center text-sm text-zinc-300">
-            <span className="mr-3 h-2 w-2 rounded-full bg-orange-500"></span>
-            Other
-            <span className="ml-auto font-semibold">20%</span>
-          </div>
-        </div>
-      </div>
+          <Legend verticalAlign="bottom" />
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }

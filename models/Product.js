@@ -43,7 +43,6 @@ const ProductSchema = new Schema(
       type: String,
       lowercase: true,
       trim: true,
-      enum: ["men", "women", "couple", "kids", "unisex", "universal"],
     },
 
     brand: String,

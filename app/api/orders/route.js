@@ -59,7 +59,7 @@ export async function POST(req) {
 
     for (const item of items) {
       const product = await Product.findById(item.productID);
-   
+
       if (!product) {
         return NextResponse.json(
           {
@@ -106,6 +106,9 @@ export async function POST(req) {
         slug: product.slug,
         image: product.images,
         price,
+        gender:product.gender,
+        subCategory: product.subCategory,
+        item:product.item,
         quantity: item.quantity,
         size: item.sizes || "",
         color: item.colors || "",

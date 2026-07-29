@@ -28,6 +28,15 @@ const orderItemSchema = new Schema(
       type: Number,
       required: true,
     },
+    collection: String,
+    subCategory: String,
+    item: String,
+    gender: {
+      type: String,
+      lowercase: true,
+      trim: true,
+    
+    },
 
     quantity: {
       type: Number,

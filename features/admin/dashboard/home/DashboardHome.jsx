@@ -3,16 +3,26 @@ import RecentOrder from "./RecentOrder";
 import CategoryChart from "./CategoryChart";
 import RevenueChart from "./RevenueChart";
 
-function DashboardHome({ order }) {
+function DashboardHome({
+  productRating,
+  totalRevenue,
+  order,
+  orderCount,
+  userCount,
+  categoryStats,
+  monthlyRevenue,
+}) {
   return (
-    <div className="mb-20">
-      <div className="flex-1  mx-6 py-8">
+    <div className="pb-20 px-10  bg-zinc-100 ">
+      <div className="flex-1  py-8">
         <section>
           <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-2">
-            <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
+            <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
               <div className="mb-4 flex justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold text-white">$48,294</h2>
+                  <h2 className="text-3xl font-bold text-black">
+                    ${totalRevenue[0].totalPrice}
+                  </h2>
 
                   <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
                     Revenue (Month)
@@ -24,22 +34,24 @@ function DashboardHome({ order }) {
                     💰
                   </div>
 
-                  <p className="mt-2 text-[10px] text-zinc-500">Mar 2025</p>
+                  <p className="mt-2 text-[10px] text-zinc-500">Year 2026</p>
                 </div>
               </div>
 
               <p className="mt-3 text-sm font-medium text-emerald-500">
-                ↑ 12.5% vs Feb
+                ↑ 12.5%
               </p>
             </div>
 
-            <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-blue-500/30">
+            <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-blue-500/30">
               <div className="mb-4 flex justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold text-white">324</h2>
+                  <h2 className="text-3xl font-bold text-black">
+                    {orderCount}
+                  </h2>
 
                   <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-                    New Orders
+                    Orders
                   </p>
                 </div>
 
@@ -48,7 +60,7 @@ function DashboardHome({ order }) {
                     📦
                   </div>
 
-                  <p className="mt-2 text-[10px] text-zinc-500">This Month</p>
+                  <p className="mt-2 text-[10px] text-zinc-500">This Year</p>
                 </div>
               </div>
 
@@ -57,13 +69,13 @@ function DashboardHome({ order }) {
               </p>
             </div>
 
-            <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-emerald-500/30">
+            <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-emerald-500/30">
               <div className="mb-4 flex justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold text-white">1,429</h2>
+                  <h2 className="text-3xl font-bold text-black">{userCount}</h2>
 
                   <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-                    New Customers
+                    Customers
                   </p>
                 </div>
 
@@ -72,20 +84,22 @@ function DashboardHome({ order }) {
                     👥
                   </div>
 
-                  <p className="mt-2 text-[10px] text-zinc-500">This Month</p>
+                  <p className="mt-2 text-[10px] text-zinc-500">This Year</p>
                 </div>
               </div>
 
               <p className="mt-3 text-sm font-medium text-red-500">↓ 2.1%</p>
             </div>
 
-            <div className="rounded border border-white/10 bg-zinc-900 p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
+            <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
               <div className="mb-4 flex justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold text-white">4.8★</h2>
+                  <h2 className="text-3xl font-bold text-black">
+                    {productRating[0].averageRating.toFixed(2)}★
+                  </h2>
 
                   <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-                    Avg Rating
+                    Avg Rating of All Products
                   </p>
                 </div>
 
@@ -106,10 +120,9 @@ function DashboardHome({ order }) {
         </section>
       </div>
 
-      <div className="mt-6 grid gap-4 mx-6 lg:grid-cols-[2fr_1fr]">
-        <RevenueChart></RevenueChart>
-        <CategoryChart></CategoryChart>
-      </div>
+
+        <RevenueChart monthlyRevenue={monthlyRevenue}></RevenueChart>
+        <CategoryChart categoryStats={categoryStats}></CategoryChart>
 
       <RecentOrder order={order}></RecentOrder>
     </div>
