@@ -83,7 +83,7 @@ function AdminProductTool({
             </InputGroupAddon>
           </InputGroup>
 
-          <div className=" absolute  z-80 max-h-40 top-5 rounded-b-md bg-black w-full overflow-y-auto    scrollbar-hide">
+          <div className=" absolute  z-80 max-h-60 top-5 rounded-b-md bg-black w-full overflow-y-auto    scrollbar-hide">
             {loading && (
               <div className="flex justify-center pt-8">
                 <Hourglass
@@ -113,14 +113,15 @@ function AdminProductTool({
                       setLoading(false);
                       setHasSearched(false);
                     }}
-                    className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-white"
+                    className="border-b py-2 px-5 flex items-center  justify-between cursor-pointer text-sm text-white"
                   >
-                    <span className="w-4/6 mr-2">{p.name} </span>◕
-                    <span className="text-red-500  w-1/6 ml-1 text-xs">
-                      {" "}
-                      {p.gender}
+                    <span className="w-4/6 mr-2 flex flex-col text-lg">
+                      {p.name}
+                      <span className="text-gray-400 uppercase w-1/6 ml-1  text-xs">
+                        {p.gender}
+                      </span>
                     </span>
-                    <span className="text-green-500 w-1/6 pl-4">
+                    <span className="text-black p-2 rounded-full bg-gray-200">
                       {" "}
                       <FaArrowRight />
                     </span>

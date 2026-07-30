@@ -1,8 +1,8 @@
 "use client";
+import ProductModal from "@/components/shared/ProductModal";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState } from "react";
-import ProductModal from "./ProductModal";
 
 function SalesBanner({ mostDiscount }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -123,7 +123,7 @@ function SalesBanner({ mostDiscount }) {
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}
-          open={open}
+          
           onClose={closeModal}
         />
       )}

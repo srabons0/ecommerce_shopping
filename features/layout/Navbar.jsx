@@ -1,206 +1,239 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
-import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
-import cartIcon from "@/assets/icons/cart-Icons.gif";
-import searchIcon from "@/assets/icons/search-Icons.gif";
-import { AnimatePresence } from "framer-motion";
-import Cart from "../cart/Cart";
-import { useSession } from "next-auth/react";
 
-function Navbar({ category }) {
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { AnimatePresence } from "framer-motion";
+import { Menu, Search, ShoppingBag } from "lucide-react";
+
+import Cart from "@/features/cart/Cart";
+import NavSearch from "@/features/search/NavSearch";
+
+// import MobileMenu from "./MobileMenu";
+
+import webLogo from "@/public/logo.png";
+
+export default function Navbar({ category }) {
+  const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState(null);
   const [openCart, setOpenCart] = useState(false);
-const {data:session } = useSession();
-  const toggleMenu = (menu) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
+  const [openSearch, setOpenSearch] = useState(false);
+  const menCategory = category?.find((item) => item.gender === "men");
+  const navLinks = [
+    {
+      title: "Home",
+      href: "/",
+    },
+    session?.user && {
+      title: "Dashboard",
+      href:
+        session?.user?.role === "admin"
+          ? "/dashboard/admin/home"
+          : "/dashboard/profile",
+    },
+    {
+      title: "Shop",
+      href: `/shop/men/${menCategory?.slug}/newest`,
+    },
+    {
+      title: "Collections",
+      href: "/collections/men/summer",
+    },
+    {
+      title: "Sale",
+      href: menCategory
+        ? `/sale/men/${menCategory?.slug}/newest`
+        : "/sale/men/men-tops/newest",
+    },
+    {
+      title: "Blog",
+      href: "/blog",
+    },
+  ].filter(Boolean);
 
   return (
-    <header
-      className="  w-full border-b border-neutral-800
-     bg-black text-white "
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link href="/" className="text-2xl font-bold tracking-wider">
-          EVERYDAY WEAR
-        </Link>
+    <>
+      <header
+        className={`
 
-        <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-          <Link href="/" className="hover:text-neutral-300">
-            Home
-          </Link>
-
-          <Link href="/dashboard" className="hover:text-neutral-300">
-            Dashboard
-          </Link>
-          <Link
-            href={`/shop/men/${category.find((items) => items.gender === "men").slug}/newest`}
-            className="hover:text-neutral-300"
-          >
-            Shop
-          </Link>
-          <Link
-            href="/collections/men/summer"
-            className="hover:text-neutral-300"
-          >
-            Collections
-          </Link>
-
-          <Link
-            href={`/sale/men/${category.find((items) => items.gender === "men").slug}/newest`}
-            className="hover:text-red-400"
-          >
-            Sale
-          </Link>
-          <Link href="/arrivals" className="hover:text-red-400">
-            Blog
-          </Link>
-        </nav>
-
-        <div className="hidden items-center gap-6 md:flex">
-          <div onClick={() => setOpenCart(true)}>
-            <Image
-              src={cartIcon}
-              alt="Cart"
-              className="w-7 h-6"
-              width={28}
-              height={24}
-            />
-          </div>
-          <Link href="/search">
-            <Image
-              src={searchIcon}
-              alt="Search"
-              className="w-7 h-7"
-              width={28}
-              height={28}
-            />
-          </Link>
-          {session ? (
-            <Link
-              href={
-                session?.user.role === "admin"
-                  ? "/dashboard/admin/profile"
-                  : "/dashboard/profile"
-              }
-            >
+          inset-x-0
+          top-0
+          z-50
+          transition-all
+          duration-300 bg-black
+        `}
+      >
+        <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between px-6">
+          <Link href="/" className="group flex items-center gap-1 select-none">
+            <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden">
               <Image
-                src={
-                  session?.user?.image ||
-                  "https://i.ibb.co.com/NYF9QTQ/images.png"
-                }
-                className="w-8 h-8 rounded-full object-cover"
-                width={100}
-                height={100}
-                alt={session?.user?.name}
+                src={webLogo}
+                alt="Everyday Wear"
+                width={48}
+                height={48}
+                className="object-cover transition duration-300 group-hover:scale-110"
                 priority
               />
-            </Link>
-          ) : (
-            <Link href="/login">Login</Link>
-          )}
-        </div>
-
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="md:hidden"
-          aria-label="Open menu"
-        >
-          <Menu size={26} />
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-black/70">
-          <div className="fixed left-0 top-0 z-50 h-full w-72 overflow-y-auto bg-neutral-900 p-6">
-            <div className="mb-6 flex items-center justify-between">
-              <span className="text-xl font-bold">Menu</span>
-
-              <button
-                onClick={() => setMobileOpen(false)}
-                aria-label="Close menu"
-              >
-                <X size={24} />
-              </button>
             </div>
 
-            {[
-              { label: "Men", submenu: menLinks },
-              { label: "Women", submenu: womenLinks },
-              { label: "Shoes", submenu: shoeLinks },
-              { label: "New Arrivals", href: "/new-arrivals" },
-              { label: "Collections", href: "/collections" },
-              { label: "Shop", href: "/shop" },
-              { label: "Sale", href: "/sale" },
-            ].map((item) => (
-              <div key={item.label} className="mb-4">
-                {item.submenu ? (
-                  <>
-                    <button
-                      className="flex w-full items-center justify-between py-2 text-left"
-                      onClick={() => toggleMenu(item.label)}
-                    >
-                      {item.label}
+            <div className="leading-none">
+              <h1 className="text-[9px] font-semibold uppercase tracking-[0.35em] text-white">
+                EVERYDAY
+              </h1>
 
-                      <ChevronDown
-                        className={`transition-transform ${
-                          openMenu === item.label ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
+              <div className="mt-1 flex items-center gap-1">
+                <span className="h-px w-2.5 bg-red-600" />
 
-                    {openMenu === item.label && (
-                      <div className="mt-2 space-y-2 pl-4 text-neutral-300">
-                        {item.submenu.map((sub) => (
-                          <Link
-                            key={sub}
-                            href={`/category/${sub
-                              .toLowerCase()
-                              .replace(/ /g, "-")}`}
-                            className="block hover:text-white"
-                          >
-                            {sub}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <Link href={item.href} className="block py-2">
-                    {item.label}
-                  </Link>
-                )}
+                <p className="text-[6px] font-medium uppercase tracking-[0.65em] text-red-500">
+                  WEAR
+                </p>
+
+                <span className="h-px w-2.5 bg-red-600" />
               </div>
-            ))}
-
-            <div className="mt-6 border-t border-neutral-700 pt-6">
-              <Link href="/account" className="block py-2">
-                Account
-              </Link>
-
-              <Link href="/cart" className="block py-2">
-                Cart
-              </Link>
-
-              <Link href="/contact" className="block py-2">
-                Contact
-              </Link>
-
-              <Link href="/about" className="block py-2">
-                About
-              </Link>
             </div>
+          </Link>
+
+          <nav className="hidden items-center gap-3 lg:flex">
+
+            {navLinks.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className={`
+                  relative
+                  text-sm
+                  font-medium px-3
+                  transition
+                  after:absolute
+                  after:-bottom-2
+                  after:left-0
+                  after:h-[2px]
+                  after:w-0
+                  after:bg-white
+                  after:transition-all
+                  hover:after:w-full
+                   text-white hover:text-zinc-200"
+                `}
+              >
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="hidden items-center gap-3 lg:flex">
+            <button
+              onClick={() => setOpenSearch(true)}
+              className={`
+                group
+                flex
+                h-11
+                w-11
+                items-center
+                justify-center
+                rounded-full
+                transition-all
+                duration-300
+                hover:bg-white/10 text-white
+              `}
+            >
+              <Search
+                size={20}
+                className="transition-transform duration-300 group-hover:scale-110"
+              />
+            </button>
+
+            <button
+              onClick={() => setOpenCart(true)}
+              className={`
+                group
+                relative
+                flex
+                h-11
+                w-11 mr-3
+                items-center
+                justify-center
+                rounded-full
+                transition-all
+                duration-300
+                hover:bg-white/10 text-white
+              `}
+            >
+              <ShoppingBag
+                size={20}
+                className="transition-transform duration-300 group-hover:scale-110"
+              />
+
+
+            </button>
+
+            {session ? (
+              <Link
+                href={
+                  session.user.role === "admin"
+                    ? "/dashboard/admin/profile"
+                    : "/dashboard/profile"
+                }
+                className="rounded-full"
+              >
+                <Image
+                  src={
+                    session.user.image || "https://i.ibb.co/NYF9QTQ/images.png"
+                  }
+                  alt={session.user.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full object-cover ring-2 ring-zinc-200 transition hover:ring-red-500"
+                />
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="
+                  rounded-full
+                  bg-black
+                  px-6
+                  py-3
+                  text-sm
+                  font-semibold
+                  text-white
+                  transition
+                  hover:scale-105
+                "
+              >
+                Login
+              </Link>
+            )}
           </div>
+
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="
+              flex
+              h-11
+              w-11
+              items-center
+              justify-center
+              rounded-full
+              transition
+              hover:bg-zinc-100
+              lg:hidden
+            "
+          >
+            <Menu size={22} />
+          </button>
         </div>
-      )}
-      <AnimatePresence>
-        {openCart && <Cart setOpenCart={setOpenCart}></Cart>}
+      </header>
+
+      {/* <MobileMenu open={mobileOpen} setOpen={setMobileOpen} /> */}
+
+      <AnimatePresence mode="wait">
+        {openSearch && <NavSearch setOpenSearch={setOpenSearch} />}
       </AnimatePresence>
-    </header>
+
+      <AnimatePresence mode="wait">
+        {openCart && <Cart setOpenCart={setOpenCart} />}
+      </AnimatePresence>
+    </>
   );
 }
-
-export default Navbar;

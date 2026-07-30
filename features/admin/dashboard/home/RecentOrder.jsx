@@ -133,11 +133,17 @@ function RecentOrder({ order }) {
 
                 <td className="pl-7 py-5">
                   <div className="flex gap-2">
-                    <button className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10">
+                    <button
+                      aria-label="Open dialog"
+                      className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10"
+                    >
                       <FaEye className="w-4 h-4" />
                     </button>
 
-                    <button className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20">
+                    <button
+                      aria-label="delete"
+                      className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20"
+                    >
                       <FaTrash className="w-4 h-4" />
                     </button>
                   </div>

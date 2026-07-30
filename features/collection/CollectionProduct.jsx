@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import ProductModal from "./ProductModal";
+import ProductCard from "@/components/shared/ProductCard";
+import ProductModal from "@/components/shared/ProductModal";
 const CATS = [
   { gender: "men" },
   { gender: "women" },
@@ -37,12 +37,12 @@ export default function CollectionProduct({
   );
   const catGender = [...CATS, ...filterItems];
 
- const openView = (product) => {
-   setSelectedProduct(product);
- };
- const closeModal = () => {
-   setSelectedProduct(null);
- };
+  const openView = (product) => {
+    setSelectedProduct(product);
+  };
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
 
   return (
     <div className="min-h-175 mt-10  bg-[#ffffff] px-4 pt-4 overflow-y-auto  scrollbar-hide">
@@ -116,7 +116,6 @@ export default function CollectionProduct({
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}
-          open={open}
           onClose={closeModal}
         />
       )}

@@ -1,10 +1,9 @@
 "use client";
 import { ChevronRight } from "lucide-react";
-import { Settings } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsGraphDown, BsPersonCircle } from "react-icons/bs";
 import { IoBagHandleSharp } from "react-icons/io5";
 
 
@@ -35,24 +34,29 @@ export default function AdminHeader({ path, name, desc }) {
             query: {
               status: "all",
             },
-          }} className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-gray-200 bg-white hover:bg-gray-50">
+          }}
+          className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-gray-200 bg-white hover:bg-gray-50"
+        >
           <IoBagHandleSharp size={19} />
 
           <span className="absolute right-3 top-3 h-1.5 w-1.5 rounded-full bg-red-500"></span>
         </Link>
 
         <Link
-          href={"/dashboard/admin/setting"}
+          href={"/dashboard/admin/analytics"}
           className="flex h-11 w-11 items-center justify-center rounded-2xl border border-gray-200 bg-white hover:bg-gray-50"
         >
-          <Settings size={19} />
+          <BsGraphDown size={19} />
         </Link>
 
-        <button className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-3 py-2 hover:bg-gray-50">
+        <button
+          aria-label="profile"
+          className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-3 py-2 hover:bg-gray-50"
+        >
           {session?.user?.image ? (
             <Image
               src={session?.user?.image}
-              alt=""
+              alt={session?.user?.name}
               width={100}
               height={100}
               className="h-10 w-10 object-cover rounded-full"

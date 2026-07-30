@@ -2,6 +2,7 @@ import ShopHeader from "@/features/shop/ShopHeader";
 import Navbar from "@/features/layout/Navbar";
 import { connectDB } from "@/lib/mongodb";
 import SubCategory from "@/models/SubCategory";
+import ShopFooter from "@/features/shop/ShopFooter";
 
 export const metadata = {
   title: "Shop",
@@ -17,6 +18,7 @@ export default async function Layout({ children }) {
       <Navbar category={category}></Navbar>
       <ShopHeader></ShopHeader>
       {children}
+      <ShopFooter category={category}></ShopFooter>
     </>
   );
 }

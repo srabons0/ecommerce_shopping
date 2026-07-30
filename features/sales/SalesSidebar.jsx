@@ -105,7 +105,7 @@ const handleDiscountChange = (value)=>{
     <div className={`flex absolute lg:relative ${collapsed ? "w-0" : "w-87"} `}>
       <div className="sticky top-67 left-0 h-screen flex z-50 text-white ">
         <Sidebar
-          className={`lg:h-190 pt-10 my-sidebar-scroll z-100`}
+          className={`lg:h-245 pt-10 my-sidebar-scroll z-100`}
           collapsed={collapsed}
           width="350px"
           collapsedWidth="0px"

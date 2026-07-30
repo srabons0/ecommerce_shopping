@@ -24,7 +24,7 @@ function Review() {
           </div>
           <h2 className="font-['Bebas_Neue'] text-[clamp(36px,5vw,64px)] tracking-[0.03em] mb-11">WHAT THEY SAID</h2>
 
-          <div className="grid grid-cols-3 gap-3.5">
+          <div className="grid lg:grid-cols-3 gap-3.5">
             {[
               {n:"Jordan K.",   r:"⭐⭐⭐⭐⭐", t:"These fits are actually different. Wore the bomber and got stopped three times.", clr:C.lime,   tag:"VERIFIED"},
               {n:"Maya T.",     r:"⭐⭐⭐⭐⭐", t:"The cargo pants hit different — weight, cut, movement. Nothing close at this price.", clr:C.coral,  tag:"VERIFIED"},
@@ -49,7 +49,7 @@ function Review() {
                       >{rv.n[0]}</div>
                       <div>
                         <p className={`font-['Bebas_Neue'] text-[16px] tracking-[0.05em] transition-colors duration-300 ${hov ? 'text-current' : ' '}`} style={{ color: hov ? "#ff4747" : undefined }}>{rv.n}</p>
-                       
+
                       </div>
                     </div>
                     <span className="text-[11px]">{rv.r}</span>

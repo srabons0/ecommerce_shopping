@@ -48,8 +48,8 @@ function ShopProductTool() {
     <div className="flex flex-col w-full">
       <div className="flex flex-row justify-between items-center py-3 px-10 w-full bg-black">
         <div className="relative z-100 flex h-full w-full items-center ml-4 gap-3 bg-[#000000da]">
-          <div className="relative">
-            <InputGroup className="max-w-xs z-30 text-white bg-black">
+          <div className="relative max-w-xs w-full">
+            <InputGroup className=" z-30 text-white bg-black">
               <InputGroupInput
                 value={search}
                 required
@@ -71,7 +71,7 @@ function ShopProductTool() {
               </InputGroupAddon>
             </InputGroup>
 
-            <div className=" absolute max-h-40 top-5 rounded-b-md bg-black w-full overflow-y-auto    scrollbar-hide">
+            <div className=" absolute max-h-60 top-5 rounded-b-md bg-black w-full overflow-y-auto  scrollbar-hide">
               {loading && (
                 <div className="flex justify-center pt-8">
                   <Hourglass
@@ -100,14 +100,15 @@ function ShopProductTool() {
                           `/shop/${p.gender}/${p.subCategorySlug}?${params}`,
                         );
                       }}
-                      className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-white"
+                      className="border-b px-5 py-2 flex items-center  justify-between cursor-pointer text-sm text-white"
                     >
-                      <span className="w-4/6 mr-2">{p.name} </span>◕
-                      <span className="text-red-500  w-1/6 ml-1 text-xs">
-                        {" "}
-                        {p.gender}
+                      <span className="w-4/6 mr-2 flex flex-col text-lg">
+                        {p.name}
+                        <span className="text-gray-500 uppercase w-1/6 ml-1 text-xs">
+                          {p.gender}
+                        </span>
                       </span>
-                      <span className="text-green-500 w-1/6 pl-4">
+                      <span className="text-black p-2 rounded-full bg-gray-200">
                         {" "}
                         <FaArrowRight />
                       </span>
@@ -152,7 +153,10 @@ function ShopProductTool() {
           </select>
 
           <div className="hidden md:flex flex-row justify-between items-center ">
-            <button className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400">
+            <button
+              aria-label="GridView"
+              className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400"
+            >
               <MdGridView
                 onClick={() =>
                   setCardSort("grid md:grid-cols-2 lg:grid-cols-3  gap-6")
@@ -160,7 +164,10 @@ function ShopProductTool() {
                 className="w-4 h-4 text-white "
               />
             </button>
-            <button className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400">
+            <button
+              aria-label="OutlineBars"
+              className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400"
+            >
               <HiOutlineBars3
                 onClick={() => setCardSort("grid grid-cols-1  gap-6")}
                 className="w-4 h-4 text-white font-bold"

@@ -162,10 +162,10 @@ function Cart({ setOpenCart }) {
                             {p.name}
                           </h2>
                           <p className="text-xs lg:text-sm text-gray-500 flex items-center">
-                            <div
+                            <span
                               className="w-3 h-3 mr-1 rounded-2xl"
                               style={{ background: p.colors }}
-                            ></div>{" "}
+                            ></span>{" "}
                             • Size: {p.sizes}
                           </p>
                         </div>

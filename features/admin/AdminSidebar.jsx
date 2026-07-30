@@ -8,7 +8,7 @@ import { FaUsers } from "react-icons/fa";
 import { BsGraphDown } from "react-icons/bs";
 import { FaUserGear } from "react-icons/fa6";
 import { FaRegCreditCard } from "react-icons/fa";
-import { IoIosAddCircle, IoMdSettings } from "react-icons/io";
+import { IoIosAddCircle } from "react-icons/io";
 import { BsPersonSquare } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 function AdminSidebar() {
@@ -114,13 +114,7 @@ function AdminSidebar() {
           <BsGraphDown /> Analytics
         </Link>
 
-        <Link
-          href={"/dashboard/admin/setting"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("settings")}
-        >
-          <IoMdSettings /> Settings
-        </Link>
+
 
         <Link
           href="/dashboard/admin/profile"

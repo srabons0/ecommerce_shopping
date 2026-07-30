@@ -8,7 +8,7 @@ import { FaHeart, FaHeartBroken, FaStar } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
 
-const ProductModal = ({ product, open, onClose }) => {
+const ProductModal = ({ product, onClose }) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [qty, setQty] = useState(1);

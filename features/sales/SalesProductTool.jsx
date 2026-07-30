@@ -49,7 +49,10 @@ function SalesProductTool() {
           </select>
 
           <div className="hidden md:flex flex-row justify-between items-center ">
-            <button className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400">
+            <button
+              aria-label="GridView"
+              className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400"
+            >
               <MdGridView
                 onClick={() => {
                   setCardSort("grid md:grid-cols-2 lg:grid-cols-3  gap-6");
@@ -62,7 +65,10 @@ function SalesProductTool() {
                 className="w-4 h-4 text-white "
               />
             </button>
-            <button className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400">
+            <button
+              aria-label="OutlineBars"
+              className="px-2.5 py-2 border-[#6d6d6d] border bg-transparent  hover:bg-gray-400"
+            >
               <HiOutlineBars3
                 onClick={() => {
                   setCardSort("grid grid-cols-1  gap-6");

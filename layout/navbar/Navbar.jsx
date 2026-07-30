@@ -16,14 +16,12 @@ import NavMenuWomen from "./NavMenuWomen";
 import NavMenuUniversal from "./NavMenuUniversal";
 
 import webLogo from "@/public/logo.png";
-import useCartLength from "@/store/cartLength";
 
 export default function Navbar({ category, subCategory }) {
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
-  const cartLength = useCartLength((state) => state.cartLength);
   const menCategory = category?.find((item) => item.gender === "men");
   const navLinks = [
     session?.user && {
@@ -49,6 +47,7 @@ export default function Navbar({ category, subCategory }) {
     },
   ].filter(Boolean);
 
+
   return (
     <>
       <header
@@ -69,7 +68,7 @@ export default function Navbar({ category, subCategory }) {
                 alt="Everyday Wear"
                 width={48}
                 height={48}
-                className="object-cover transition duration-300 group-hover:scale-110"
+                className="object-cover w-10 h-10 transition duration-300 group-hover:scale-110"
                 priority
               />
             </div>
@@ -165,26 +164,6 @@ export default function Navbar({ category, subCategory }) {
                 size={20}
                 className="transition-transform duration-300 group-hover:scale-110"
               />
-
-              <span
-                className="
-                  absolute
-                  -right-1
-                  -top-1
-                  flex
-                  h-5
-                  w-5
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-red-500
-                  text-[10px]
-                  font-semibold
-                  text-white
-                "
-              >
-                {cartLength}
-              </span>
             </button>
 
             {session ? (
@@ -200,25 +179,23 @@ export default function Navbar({ category, subCategory }) {
                   src={
                     session.user.image || "https://i.ibb.co/NYF9QTQ/images.png"
                   }
-                  alt={session.user.name}
-                  width={40}
-                  height={40}
-                  className="h-10 w-10 rounded-full object-cover ring-2 ring-zinc-200 transition hover:ring-red-500"
+                  alt={session?.user?.name}
+                  width={35}
+                  height={35}
+                  className="h-9 w-9 rounded-full object-cover ring-2 ring-zinc-200 transition hover:ring-red-500"
                 />
               </Link>
             ) : (
               <Link
                 href="/login"
-                className="
-                  rounded-full
-                  bg-black
+                className="rounded-2xl hover:bg-white/20
                   px-6
                   py-3
                   text-sm
                   font-semibold
                   text-white
                   transition
-                  hover:scale-105
+                  hover:scale-102
                 "
               >
                 Login
@@ -231,7 +208,7 @@ export default function Navbar({ category, subCategory }) {
             className="
               flex
               h-11
-              w-11
+              w-11 text-white
               items-center
               justify-center
               rounded-full
