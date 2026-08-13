@@ -89,7 +89,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="lg:flex lg:flex-row-reverse h-screen overflow-x-hidden">
+    <div className="h-screen overflow-x-hidden lg:flex lg:flex-row-reverse">
       <AnimatePresence mode="wait">
         <motion.div
           initial={{
@@ -106,25 +106,22 @@ export default function RegisterPage() {
           }}
           transition={{
             duration: 0.7,
-            delay: 0.3,
+            delay: 0.25,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="lg:w-1/2 h-screen lg:block hidden bg-black"
+          className="hidden h-screen bg-black lg:block lg:w-1/2"
         >
           <div className="relative">
             <div className="absolute top-12 right-14 z-40 flex flex-col gap-1">
-              <h1 className="font-serif text-4xl font-light tracking-[0.18em] text-[#F5F1E8]">
-                L<span className="text-[#C8A96A]">U</span>XORA
+              <h1 className="font-serif text-3xl font-light tracking-[0.18em] text-[#F5F1E8]">
+                EVERY<span className="text-[#C8A96A]">DAY</span> WEAR
               </h1>
 
-              <p className="text-[10px] uppercase tracking-[0.4em] text-[#C8A96A]/70">
-                La Muse Moderne
+              <p className="text-[10px] tracking-[0.4em] text-[#C8A96A]/70 uppercase">
+                Wear Your Everyday
               </p>
             </div>
-            <div
-              className="absolute z-40 right-15 top-50
- mb-10 font-serif text-[22px] font-light italic leading-[1.5] text-white/60"
-            >
+            <div className="absolute top-50 right-15 z-40 mb-10 font-serif text-[22px] leading-[1.5] font-light text-white/60 italic">
               {'"'}Fashion is the armor
               <br />
               to survive everyday life.{'"'}
@@ -175,9 +172,9 @@ export default function RegisterPage() {
             <Image
               src={registerImage}
               alt="loginImage"
-              className="absolute z-30 opacity-10 object-cover h-screen w-full "
+              className="absolute z-30 h-screen w-full object-cover opacity-10"
             />
-            <div className="bg-[linear-gradient(135deg,_#251507_0%,_#111119_48%,_#14310c_100%)] z-20 absolute w-full h-screen"></div>
+            <div className="absolute z-20 h-screen w-full bg-[linear-gradient(135deg,_#251507_0%,_#111119_48%,_#14310c_100%)]"></div>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -197,10 +194,10 @@ export default function RegisterPage() {
           }}
           transition={{
             duration: 0.7,
-            delay: 0.3,
+            delay: 0.25,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="flex lg:w-1/2  items-center h-screen justify-center overflow-y-auto bg-[#faf9f6] p-10"
+          className="flex h-screen items-center justify-center overflow-y-auto bg-[#faf9f6] p-10 lg:w-1/2"
         >
           <div className="w-full max-w-[460px]" id="formBox">
             <div className="mb-9" id="progressWrap">
@@ -213,7 +210,7 @@ export default function RegisterPage() {
                   className="h-full rounded bg-gradient-to-r from-[#b8953a] to-[#d4af5a] transition-all duration-500 ease-out"
                 />
               </div>
-              <div className="flex items-center justify-end text-[11px] uppercase tracking-[0.1em] text-[#8a8a8a]">
+              <div className="flex items-center justify-end text-[11px] tracking-[0.1em] text-[#8a8a8a] uppercase">
                 <span id="stepPct" className="font-semibold text-[#b8953a]">
                   {value.filter((v) => v?.trim()).length * 20}%
                 </span>
@@ -222,10 +219,10 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {step === true && (
                 <div id="step1" className="block">
-                  <div className="mb-[10px] flex items-center gap-[10px] text-[10px] uppercase tracking-[0.35em] text-[#b8953a] before:block before:h-px before:w-6 before:bg-[#b8953a]">
+                  <div className="mb-[10px] flex items-center gap-[10px] text-[10px] tracking-[0.35em] text-[#b8953a] uppercase before:block before:h-px before:w-6 before:bg-[#b8953a]">
                     Step 1 of 2
                   </div>
-                  <h1 className="mb-[6px] font-['Cormorant_Garamond'] text-[38px] font-normal leading-[1.1] text-[#0c0c0f]">
+                  <h1 className="mb-[6px] font-['Cormorant_Garamond'] text-[38px] leading-[1.1] font-normal text-[#0c0c0f]">
                     Personal
                     <br />
                     Details
@@ -250,7 +247,7 @@ export default function RegisterPage() {
                     <div className="mb-[18px]">
                       <label
                         htmlFor="firstName"
-                        className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
+                        className="mb-[7px] block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase"
                       >
                         UserName
                       </label>
@@ -262,9 +259,9 @@ export default function RegisterPage() {
                           {...register("name", {
                             required: "UserName is required",
                           })}
-                          className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
+                          className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] transition-all duration-200 outline-none focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                         />
-                        <div className="pointer-events-none absolute right-[13px] top-1/2 -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]">
+                        <div className="pointer-events-none absolute top-1/2 right-[13px] -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]">
                           <IoPersonOutline />
                         </div>
                       </div>
@@ -294,7 +291,7 @@ export default function RegisterPage() {
                   >
                     <label
                       htmlFor="regEmail"
-                      className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
+                      className="mb-[7px] block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase"
                     >
                       Email Address
                     </label>
@@ -311,12 +308,12 @@ export default function RegisterPage() {
                             message: "Please enter a valid email address",
                           },
                         })}
-                        className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
+                        className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] transition-all duration-200 outline-none focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                       />
-                      <div className="pointer-events-none absolute right-[13px] top-1/2 -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]">
+                      <div className="pointer-events-none absolute top-1/2 right-[13px] -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]">
                         <MdOutlineMail />
                       </div>
-                      <MdOutlineMail className="absolute right-[13px] top-1/2 hidden -translate-y-1/2 text-[#27ae60]" />
+                      <MdOutlineMail className="absolute top-1/2 right-[13px] hidden -translate-y-1/2 text-[#27ae60]" />
                     </div>
                     <div
                       id="regEmailErr"
@@ -343,7 +340,7 @@ export default function RegisterPage() {
                   >
                     <label
                       htmlFor="phone"
-                      className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
+                      className="mb-[7px] block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase"
                     >
                       Phone Number
                     </label>
@@ -354,7 +351,7 @@ export default function RegisterPage() {
                         {...register("number", {
                           required: "Phone Number is required",
                         })}
-                        className="w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
+                        className="w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] transition-all duration-200 outline-none focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                       />
                     </div>
                   </motion.div>
@@ -366,7 +363,7 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => handleNext()}
-                      className="group relative flex-1 overflow-hidden rounded-sm bg-[#0c0c0f] py-[14px] text-[12px] font-semibold uppercase tracking-[0.2em] text-[#faf9f6] transition hover:-translate-y-[1px]"
+                      className="group relative flex-1 overflow-hidden rounded-sm bg-[#0c0c0f] py-[14px] text-[12px] font-semibold tracking-[0.2em] text-[#faf9f6] uppercase transition hover:-translate-y-[1px]"
                     >
                       <span className="absolute inset-0 -translate-x-full bg-gradient-to-br from-[#b8953a] to-[#c4a23e] transition-transform duration-300 group-hover:translate-x-0" />
                       <span className="relative z-10">Continue →</span>
@@ -376,10 +373,10 @@ export default function RegisterPage() {
               )}
               {step === false && (
                 <div id="step2" className="">
-                  <div className="mb-[10px] flex items-center gap-[10px] text-[10px] uppercase tracking-[0.35em] text-[#b8953a] before:block before:h-px before:w-6 before:bg-[#b8953a]">
+                  <div className="mb-[10px] flex items-center gap-[10px] text-[10px] tracking-[0.35em] text-[#b8953a] uppercase before:block before:h-px before:w-6 before:bg-[#b8953a]">
                     Step 2 of 2
                   </div>
-                  <h1 className="mb-[6px] font-['Cormorant_Garamond'] text-[38px] font-normal leading-[1.1] text-[#0c0c0f]">
+                  <h1 className="mb-[6px] font-['Cormorant_Garamond'] text-[38px] leading-[1.1] font-normal text-[#0c0c0f]">
                     Set Your
                     <br />
                     Password
@@ -398,7 +395,7 @@ export default function RegisterPage() {
                   >
                     <label
                       htmlFor="regPass"
-                      className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
+                      className="mb-[7px] block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase"
                     >
                       Password
                     </label>
@@ -409,12 +406,12 @@ export default function RegisterPage() {
                         {...register("password", {
                           required: "Password is required",
                         })}
-                        className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
+                        className="peer w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] transition-all duration-200 outline-none focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                       />
                       <button
                         type="button"
                         onClick={() => setTogglePassword((t) => !t)}
-                        className="absolute right-[13px] top-1/2 -translate-y-1/2 cursor-pointer text-[#8a8a8a] transition hover:text-[#b8953a]"
+                        className="absolute top-1/2 right-[13px] -translate-y-1/2 cursor-pointer text-[#8a8a8a] transition hover:text-[#b8953a]"
                       >
                         {togglePassword ? <IoMdEyeOff /> : <FaEye />}
                       </button>
@@ -442,7 +439,7 @@ export default function RegisterPage() {
                     }}
                     className="mb-[18px]"
                   >
-                    <label className="mb-[7px] block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]">
+                    <label className="mb-[7px] block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase">
                       Confirm Password
                     </label>
                     <div className="relative">
@@ -456,7 +453,7 @@ export default function RegisterPage() {
                             value === getValues("password") ||
                             "Passwords do not match",
                         })}
-                        className="w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] outline-none transition-all duration-200 focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
+                        className="w-full appearance-none rounded-sm border-[1.5px] border-black/10 bg-white px-[14px] py-[13px] pr-11 text-sm text-[#0c0c0f] transition-all duration-200 outline-none focus:border-[#b8953a] focus:ring-4 focus:ring-[#b8953a]/10"
                       />
                     </div>
                     {errors.recheckPassword && (
@@ -465,7 +462,7 @@ export default function RegisterPage() {
                       </p>
                     )}
                     {error && (
-                      <div className="mb-1 mt-1 text-[11px] text-red-500">
+                      <div className="mt-1 mb-1 text-[11px] text-red-500">
                         {error}
                       </div>
                     )}
@@ -487,13 +484,13 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setStep(true)}
-                      className="rounded-sm border-[1.5px] border-black/10 px-5 py-2.5 md:py-3.5 text-[13px] text-[#8a8a8a] transition hover:border-[#0c0c0f] hover:text-[#0c0c0f]"
+                      className="rounded-sm border-[1.5px] border-black/10 px-5 py-2.5 text-[13px] text-[#8a8a8a] transition hover:border-[#0c0c0f] hover:text-[#0c0c0f] md:py-3.5"
                     >
                       ← Back
                     </button>
                     <button
                       type="submit"
-                      className={`group relative flex-1 overflow-hidden rounded-sm ${loading ? "bg-[#c4a23e]" : "bg-[#0c0c0f]"} py-3.5 text-[8px] md:text-[12px] font-semibold uppercase tracking-[0.2em] text-[#faf9f6] transition hover:-translate-y-px`}
+                      className={`group relative flex-1 overflow-hidden rounded-sm ${loading ? "bg-[#c4a23e]" : "bg-[#0c0c0f]"} py-3.5 text-[8px] font-semibold tracking-[0.2em] text-[#faf9f6] uppercase transition hover:-translate-y-px md:text-[12px]`}
                     >
                       <span className="absolute inset-0 -translate-x-full bg-linear-to-br from-[#b8953a] to-[#c4a23e] transition-transform duration-300 group-hover:translate-x-0" />
 
@@ -520,11 +517,11 @@ export default function RegisterPage() {
                 </div>
               )}
             </form>
-            <p className="text-center text-sm text-gray-500 mt-6">
+            <p className="mt-6 text-center text-sm text-gray-500">
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-black font-semibold hover:text-gray-400 transition-colors"
+                className="font-semibold text-black transition-colors hover:text-gray-400"
               >
                 {" "}
                 Sign in

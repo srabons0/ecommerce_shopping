@@ -33,6 +33,10 @@ export default function Navbar({ category }) {
           ? "/dashboard/admin/home"
           : "/dashboard/profile",
     },
+    !session?.user && {
+      title: "Track order",
+      href: "/guest-orders",
+    },
     {
       title: "Shop",
       href: `/shop/men/${menCategory?.slug}/newest`,

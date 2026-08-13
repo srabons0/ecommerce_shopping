@@ -2,14 +2,18 @@
 
 import CheckoutForm from "@/components/payment/CheckoutForm";
 import StripeProvider from "@/components/payment/StripeProvider";
+import { Button } from "@/components/ui/button";
 import useCartData from "@/store/cartStore";
-import { ArrowRight, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShoppingBag } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function CheckoutPage() {
+  const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
@@ -166,14 +170,14 @@ export default function CheckoutPage() {
       <main className="min-h-screen bg-[#f6f6f4] px-5 py-10 sm:px-8 sm:py-16">
         <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-5xl items-center justify-center">
           <section className="relative isolate w-full overflow-hidden bg-zinc-950 px-6 py-14 text-center text-white shadow-2xl sm:px-12 sm:py-20">
-            <div className="absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-red-600/70 blur-3xl" />
+            <div className="absolute -top-24 -right-24 -z-10 h-80 w-80 rounded-full bg-red-600/70 blur-3xl" />
             <div className="absolute -bottom-28 -left-20 -z-10 h-72 w-72 rounded-full border-24 border-red-500/15" />
 
             <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-white/10 text-red-400 backdrop-blur-sm">
               <ShoppingBag className="h-10 w-10" />
             </div>
 
-            <p className="mt-8 text-xs font-bold uppercase tracking-[0.28em] text-red-400">
+            <p className="mt-8 text-xs font-bold tracking-[0.28em] text-red-400 uppercase">
               Checkout is waiting
             </p>
             <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-6xl">
@@ -205,11 +209,23 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl mb-30 px-4 py-8 sm:py-10">
+    <main className="mx-auto mb-30 max-w-6xl px-4 py-8 sm:py-10">
       <div className="mb-8">
+       <div className="flex gap-3 items-center">
+
+          <Button
+            variant="ghost"
+            onClick={() => router.back()}
+            className="bg-black rounded-full w-9 h-9   text-white hover:bg-gray-200 "
+          >
+            <IoIosArrowBack className="h-11 w-11" />
+
+          </Button>
+
+
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Checkout
-        </h1>
+        </h1></div>
         <p className="mt-2 text-sm text-gray-500">
           Review your order and complete your purchase.
         </p>
@@ -263,7 +279,7 @@ export default function CheckoutPage() {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
-        <div className="rounded-3xl border max-h-full border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="max-h-full rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
@@ -279,7 +295,7 @@ export default function CheckoutPage() {
             </span>
           </div>
 
-          <div className="space-y-4  max-h-190 scrollbar-hide overflow-y-auto ">
+          <div className="scrollbar-hide max-h-190 space-y-4 overflow-y-auto">
             {cartItems.map((item) => (
               <div
                 key={item._id}
@@ -296,9 +312,9 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="flex flex-1 flex-col justify-center">
-                  <div className="flex  items-start justify-between gap-3">
+                  <div className="flex items-start justify-between gap-3">
                     <div className="max-w-50">
-                      <h3 className=" text-base font-semibold text-gray-900 sm:text-lg">
+                      <h3 className="text-base font-semibold text-gray-900 sm:text-lg">
                         {item.name}
                       </h3>
                       <p className="mt-0.5 text-sm text-gray-500">
@@ -309,7 +325,7 @@ export default function CheckoutPage() {
                     <div className="shrink-0 text-right">
                       <p className="text-base font-bold">
                         {item.discountPercentage ? (
-                          <span className="text-sm text-gray-400 mr-2 line-through">
+                          <span className="mr-2 text-sm text-gray-400 line-through">
                             ${item.price}
                           </span>
                         ) : (
@@ -365,13 +381,13 @@ export default function CheckoutPage() {
 
           <div className="mt-4 flex items-center justify-between rounded-2xl bg-gray-900 px-5 py-3">
             <span className="text-base font-semibold text-white">Total</span>
-            <span className="text-2xl font-bold tabular-nums text-white">
+            <span className="text-2xl font-bold text-white tabular-nums">
               ${totalPrice + 100}
             </span>
           </div>
         </div>
 
-        <div className="max-h-full ">
+        <div className="max-h-full">
           {loading && !clientSecret && (
             <div
               className="animate-pulse space-y-4 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8"

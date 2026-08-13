@@ -2,7 +2,7 @@ const statSkeletons = [1, 2, 3, 4];
 
 export default function UserDashboardLoading() {
   return (
-    <div className="min-h-screen animate-pulse bg-zinc-50">
+    <div className="min-h-screen w-full animate-pulse bg-zinc-50">
       <div className="border-b border-zinc-200 bg-white px-6 py-6 lg:px-12">
         <div className="h-3 w-32 rounded bg-zinc-200" />
         <div className="mt-4 h-9 w-56 rounded bg-zinc-300" />

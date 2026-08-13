@@ -21,7 +21,7 @@ function DashboardHome({
               <div className="mb-4 flex justify-between">
                 <div>
                   <h2 className="lg:text-3xl text-xl font-bold text-black">
-                    ${totalRevenue[0].totalPrice}
+                    ${totalRevenue[0]?.totalPrice ? totalRevenue[0].totalPrice.toFixed(2) : 0.00}
                   </h2>
 
                   <p className="mt-1 text-[8px] lg:text-[11px] uppercase tracking-[0.18em] text-zinc-500">
@@ -38,16 +38,14 @@ function DashboardHome({
                 </div>
               </div>
 
-              <p className="mt-3 text-xs lg:text-sm font-medium text-emerald-500">
-                ↑ 12.5%
-              </p>
+
             </div>
 
             <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-blue-500/30">
               <div className="mb-4 flex justify-between">
                 <div>
                   <h2 className="lg:text-3xl text-xl font-bold text-black">
-                    {orderCount}
+                    {orderCount ? orderCount : 0}
                   </h2>
 
                   <p className="mt-1  text-[8px] lg:text-[11px] uppercase tracking-[0.18em] text-zinc-500">
@@ -64,16 +62,14 @@ function DashboardHome({
                 </div>
               </div>
 
-              <p className="mt-3 text-xs lg:text-sm font-medium text-emerald-500">
-                ↑ 8.3%
-              </p>
+
             </div>
 
             <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-emerald-500/30">
               <div className="mb-4 flex justify-between">
                 <div>
                   <h2 className="lg:text-3xl text-xl font-bold text-black">
-                    {userCount}
+                    {userCount ? userCount : 0}
                   </h2>
 
                   <p className="mt-1  text-[8px] lg:text-[11px] uppercase tracking-[0.18em] text-zinc-500">
@@ -90,16 +86,14 @@ function DashboardHome({
                 </div>
               </div>
 
-              <p className="mt-3 text-xs lg:text-sm font-medium text-red-500">
-                ↓ 2.1%
-              </p>
+
             </div>
 
             <div className="rounded border border-white/10 bg-white p-6 transition hover:-translate-y-1 hover:border-yellow-700/30">
               <div className="mb-4 flex justify-between">
                 <div>
                   <h2 className="lg:text-3xl text-xl font-bold text-black">
-                    {productRating[0].averageRating.toFixed(1)}★
+                    {productRating[0]?.averageRating ? productRating[0].averageRating.toFixed(1) : 0.0}★
                   </h2>
 
                   <p className="mt-1  text-[8px] lg:text-[11px] uppercase tracking-[0.18em] text-zinc-500">
@@ -116,9 +110,7 @@ function DashboardHome({
                 </div>
               </div>
 
-              <p className="mt-3 text-xs lg:text-sm font-medium text-emerald-500">
-                ↑ 0.2 this quarter
-              </p>
+             
             </div>
           </div>
         </section>

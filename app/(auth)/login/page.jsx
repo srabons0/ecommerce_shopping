@@ -1,21 +1,21 @@
 "use client";
 import loginImage from "@/assets/bgImage/loginImage.png";
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
-import { motion, AnimatePresence } from "framer-motion";
-import { MagnifyingGlass } from "react-loader-spinner";
+import toast, { Toaster } from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
+import { MagnifyingGlass } from "react-loader-spinner";
 export default function LoginPage() {
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm();
   const router = useRouter();
@@ -26,7 +26,30 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [showPw, setShowPw] = useState(false);
 
-  const handleSocialLogin = () => {};
+  function fillUserTest() {
+    setError("");
+    setShowPw(false);
+    setValue("email", "user@test.local");
+    setValue("password", "password123");
+  }
+
+  function fillAdminTest() {
+    setError("");
+    setShowPw(false);
+    setValue("email", "admin@test.local");
+    setValue("password", "password123");
+  }
+
+const handleSocialLogin = async () => {
+  try {
+    await signIn("google", {
+      callbackUrl: "/",
+    });
+  } catch (error) {
+    console.error("Google login error:", error);
+  }
+};
+
   const onSubmit = async (data) => {
     setLoading(true);
     const result = await signIn("credentials", {
@@ -49,7 +72,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex  h-screen  overflow-x-hidden">
+    <div className="flex h-screen overflow-x-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           initial={{
@@ -69,23 +92,23 @@ export default function LoginPage() {
             delay: 0.25,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="w-1/2 lg:block hidden h-screen bg-black"
+          className="hidden h-screen w-1/2 bg-black lg:block"
         >
           <div className="relative">
             <div className="absolute top-12 left-14 z-40 flex flex-col gap-1">
-              <h1 className="font-serif text-4xl font-light tracking-[0.18em] text-[#F5F1E8]">
-                L<span className="text-[#C8A96A]">U</span>XORA
+              <h1 className="font-serif text-3xl font-light tracking-[0.18em] text-[#F5F1E8]">
+                EVERY<span className="text-[#C8A96A]">DAY</span> WEAR
               </h1>
 
-              <p className="text-[10px] uppercase tracking-[0.4em] text-[#C8A96A]/70">
-                La Muse Moderne
+              <p className="text-[10px] tracking-[0.4em] text-[#C8A96A]/70 uppercase">
+                Wear Your Everyday
               </p>
             </div>
 
-            <div className="absolute z-40 left-15 top-120">
-              <h2 className="font-['Cormorant_Garamond'] text-[clamp(28px,3.5vw,46px)] font-light leading-[1.2] text-[#F5F1E8]">
+            <div className="absolute top-120 left-15 z-40">
+              <h2 className="font-['Cormorant_Garamond'] text-[clamp(28px,3.5vw,46px)] leading-[1.2] font-light text-[#F5F1E8]">
                 {'"'} Wear{" "}
-                <em className="not-italic text-[#C8A96A]">confidence.</em>
+                <em className="text-[#C8A96A] not-italic">confidence.</em>
                 <br />
                 Leave an impression.{'"'}
               </h2>
@@ -94,9 +117,9 @@ export default function LoginPage() {
             <Image
               src={loginImage}
               alt="loginImage"
-              className="absolute z-30 opacity-10 object-cover h-screen w-full "
+              className="absolute z-30 h-screen w-full object-cover opacity-10"
             />
-            <div className="bg-[linear-gradient(135deg,_#221303_0%,_#0b0b11_48%,_#0f2205_100%)] z-20 absolute w-full h-screen"></div>
+            <div className="absolute z-20 h-screen w-full bg-[linear-gradient(135deg,_#221303_0%,_#0b0b11_48%,_#0f2205_100%)]"></div>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -119,20 +142,20 @@ export default function LoginPage() {
             delay: 0.25,
             ease: [0.76, 0, 0.24, 1],
           }}
-          className="lg:w-1/2 w-full h-screen bg-white relative"
+          className="relative h-screen w-full bg-white lg:w-1/2"
         >
-          <div className="flex-1 flex items-center  h-screen justify-center bg-[#faf9f6] overflow-y-auto p-10 relative z-1">
+          <div className="relative z-1 flex h-screen flex-1 items-center justify-center overflow-y-auto bg-[#faf9f6] p-10">
             <div className="w-full max-w-105 animate-[formReveal_1s_cubic-bezier(0.16,1,0.3,1)_0.3s_both]">
-              <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-[#b8953a] before:block before:h-px before:w-6 before:bg-[#b8953a]">
+              <div className="mb-3 flex items-center gap-2 text-[10px] tracking-[0.35em] text-[#b8953a] uppercase before:block before:h-px before:w-6 before:bg-[#b8953a]">
                 Welcome back
               </div>
               <Link
                 href="/"
-                className="absolute top-13 right-10 z-40 p-2 flex flex-col gap-1 border-2 border-black rounded-full hover:border"
+                className="absolute top-13 right-10 z-40 flex flex-col gap-1 rounded-full border-2 border-black p-2 hover:border"
               >
-                <FaHome className="text-black md:w-6 md:h-6" />
+                <FaHome className="text-black md:h-6 md:w-6" />
               </Link>
-              <h1 className="mb-2 font-['Cormorant_Garamond'] text-[42px] font-normal leading-none text-[#0c0c0f]">
+              <h1 className="mb-2 font-['Cormorant_Garamond'] text-[42px] leading-none font-normal text-[#0c0c0f]">
                 Sign In
               </h1>
 
@@ -143,7 +166,7 @@ export default function LoginPage() {
               <div className="mb-7 grid grid-cols-2 gap-3">
                 <button
                   type="button"
-                  onClick={() => handleSocialLogin("Google")}
+                  onClick={() => handleSocialLogin("google")}
                   className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-sm border-[1.5px] border-black/10 bg-white px-3 py-3 text-[13px] font-medium text-[#0c0c0f] transition-all duration-300"
                 >
                   <span className="absolute inset-0 origin-left scale-x-0 bg-[#0c0c0f] transition-transform duration-300 group-hover:scale-x-100"></span>
@@ -200,8 +223,26 @@ export default function LoginPage() {
                 </button>
               </div>
 
-              <div className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.15em] text-[#8a8a8a] before:h-px before:flex-1 before:bg-black/10 after:h-px after:flex-1 after:bg-black/10">
+              <div className="mb-7 flex items-center gap-4 text-[11px] tracking-[0.15em] text-[#8a8a8a] uppercase before:h-px before:flex-1 before:bg-black/10 after:h-px after:flex-1 after:bg-black/10">
                 or continue with email
+              </div>
+
+              <div className="mb-4 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={fillUserTest}
+                  className="flex items-center gap-2 rounded-sm border border-black/10 bg-white px-3 py-2 text-sm font-medium text-[#0c0c0f]"
+                >
+                  Test User
+                </button>
+
+                <button
+                  type="button"
+                  onClick={fillAdminTest}
+                  className="flex items-center gap-2 rounded-sm border border-black/10 bg-white px-3 py-2 text-sm font-medium text-[#0c0c0f]"
+                >
+                  Test Admin
+                </button>
               </div>
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -215,7 +256,7 @@ export default function LoginPage() {
                 >
                   <label
                     htmlFor="email"
-                    className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
+                    className="mb-2 block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase"
                   >
                     Email Address
                   </label>
@@ -234,12 +275,12 @@ export default function LoginPage() {
                           message: "Please enter a valid email address",
                         },
                       })}
-                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm outline-none transition-all focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${
+                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm transition-all outline-none focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${
                         error.email ? "border-red-500" : ""
                       }`}
                     />
 
-                    <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]"></div>
+                    <div className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-[#8a8a8a] peer-focus:text-[#b8953a]"></div>
 
                     <div className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#b8953a] transition-transform duration-300 peer-focus:scale-x-100"></div>
                   </div>
@@ -261,7 +302,7 @@ export default function LoginPage() {
                 >
                   <label
                     htmlFor="password"
-                    className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8a8a]"
+                    className="mb-2 block text-[10px] font-semibold tracking-[0.15em] text-[#8a8a8a] uppercase"
                   >
                     Password
                   </label>
@@ -274,14 +315,14 @@ export default function LoginPage() {
                       {...register("password", {
                         required: "Password is required",
                       })}
-                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm outline-none transition-all focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${
+                      className={`peer w-full rounded-sm border-[1.5px] border-black/10 bg-[#faf9f6] px-4 py-[14px] pr-12 text-sm transition-all outline-none focus:border-[#b8953a] focus:bg-white focus:ring-4 focus:ring-[#b8953a]/10 ${
                         error.password ? "border-red-500" : ""
                       }`}
                     />
 
                     <div
                       onClick={() => setShowPw(!showPw)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-[#8a8a8a] transition-colors hover:text-[#b8953a]"
+                      className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-[#8a8a8a] transition-colors hover:text-[#b8953a]"
                     ></div>
 
                     <div className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#b8953a] transition-transform duration-300 peer-focus:scale-x-100"></div>
@@ -294,7 +335,7 @@ export default function LoginPage() {
                 </motion.div>
 
                 {error && (
-                  <div className="mb-2  text-[11px] text-red-500">{error}</div>
+                  <div className="mb-2 text-[11px] text-red-500">{error}</div>
                 )}
                 <div className="mb-7 flex items-center justify-between">
                   <label className="flex cursor-pointer items-center gap-2">
@@ -319,7 +360,7 @@ export default function LoginPage() {
 
                 <button
                   type="submit"
-                  className={`group relative w-full overflow-hidden rounded-sm ${loading ? "bg-[#c4a23e]" : "bg-[#0c0c0f]"} py-3.75 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#faf9f6] transition hover:-translate-y-[px] active:translate-y-0 ${
+                  className={`group relative w-full overflow-hidden rounded-sm ${loading ? "bg-[#c4a23e]" : "bg-[#0c0c0f]"} py-3.75 text-[12px] font-semibold tracking-[0.2em] text-[#faf9f6] uppercase transition hover:-translate-y-[px] active:translate-y-0 ${
                     loading ? "loading" : ""
                   }`}
                 >
@@ -351,7 +392,7 @@ export default function LoginPage() {
                 Don{"\'"}t have an account?{" "}
                 <Link
                   href="/register"
-                  className="font-semibold text-[#0c0c0f] underline-offset-4  hover:text-gray-400  "
+                  className="font-semibold text-[#0c0c0f] underline-offset-4 hover:text-gray-400"
                 >
                   {" "}
                   Create one →

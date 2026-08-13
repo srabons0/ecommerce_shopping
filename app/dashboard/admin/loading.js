@@ -2,7 +2,7 @@ const statSkeletons = [1, 2, 3, 4];
 
 export default function AdminDashboardLoading() {
   return (
-    <div className="min-h-screen animate-pulse bg-zinc-50 lg:pl-4">
+    <div className="min-h-screen w-full animate-pulse bg-zinc-50 lg:pl-4">
       <div className="border-b border-zinc-200 bg-white px-6 py-6 lg:px-10">
         <div className="h-3 w-28 rounded bg-zinc-200" />
         <div className="mt-4 h-9 w-64 rounded bg-zinc-300" />
