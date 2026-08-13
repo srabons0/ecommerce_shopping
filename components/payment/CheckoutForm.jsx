@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import useCartData from "@/store/cartStore";
 import {
-  CardNumberElement,
-  CardExpiryElement,
   CardCvcElement,
-  useStripe,
+  CardExpiryElement,
+  CardNumberElement,
   useElements,
+  useStripe,
 } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { MdShoppingCartCheckout } from "react-icons/md";
 const stripeElementStyle = {
   style: {
@@ -31,10 +32,18 @@ const stripeElementStyle = {
     },
   },
 };
-export default function CheckoutForm({ clientSecret, cartItems, user }) {
+export default function CheckoutForm({
+  clientSecret,
+  cartItems,
+  user,
+  isAuthenticated,
+  paymentMethod,
+  onPaymentMethodChange,
+}) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
+  const clearCartData = useCartData((state) => state.clearCartData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [shipping, setShipping] = useState({
@@ -71,8 +80,6 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!stripe || !elements) return;
-
     setError("");
 
     const validationError = validateForm();
@@ -82,9 +89,19 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
       return;
     }
 
-    const cardElement = elements.getElement(CardNumberElement);
+    if (paymentMethod === "stripe" && !isAuthenticated) {
+      setError(
+        "Please log in to pay securely with Stripe. Cash on delivery is available without an account.",
+      );
+      return;
+    }
 
-    if (!cardElement) {
+    const cardElement =
+      paymentMethod === "stripe"
+        ? elements?.getElement(CardNumberElement)
+        : null;
+
+    if (paymentMethod === "stripe" && (!stripe || !elements || !cardElement)) {
       setError("Card element not found.");
       return;
     }
@@ -92,43 +109,50 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
     try {
       setLoading(true);
 
-      const { error: stripeError, paymentIntent } =
-        await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: shipping.fullName,
-              email: shipping.email,
-              phone: shipping.phone,
-              address: {
-                city: shipping.city,
-                postal_code: shipping.postalCode,
-                line1: shipping.address,
+      let paymentIntentId;
+
+      if (paymentMethod === "stripe") {
+        const { error: stripeError, paymentIntent } =
+          await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: cardElement,
+              billing_details: {
+                name: shipping.fullName,
+                email: shipping.email,
+                phone: shipping.phone,
+                address: {
+                  city: shipping.city,
+                  postal_code: shipping.postalCode,
+                  line1: shipping.address,
+                },
               },
             },
-          },
-        });
+          });
 
-      if (stripeError) {
-        setError(stripeError.message);
-        return;
+        if (stripeError) {
+          setError(stripeError.message);
+          return;
+        }
+
+        if (paymentIntent.status !== "succeeded") {
+          setError("Payment failed.");
+          return;
+        }
+
+        paymentIntentId = paymentIntent.id;
       }
 
-      if (paymentIntent.status !== "succeeded") {
-        setError("Payment failed.");
-        return;
-      }
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          paymentIntentId: paymentIntent.id,
+          paymentIntentId,
           userId: user._id,
           items: cartItems,
           shipping,
-          paymentMethod: "stripe",
+          paymentMethod,
         }),
       });
 
@@ -139,13 +163,15 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
         return;
       }
 
-      const res = await fetch(`api/cart/cardDelete?email=${user?.email}`, {
-        method: "DELETE",
-      });
-      const cardDelete = await res.json();
-      // console.log(cardDelete);
-
-      router.push(`/payment-success?id=${data.order._id}`);
+      if (user?.email) {
+        await fetch(`/api/cart/cardDelete?email=${user.email}`, {
+          method: "DELETE",
+        });
+      }
+      clearCartData();
+      router.push(
+        `/payment-success?id=${data.order._id}&method=${paymentMethod}`,
+      );
     } catch (err) {
       console.error(err);
       setError("Something went wrong.");
@@ -166,8 +192,39 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
           </h2>
 
           <p className="mt-2 text-gray-500">
-            Complete your order securely with Stripe.
+            Choose how you would like to complete your order.
           </p>
+        </div>
+      </div>
+      <div className="border-t border-gray-200 pt-8">
+        <h3 className="mb-4 text-xl font-semibold text-gray-900">
+          Payment method
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => onPaymentMethodChange("cod")}
+            className={`rounded-2xl border p-4 text-left transition ${paymentMethod === "cod" ? "border-black bg-gray-900 text-white" : "border-gray-200 bg-gray-50 text-gray-900 hover:border-gray-400"}`}
+          >
+            <span className="block font-semibold">Cash on delivery</span>
+            <span
+              className={`mt-1 block text-sm ${paymentMethod === "cod" ? "text-gray-300" : "text-gray-500"}`}
+            >
+              Pay when your order arrives. No login required.
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onPaymentMethodChange("stripe")}
+            className={`rounded-2xl border p-4 text-left transition ${paymentMethod === "stripe" ? "border-black bg-gray-900 text-white" : "border-gray-200 bg-gray-50 text-gray-900 hover:border-gray-400"}`}
+          >
+            <span className="block font-semibold">Pay with Stripe</span>
+            <span
+              className={`mt-1 block text-sm ${paymentMethod === "stripe" ? "text-gray-300" : "text-gray-500"}`}
+            >
+              {isAuthenticated ? "Secure card payment" : "Login required"}
+            </span>
+          </button>
         </div>
       </div>
       <div>
@@ -260,45 +317,47 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-200 pt-8">
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">
-              Payment Details
-            </h3>
+      {paymentMethod === "stripe" && (
+        <div className="border-t border-gray-200 pt-8">
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900">
+                Payment Details
+              </h3>
+            </div>
           </div>
-        </div>
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
-            Card Number
-          </label>
-
-          <div className="rounded-2xl border border-gray-300 bg-gray-50 px-5 py-4 transition-all duration-300 focus-within:border-black focus-within:bg-white focus-within:ring-4 focus-within:ring-black/5">
-            <CardNumberElement options={stripeElementStyle} />
-          </div>
-        </div>
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
-              Expiry Date
+              Card Number
             </label>
 
             <div className="rounded-2xl border border-gray-300 bg-gray-50 px-5 py-4 transition-all duration-300 focus-within:border-black focus-within:bg-white focus-within:ring-4 focus-within:ring-black/5">
-              <CardExpiryElement options={stripeElementStyle} />
+              <CardNumberElement options={stripeElementStyle} />
             </div>
           </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Expiry Date
+              </label>
 
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Security Code
-            </label>
+              <div className="rounded-2xl border border-gray-300 bg-gray-50 px-5 py-4 transition-all duration-300 focus-within:border-black focus-within:bg-white focus-within:ring-4 focus-within:ring-black/5">
+                <CardExpiryElement options={stripeElementStyle} />
+              </div>
+            </div>
 
-            <div className="rounded-2xl border border-gray-300 bg-gray-50 px-5 py-4 transition-all duration-300 focus-within:border-black focus-within:bg-white focus-within:ring-4 focus-within:ring-black/5">
-              <CardCvcElement options={stripeElementStyle} />
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Security Code
+              </label>
+
+              <div className="rounded-2xl border border-gray-300 bg-gray-50 px-5 py-4 transition-all duration-300 focus-within:border-black focus-within:bg-white focus-within:ring-4 focus-within:ring-black/5">
+                <CardCvcElement options={stripeElementStyle} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
           {error}
@@ -306,7 +365,7 @@ export default function CheckoutForm({ clientSecret, cartItems, user }) {
       )}
       <button
         type="submit"
-        disabled={!stripe || loading}
+        disabled={(paymentMethod === "stripe" && !stripe) || loading}
         className="flex h-14 w-full items-center justify-center rounded-2xl bg-black text-lg font-semibold text-white transition-all duration-300 hover:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? (

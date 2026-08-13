@@ -46,7 +46,7 @@ export default function UserDetailsModal({
   const updatedTime = new Date(user.updatedAt).toLocaleTimeString();
 
   const handleUpdateRole = async (id, role, status) => {
-    // console.log(id, role, status);
+
     try {
       const res = await fetch(`/api/user/statusUpdate/${id}`, {
         method: "PATCH",
@@ -59,7 +59,6 @@ export default function UserDetailsModal({
           userStatus: status,
         }),
       });
-      // console.log(res);
       if (!res.ok) {
         throw new Error(result?.error || "Failed to update product");
       }
@@ -70,40 +69,12 @@ export default function UserDetailsModal({
     }
   };
 
-
-
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay
-          className="
-          fixed
-          inset-0
-          z-240
-          bg-black/60
-          backdrop-blur-md
-        "
-        />
+        <Dialog.Overlay className="fixed inset-0 z-240 bg-black/60 backdrop-blur-md" />
 
-        <Dialog.Content
-          className="
-          fixed
-          left-1/2
-          top-1/2
-          z-250
-          h-[92vh]
-          w-[95vw]
-          max-w-6xl
-          -translate-x-1/2
-          -translate-y-1/2
-          overflow-hidden
-          rounded-[32px]
-          border
-          bg-zinc-100
-          shadow-[0_40px_120px_rgba(0,0,0,.35)]
-          outline-none
-        "
-        >
+        <Dialog.Content className="fixed top-1/2 left-1/2 z-250 h-[92vh] w-[95vw] max-w-6xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[32px] border bg-zinc-100 shadow-[0_40px_120px_rgba(0,0,0,.35)] outline-none">
           <div className="sticky top-0 z-20 border-b bg-white/90 backdrop-blur-xl">
             <div className="flex items-center justify-between px-8 py-6">
               <div>
@@ -118,22 +89,15 @@ export default function UserDetailsModal({
 
               <Dialog.Close
                 onClick={() => setOpen(false)}
-                className="
-                rounded-xl
-                border
-                bg-white
-                p-3
-                transition
-                hover:bg-zinc-100
-              "
+                className="rounded-xl border bg-white p-3 transition hover:bg-zinc-100"
               >
                 <X size={20} />
               </Dialog.Close>
             </div>
           </div>
 
-          <div className="h-[calc(92vh-90px)] overflow-y-auto p-8 ">
-            <div className="grid gap-8 xl:grid-cols-3 mb-30">
+          <div className="h-[calc(92vh-90px)] overflow-y-auto p-4 pb-20 lg:p-8 lg:pb-0">
+            <div className="mb-30 grid gap-8 xl:grid-cols-3">
               <div className="space-y-6">
                 <div className="rounded-3xl border bg-white p-6 shadow-sm">
                   <div className="flex flex-col items-center">
@@ -155,37 +119,21 @@ export default function UserDetailsModal({
 
                     <div className="mt-5 flex flex-wrap justify-center gap-3">
                       <span
-                        className={`
-                        rounded-full
-                        px-4
-                        py-2
-                        text-sm
-                        font-semibold uppercase
-
-                        ${
+                        className={`rounded-full px-4 py-2 text-sm font-semibold uppercase ${
                           user.role === "admin"
                             ? "bg-violet-100 text-violet-700"
                             : "bg-zinc-100 text-zinc-700"
-                        }
-                      `}
+                        } `}
                       >
                         {user.role}
                       </span>
 
                       <span
-                        className={`
-                        rounded-full
-                        px-4
-                        py-2 uppercase
-                        text-sm
-                        font-semibold
-
-                        ${
+                        className={`rounded-full px-4 py-2 text-sm font-semibold uppercase ${
                           user.userStatus === "active"
                             ? "bg-green-100 text-green-700"
                             : "bg-red-100 text-red-600"
-                        }
-                      `}
+                        } `}
                       >
                         {user.userStatus}
                       </span>
@@ -199,20 +147,7 @@ export default function UserDetailsModal({
                   <div className="space-y-3">
                     <button
                       onClick={() => setOpenRoleModal(true)}
-                      className="
-                      flex
-                      w-full
-                      items-center
-                      justify-center
-                      gap-2
-                      rounded-2xl
-                      bg-zinc-900
-                      py-3
-                      font-semibold
-                      text-white
-                      transition
-                      hover:bg-black
-                    "
+                      className="flex w-full items-center justify-center gap-2 rounded-2xl bg-zinc-900 py-3 font-semibold text-white transition hover:bg-black"
                     >
                       <Pencil size={18} />
                       Edit User
@@ -220,20 +155,7 @@ export default function UserDetailsModal({
 
                     <button
                       onClick={() => navigator.clipboard.writeText(user._id)}
-                      className="
-                      flex
-                      w-full
-                      items-center
-                      justify-center
-                      gap-2
-                      rounded-2xl
-                      border
-                      bg-white
-                      py-3
-                      font-medium
-                      transition
-                      hover:bg-zinc-100
-                    "
+                      className="flex w-full items-center justify-center gap-2 rounded-2xl border bg-white py-3 font-medium transition hover:bg-zinc-100"
                     >
                       <Copy size={18} />
                       Copy User ID
@@ -349,41 +271,20 @@ export default function UserDetailsModal({
             </div>
           </div>
 
-          <div className="sticky bottom-0 flex items-center justify-between border-t bg-white px-8 py-5">
+          <div className="sticky bottom-0 flex flex-col items-center justify-between gap-5 border-t bg-white px-8 py-5 lg:flex-row">
             <div className="text-sm text-zinc-500">User ID: {user._id}</div>
 
             <div className="flex items-center gap-3">
               <Dialog.Close
                 onClick={() => setOpen(false)}
-                className="
-                rounded-2xl
-                border
-                bg-white
-                px-6
-                py-3
-                font-medium
-                transition
-                hover:bg-zinc-100
-              "
+                className="rounded-2xl border bg-white px-6 py-3 font-medium transition hover:bg-zinc-100"
               >
                 Close
               </Dialog.Close>
 
               <button
                 onClick={() => setOpenRoleModal(true)}
-                className="
-                flex
-                items-center
-                gap-2
-                rounded-2xl
-                bg-zinc-900
-                px-7
-                py-3
-                font-semibold
-                text-white
-                transition
-                hover:bg-black
-              "
+                className="flex items-center gap-2 rounded-2xl bg-zinc-900 px-7 py-3 font-semibold text-white transition hover:bg-black"
               >
                 <Pencil size={18} />
                 Edit User
@@ -398,22 +299,7 @@ export default function UserDetailsModal({
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 z-255 bg-black/60 backdrop-blur-sm" />
 
-            <Dialog.Content
-              className="
-      fixed
-      left-1/2
-      top-1/2
-      z-260
-      w-[95vw]
-      max-w-md
-      -translate-x-1/2
-      -translate-y-1/2
-      rounded-3xl
-      bg-white
-      shadow-2xl
-      outline-none
-    "
-            >
+            <Dialog.Content className="fixed top-1/2 left-1/2 z-260 w-[95vw] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white shadow-2xl outline-none">
               <div className="border-b px-6 py-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -461,18 +347,7 @@ export default function UserDetailsModal({
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className="
-            w-full
-            rounded-2xl
-            border
-            border-zinc-200
-            bg-white
-            px-4
-            py-3
-            outline-none
-            transition
-            focus:border-zinc-900
-          "
+                    className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 transition outline-none focus:border-zinc-900"
                   >
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
@@ -487,18 +362,7 @@ export default function UserDetailsModal({
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="
-            w-full
-            rounded-2xl
-            border
-            border-zinc-200
-            bg-white
-            px-4
-            py-3
-            outline-none
-            transition
-            focus:border-zinc-900
-          "
+                    className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 transition outline-none focus:border-zinc-900"
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -508,35 +372,13 @@ export default function UserDetailsModal({
               </div>
 
               <div className="flex justify-end gap-3 border-t px-6 py-5">
-                <Dialog.Close
-                  className="
-          rounded-2xl
-          border
-          px-5
-          py-3
-          font-medium
-          transition
-          hover:bg-zinc-100
-        "
-                >
+                <Dialog.Close className="rounded-2xl border px-5 py-3 font-medium transition hover:bg-zinc-100">
                   Cancel
                 </Dialog.Close>
 
                 <button
                   onClick={() => handleUpdateRole(user._id, role, status)}
-                  className="
-          flex
-          items-center
-          gap-2
-          rounded-2xl
-          bg-zinc-900
-          px-6
-          py-3
-          font-semibold
-          text-white
-          transition
-          hover:bg-black
-        "
+                  className="flex items-center gap-2 rounded-2xl bg-zinc-900 px-6 py-3 font-semibold text-white transition hover:bg-black"
                 >
                   <Save size={18} />
                   Save Changes
@@ -558,7 +400,7 @@ function Info({ icon, title, value }) {
       <div className="min-w-0">
         <p className="text-sm text-zinc-500">{title}</p>
 
-        <p className="mt-1 break-all font-semibold">{value}</p>
+        <p className="mt-1 font-semibold break-all">{value}</p>
       </div>
     </div>
   );

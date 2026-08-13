@@ -1,14 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const COLORS = [
-  // "#7C3AED",
+
   "#C90000",
   "#10B981",
   "#FFA600",
   "#0039C9",
-  // "#EC4899",
 ];
 
 const CustomTooltip = ({ active, payload }) => {
@@ -28,14 +28,25 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 export default function RevenueByCategory({ revenueByCategory }) {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const totalRevenue = revenueByCategory.reduce(
     (acc, item) => acc + item.revenue,
     0,
   );
 
   return (
-    <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg">
-      <div className="mb-8 flex items-center justify-between">
+    <div className="rounded-3xl border border-zinc-200 bg-white p-2 lg:p-6 shadow-sm transition-all hover:shadow-lg">
+      <div className="mb-8 pt-4 px-4 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-zinc-900">
             Revenue by Category
@@ -45,7 +56,7 @@ export default function RevenueByCategory({ revenueByCategory }) {
           </p>
         </div>
 
-        <div className="rounded-xl bg-violet-50 px-4 py-2">
+        <div className="rounded-xl bg-violet-50 lg:px-4 lg:py-2 px-2 py-1">
           <p className="text-xs text-zinc-500">Total Revenue</p>
           <p className="text-lg font-bold text-[#F59E0B]">
             ৳{Math.ceil(totalRevenue)}
@@ -61,8 +72,8 @@ export default function RevenueByCategory({ revenueByCategory }) {
                 data={revenueByCategory}
                 dataKey="revenue"
                 nameKey="category"
-                innerRadius={80}
-                outerRadius={120}
+                outerRadius={mobile ? 90 : 120}
+                innerRadius={mobile ? 60 : 70}
                 paddingAngle={3}
                 stroke="white"
                 strokeWidth={3}
@@ -89,19 +100,19 @@ export default function RevenueByCategory({ revenueByCategory }) {
           </div>
         </div>
 
-        <div className=" grid grid-cols-2 gap-5">
+        <div className=" grid grid-cols-2 gap-2 lg:gap-5">
           {revenueByCategory.map((item, index) => {
             const percentage = ((item.revenue / totalRevenue) * 100).toFixed(1);
 
             return (
               <div
                 key={item.category}
-                className="rounded-2xl border border-zinc-100 p-4 transition hover:bg-zinc-50"
+                className="rounded-2xl border text-sm lg:text-base  border-zinc-100 p-4 transition hover:bg-zinc-50"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                <div className="">
+                  <div className="flex items-center lg:gap-3">
                     <span
-                      className="h-4 w-4 rounded-full"
+                      className="lg:h-4 lg:w-4 w-2 h-1.5 rounded-full"
                       style={{
                         background: COLORS[index % COLORS.length],
                       }}
@@ -112,16 +123,15 @@ export default function RevenueByCategory({ revenueByCategory }) {
                         {item.category}
                       </h4>
 
-                      <p className="text-sm text-zinc-500">
-                        {percentage}% of revenue
-                      </p>
+                      <div className=" flex ml-0.5 items-center justify-between">
+                        <p className="text-xs lg:text-sm text-zinc-500">
+                          {percentage}% of revenue
+                        </p>
+                        <p className="font-bold text-right text-zinc-900">
+                          ৳{item.revenue.toLocaleString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="text-right">
-                    <p className="font-bold text-zinc-900">
-                      ৳{item.revenue.toLocaleString()}
-                    </p>
                   </div>
                 </div>
 

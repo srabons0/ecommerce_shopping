@@ -6,11 +6,10 @@ import Link from "next/link";
 import { BsGraphDown, BsPersonCircle } from "react-icons/bs";
 import { IoBagHandleSharp } from "react-icons/io5";
 
-
 export default function AdminHeader({ path, name, desc }) {
   const { data: session } = useSession();
   return (
-    <header className="relative  z-30 flex py-5 items-center justify-between border-b border-gray-200 bg-black px-8 backdrop-blur-xl">
+    <header className="relative lg:pl-20 z-30 lg:flex py-5 items-center justify-between border-b border-gray-200 bg-black px-8 backdrop-blur-xl">
       <div className="space-y-1">
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <span>Dashboard</span>
@@ -27,7 +26,7 @@ export default function AdminHeader({ path, name, desc }) {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="lg:flex hidden items-center gap-4">
         <Link
           href={{
             pathname: "/dashboard/admin/orders",

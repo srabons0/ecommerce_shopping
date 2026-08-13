@@ -137,7 +137,7 @@ function OrderList({ order, filters }) {
       <div className="flex flex-col gap-4 border-b border-white/10 p-6 lg:flex-row lg:items-center lg:justify-between">
         <h2 className="text-lg font-semibold text-black">All Orders</h2>
 
-        <div className="flex items-center pb-3 gap-3">
+        <div className="flex flex-col lg:flex-row items-end lg:items-center pb-3 gap-3">
           <div className="relative ">
             <InputGroup className="min-w-70 max-w-xs z-100 text-black bg-white">
               <InputGroupInput
@@ -242,122 +242,255 @@ function OrderList({ order, filters }) {
           </select>
         </div>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-white/10 bg-zinc-200">
-              {[
-                "Order ID",
-                "Customer",
-                "Quantity",
-                "Amount",
-                "Status",
-                "Method",
-                "Date",
-                "Actions",
-              ].map((item) => (
-                <th
-                  key={item}
-                  className="
-                  px-6
-                  py-4
-                  text-center
-                  text-[11px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.18em]
-                  text-zinc-500
-                "
-                >
-                  {item}
-                </th>
-              ))}
-            </tr>
-          </thead>
+       <div className="rounded-2xl border  border-zinc-200 bg-white shadow-sm overflow-hidden">
+              <div className="hidden lg:block overflow-x-auto">
+                <table className="min-w-[1100px] w-full">
+                  <thead className="bg-zinc-50 border-b border-zinc-200">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Order
+                      </th>
 
-          <tbody>
-            {order.map((order) => {
-              const CurrentIcon = statusConfig[order.orderStatus]?.icon;
-              return (
-                <tr
-                  key={order._id}
-                  className="border-b border-white/10 text-center "
-                >
-                  <td className="px-6 py-5 font-medium text-sm text-zinc-600">
-                    {order.orderNumber}
-                  </td>
+                      <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Customer
+                      </th>
 
-                  <td className="px-6 py-5 text-zinc-600">
-                    {order.shipping.fullName}
-                  </td>
+                      <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Items
+                      </th>
 
-                  <td className="px-6 py-5 text-zinc-600">
-                    {order.items.reduce((acc, item) => acc + item.quantity, 0)}
-                  </td>
+                      <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Total
+                      </th>
 
-                  <td className="px-6 py-5 font-semibold text-black">
-                    ${order.total}
-                  </td>
+                      <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Status
+                      </th>
 
-                  <td className="px-6 py-5">
-                    <span
-                      className={`flex items-center gap-2 justify-center rounded-full border py-2 text-sm font-semibold
-                    ${statusConfig[order.orderStatus]?.color}`}
-                    >
-                      <CurrentIcon size={18} />
+                      <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Payment
+                      </th>
 
-                      <span className="capitalize">{order.orderStatus}</span>
-                    </span>
-                  </td>
-                  <td className="px-6 py-5">
-                    <span
-                      className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold
-                    ${
-                      order.paymentMethod === "stripe"
-                        ? "bg-emerald-500/10 text-emerald-500"
-                        : order.paymentMethod === "cod"
-                          ? "bg-blue-500/10 text-blue-400"
-                          : "bg-red-500/10 text-red-400"
-                    }`}
-                    >
-                      {order.paymentMethod}
-                    </span>
-                  </td>
+                      <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Date
+                      </th>
 
-                  <td className="px-6 py-5 text-zinc-600">
-                    {new Date(order.createdAt).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
+                      <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {order.map((order) => {
+                      const CurrentIcon = statusConfig[order.orderStatus]?.icon;
+
+                      return (
+                        <tr
+                          key={order._id}
+                          className="border-b border-zinc-100 hover:bg-zinc-50 transition-colors"
+                        >
+                          <td className="px-6 py-5">
+                            <div className="font-semibold text-xs text-zinc-900">
+                              #{order.orderNumber}
+                            </div>
+                          </td>
+
+                          <td className="px-6 py-5">
+                            <div className="flex items-center gap-3">
+                              <div>
+                                <p className="font-medium text-zinc-900">
+                                  {order.shipping.fullName}
+                                </p>
+
+                                {order.shipping.email && (
+                                  <p className="text-xs text-zinc-500">
+                                    {order.shipping.email}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+
+                          <td className="px-6 py-5 text-center">
+                            <span className="inline-flex rounded-full  text-sm font-semibold text-zinc-700">
+                              {order.items.reduce(
+                                (acc, item) => acc + item.quantity,
+                                0,
+                              )}{" "}
+                              Items
+                            </span>
+                          </td>
+
+                          <td className="px-6 py-5 text-center">
+                            <span className="font-semibold text-lg text-zinc-900">
+                              ${Number(order.total).toFixed(2)}
+                            </span>
+                          </td>
+
+                          <td className="px-6 py-5 text-center">
+                            <span
+                              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold ${statusConfig[order.orderStatus]?.color}`}
+                            >
+                              {CurrentIcon && <CurrentIcon size={16} />}
+                              <span className="capitalize">{order.orderStatus}</span>
+                            </span>
+                          </td>
+
+                          <td className="px-6 py-5 text-center">
+                            <span
+                              className={`inline-flex rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide
+                        ${
+                          order.paymentMethod === "stripe"
+                            ? "bg-emerald-100 text-emerald-700"
+                            : order.paymentMethod === "cod"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-red-100 text-red-700"
+                        }`}
+                            >
+                              {order.paymentMethod}
+                            </span>
+                          </td>
+
+                          <td className="px-6 py-5 text-center whitespace-nowrap text-sm text-zinc-600">
+                            {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </td>
+
+                          <td className="px-6 py-5">
+                            <div className="flex justify-center gap-2">
+                              <button
+                                onClick={() => {
+                                  setOpen(true);
+                                  setUserOrder(order);
+                                }}
+                                className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600"
+                              >
+                                <FaEye />
+                              </button>
+
+                              <button
+                                onClick={() => handleOrderDelete(order._id, order)}
+                                className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-600 transition-all hover:bg-red-100"
+                              >
+                                <FaTrash />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
                     })}
-                  </td>
+                  </tbody>
+                </table>
+              </div>
 
-                  <td className="pl-7 py-5">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => {
-                          setOpen(true);
-                          setUserOrder(order);
-                        }}
-                        className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10"
-                      >
-                        <FaEye className="w-4 h-4" />
-                      </button>
+              <div className="space-y-4 p-4 lg:hidden">
+                {order.map((order) => {
+                  const CurrentIcon = statusConfig[order.orderStatus]?.icon;
 
-                      <button
-                        onClick={() => handleOrderDelete(order._id)}
-                        className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20"
-                      >
-                        <FaTrash className="w-4 h-4" />
-                      </button>
+                  return (
+                    <div
+                      key={order._id}
+                      className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div>
+                            <h3 className="font-semibold text-zinc-900">
+                              {order.shipping.fullName}
+                            </h3>
+
+                            <p className="text-xs text-zinc-500">
+                              #{order.orderNumber}
+                            </p>
+                          </div>
+                        </div>
+
+                        <span className="font-bold text-lg">
+                          ${Number(order.total).toFixed(2)}
+                        </span>
+                      </div>
+
+                      <div className="mt-5 grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <p className="text-zinc-400">Items</p>
+                          <p className="font-semibold">
+                            {order.items.reduce(
+                              (acc, item) => acc + item.quantity,
+                              0,
+                            )}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="text-zinc-400">Payment</p>
+
+                          <span
+                            className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold
+                      ${
+                        order.paymentMethod === "stripe"
+                          ? "bg-emerald-100 text-emerald-700"
+                          : order.paymentMethod === "cod"
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-red-100 text-red-700"
+                      }`}
+                          >
+                            {order.paymentMethod}
+                          </span>
+                        </div>
+
+                        <div className="col-span-2">
+                          <p className="text-zinc-400 mb-2">Status</p>
+
+                          <span
+                            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold ${statusConfig[order.orderStatus]?.color}`}
+                          >
+                            {CurrentIcon && <CurrentIcon size={16} />}
+                            {order.orderStatus}
+                          </span>
+                        </div>
+
+                        <div className="col-span-2">
+                          <p className="text-zinc-400">Order Date</p>
+
+                          <p className="font-medium">
+                            {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 flex gap-3">
+                        <button
+                          onClick={() => {
+                            setOpen(true);
+                            setUserOrder(order);
+                          }}
+                          className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-zinc-200 py-3 font-medium text-zinc-700 transition hover:bg-zinc-100"
+                        >
+                          <FaEye />
+                          View
+                        </button>
+
+                        <button
+                          onClick={() => handleOrderDelete(order._id, order)}
+                          className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-red-500 py-3 font-medium text-white transition hover:bg-red-600"
+                        >
+                          <FaTrash />
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                  );
+                })}
+              </div>
+            </div>
       {open && (
         <OrderDetailsModal
           open={open}

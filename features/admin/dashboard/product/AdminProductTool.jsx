@@ -46,10 +46,10 @@ function AdminProductTool({
 
   return (
     <div className="flex flex-col w-full">
-      <div className="text-4xl text-end font-semibold py-8 bg-black text-white uppercase px-10">
+      <div className="lg:text-4xl text-xl text-end font-semibold py-8 bg-black text-white uppercase pr-5 lg:px-10">
         Total Products: {productCount}
       </div>
-      <div className="flex flex-row justify-between items-center py-3 px-10 w-full bg-black">
+      <div className="flex flex-col lg:flex-row justify-between lg:items-center py-3 px-5 lg:px-10 w-full bg-black">
         <div className="relative pb-3">
           <InputGroup className="min-w-70 max-w-xs z-100 text-white bg-black">
             <InputGroupInput
@@ -131,7 +131,7 @@ function AdminProductTool({
           </div>
         </div>
 
-        <div className="flex justify-between items-center  pb-3 gap-2">
+        <div className="grid grid-cols-2 lg:flex justify-between items-center  pb-3 gap-2">
           <select
             value={categories}
             onChange={(e) => {

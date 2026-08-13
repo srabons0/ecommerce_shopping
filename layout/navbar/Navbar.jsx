@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { AnimatePresence } from "framer-motion";
 import { Menu, Search, ShoppingBag } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 import Cart from "@/features/cart/Cart";
 import NavSearch from "@/features/search/NavSearch";
 
 import MobileMenu from "./MobileMenu";
 import NavMenuMen from "./NavMenuMen";
-import NavMenuWomen from "./NavMenuWomen";
 import NavMenuUniversal from "./NavMenuUniversal";
+import NavMenuWomen from "./NavMenuWomen";
 
 import webLogo from "@/public/logo.png";
 
@@ -29,7 +29,11 @@ export default function Navbar({ category, subCategory }) {
       href:
         session?.user?.role === "admin"
           ? "/dashboard/admin/home"
-          : "/dashboard/profile",
+          : `/dashboard/home`,
+    },
+    !session?.user && {
+      title: "Track order",
+      href: "/guest-orders",
     },
     {
       title: "Collections",
@@ -47,18 +51,10 @@ export default function Navbar({ category, subCategory }) {
     },
   ].filter(Boolean);
 
-
   return (
     <>
       <header
-        className={`
-          fixed
-          inset-x-0
-          top-0
-          z-50
-          transition-all
-          duration-300 bg-black/45
-        `}
+        className={`fixed inset-x-0 top-0 z-50 bg-black/45 transition-all duration-300`}
       >
         <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between px-6">
           <Link href="/" className="group flex items-center gap-1 select-none">
@@ -68,20 +64,20 @@ export default function Navbar({ category, subCategory }) {
                 alt="Everyday Wear"
                 width={48}
                 height={48}
-                className="object-cover w-10 h-10 transition duration-300 group-hover:scale-110"
+                className="h-10 w-10 object-cover transition duration-300 group-hover:scale-110"
                 priority
               />
             </div>
 
             <div className="leading-none">
-              <h1 className="text-[9px] font-semibold uppercase tracking-[0.35em] text-white">
+              <h1 className="text-[9px] font-semibold tracking-[0.35em] text-white uppercase">
                 EVERYDAY
               </h1>
 
               <div className="mt-1 flex items-center gap-1">
                 <span className="h-px w-2.5 bg-red-600" />
 
-                <p className="text-[6px] font-medium uppercase tracking-[0.65em] text-red-500">
+                <p className="text-[6px] font-medium tracking-[0.65em] text-red-500 uppercase">
                   WEAR
                 </p>
 
@@ -101,21 +97,7 @@ export default function Navbar({ category, subCategory }) {
               <Link
                 key={item.title}
                 href={item.href}
-                className={`
-                  relative
-                  text-sm
-                  font-medium px-3
-                  transition
-                  after:absolute
-                  after:-bottom-2
-                  after:left-0
-                  after:h-[2px]
-                  after:w-0
-                  after:bg-white
-                  after:transition-all
-                  hover:after:w-full
-                   text-white hover:text-zinc-200"
-                `}
+                className={`hover:text-zinc-200" relative px-3 text-sm font-medium text-white transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full`}
               >
                 {item.title}
               </Link>
@@ -125,18 +107,7 @@ export default function Navbar({ category, subCategory }) {
           <div className="hidden items-center gap-3 lg:flex">
             <button
               onClick={() => setOpenSearch(true)}
-              className={`
-                group
-                flex
-                h-11
-                w-11
-                items-center
-                justify-center
-                rounded-full
-                transition-all
-                duration-300
-                hover:bg-white/10 text-white
-              `}
+              className={`group flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-300 hover:bg-white/10`}
             >
               <Search
                 size={20}
@@ -146,19 +117,7 @@ export default function Navbar({ category, subCategory }) {
 
             <button
               onClick={() => setOpenCart(true)}
-              className={`
-                group
-                relative
-                flex
-                h-11
-                w-11 mr-3
-                items-center
-                justify-center
-                rounded-full
-                transition-all
-                duration-300
-                hover:bg-white/10 text-white
-              `}
+              className={`group relative mr-3 flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-300 hover:bg-white/10`}
             >
               <ShoppingBag
                 size={20}
@@ -188,42 +147,45 @@ export default function Navbar({ category, subCategory }) {
             ) : (
               <Link
                 href="/login"
-                className="rounded-2xl hover:bg-white/20
-                  px-6
-                  py-3
-                  text-sm
-                  font-semibold
-                  text-white
-                  transition
-                  hover:scale-102
-                "
+                className="rounded-2xl px-6 py-3 text-sm font-semibold text-white transition hover:scale-102 hover:bg-white/20"
               >
                 Login
               </Link>
             )}
           </div>
 
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="
-              flex
-              h-11
-              w-11 text-white
-              items-center
-              justify-center
-              rounded-full
-              transition
-              hover:bg-zinc-100
-              lg:hidden
-            "
-          >
-            <Menu size={22} />
-          </button>
+          <div className="flex items-center gap-3 lg:hidden">
+            <button
+              onClick={() => setOpenSearch(true)}
+              className="flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-all duration-300 active:scale-95"
+            >
+              <Search size={18} />
+            </button>
+
+            <button
+              onClick={() => setOpenCart(true)}
+              className="relative flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-all duration-300 active:scale-95"
+            >
+              <ShoppingBag size={18} />
+            </button>
+
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-black shadow-lg transition-all duration-300 active:scale-95"
+            >
+              <Menu size={20} />
+            </button>
+          </div>
         </div>
       </header>
-
-      <MobileMenu open={mobileOpen} setOpen={setMobileOpen} />
-
+      <AnimatePresence mode="wait">
+        <MobileMenu
+          open={mobileOpen}
+          setOpen={setMobileOpen}
+          category={category}
+          subCategory={subCategory}
+        />
+      </AnimatePresence>
       <AnimatePresence mode="wait">
         {openSearch && <NavSearch setOpenSearch={setOpenSearch} />}
       </AnimatePresence>

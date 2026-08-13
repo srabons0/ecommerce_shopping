@@ -52,8 +52,8 @@ export default function Footer({ category }) {
   return (
     <footer className="border-t  border-zinc-800 bg-black text-zinc-400">
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-14 lg:grid-cols-[1.3fr_.7fr_.7fr_.7fr]">
-          <div>
+        <div className="grid gap-8 grid-cols-2  lg:grid-cols-[1.3fr_.7fr_.7fr_.7fr] lg:gap-8">
+          <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-3">
               <Image src={logo} alt="Everyday Wear" width={60} height={60} />
 
@@ -110,7 +110,7 @@ export default function Footer({ category }) {
                 {column.title}
               </h3>
 
-              <ul className="space-y-4">
+              <ul className="space-y-2">
                 {column.links.map((item) => (
                   <li key={item.name}>
                     <Link

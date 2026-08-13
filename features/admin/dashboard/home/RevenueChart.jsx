@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -11,6 +12,17 @@ import {
 } from "recharts";
 
 function RevenueChart({ monthlyRevenue }) {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const months = [
     "Jan",
     "Feb",
@@ -35,9 +47,9 @@ function RevenueChart({ monthlyRevenue }) {
     };
   });
   return (
-    <div className="w-full rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+    <div className="w-full rounded-3xl border border-zinc-200 bg-white p-2 lg:p-6 shadow-sm">
       <div className="mb-8 flex items-center justify-between">
-        <div>
+        <div className=" mt-5 ml-5 lg:mt-0 lg:ml-0">
           <h2 className="text-xl font-bold text-zinc-900">Monthly Revenue</h2>
           <p className="mt-1 text-sm text-zinc-500">
             Revenue overview for this year
@@ -45,16 +57,20 @@ function RevenueChart({ monthlyRevenue }) {
         </div>
       </div>
 
-      <div className="h-[400px] w-full">
+      <div className="h-75 lg:h-100 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={chartData}
-            margin={{
-              top: 20,
-              right: 20,
-              left: 10,
-              bottom: 20,
-            }}
+            margin={
+              mobile
+                ? { top: 10, right: 10, left: 0, bottom: 20 }
+                : {
+                    top: 20,
+                    right: 20,
+                    left: 10,
+                    bottom: 20,
+                  }
+            }
           >
             <defs>
               <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">

@@ -35,7 +35,6 @@ const orderItemSchema = new Schema(
       type: String,
       lowercase: true,
       trim: true,
-    
     },
 
     quantity: {
@@ -119,7 +118,7 @@ const OrderSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
       index: true,
     },
 
@@ -171,8 +170,8 @@ const OrderSchema = new Schema(
 
     paymentStatus: {
       type: String,
-      enum: ["pending", "paid", "failed", "refunded"],
-      default: "pending",
+      enum: ["pending", "paid", "cod","failed", "refunded"],
+      default: "cod",
     },
 
     orderStatus: {

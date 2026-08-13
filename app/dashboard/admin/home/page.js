@@ -85,7 +85,6 @@ async function page() {
     ),
   );
 
-  console.log(categoryStats);
   return (
     <div className=" w-full">
       <AdminHeader

@@ -67,7 +67,6 @@ export default function OrderDetailsModal({
   onOpenChange,
   setOpen,
   order,
-  // onStatusUpdate,
 }) {
   const [status, setStatus] = useState(order.orderStatus);
   const router = useRouter();
@@ -99,60 +98,22 @@ export default function OrderDetailsModal({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay
-          className="
-          fixed
-          inset-0
-          z-240
-          bg-black/60
-          backdrop-blur-md
-          data-[state=open]:animate-in
-          data-[state=closed]:animate-out
-        "
-        />
+        <Dialog.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out fixed inset-0 z-240 bg-black/60 backdrop-blur-md" />
 
-        <Dialog.Content
-          className="
-          fixed
-          left-1/2
-          top-1/2
-          z-250
-          h-[94vh]
-          w-[96vw]
-          max-w-7xl
-          -translate-x-1/2
-          -translate-y-1/2
-          overflow-hidden
-          rounded-[32px]
-          border
-          border-zinc-200
-          bg-zinc-50
-          shadow-[0_40px_120px_rgba(0,0,0,.25)]
-          outline-none
-        "
-        >
-          <div
-            className="
-            sticky
-            top-0
-            z-20
-            border-b
-            bg-white/90
-            backdrop-blur-xl
-          "
-          >
+        <Dialog.Content className="fixed top-1/2 left-1/2 z-250 h-[94vh] w-[96vw] max-w-7xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[32px] border border-zinc-200 bg-zinc-50 shadow-[0_40px_120px_rgba(0,0,0,.25)] outline-none">
+          <div className="sticky top-0 z-20 border-b bg-white/90 backdrop-blur-xl">
             <div className="flex items-center justify-between px-8 py-6">
               <div>
-                <Dialog.Title className="text-3xl font-bold tracking-tight">
+                <Dialog.Title className="text-xl font-bold tracking-tight lg:text-3xl">
                   Order Details
                 </Dialog.Title>
 
                 <div className="mt-2 flex flex-wrap items-center gap-3">
-                  <span className="rounded-full bg-zinc-900 px-3 py-1 text-xs font-semibold text-white">
+                  <span className="rounded-full text-[11px] font-semibold lg:bg-zinc-900 lg:px-3 lg:py-1 lg:text-xs lg:text-white">
                     {order.orderNumber}
                   </span>
 
-                  <span className="text-sm text-zinc-500">
+                  <span className="text-xs text-zinc-500 lg:text-sm">
                     {new Date(order.createdAt).toLocaleString()}
                   </span>
                 </div>
@@ -160,9 +121,7 @@ export default function OrderDetailsModal({
 
               <div className="flex items-center gap-3">
                 <div
-                  className={`
-                  flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold ${statusConfig[order.orderStatus]?.color}
-                `}
+                  className={`flex items-center gap-2 rounded-full border px-2 py-1 text-xs font-semibold lg:px-4 lg:py-2 lg:text-sm ${statusConfig[order.orderStatus]?.color} `}
                 >
                   <CurrentIcon size={18} />
 
@@ -171,14 +130,7 @@ export default function OrderDetailsModal({
 
                 <Dialog.Close
                   onClick={() => setOpen(false)}
-                  className="
-                  rounded-xl
-                  border
-                  bg-white
-                  p-3
-                  transition
-                  hover:bg-zinc-100
-                "
+                  className="rounded-xl border bg-white p-3 transition hover:bg-zinc-100"
                 >
                   <X size={20} />
                 </Dialog.Close>
@@ -186,7 +138,7 @@ export default function OrderDetailsModal({
             </div>
           </div>
 
-          <div className="h-[calc(94vh-150px)] overflow-y-auto p-8">
+          <div className="h-[calc(94vh-150px)] overflow-y-auto p-4 lg:p-8">
             <div className="grid gap-6 xl:grid-cols-3">
               <div className="space-y-6 xl:col-span-2">
                 <div className="grid gap-6 lg:grid-cols-2">
@@ -202,7 +154,7 @@ export default function OrderDetailsModal({
                     </div>
 
                     <div className="space-y-5">
-                      <div className="flex gap-10 items-center">
+                      <div className="flex items-center gap-10">
                         <Info
                           title="Full Name"
                           value={order.shipping?.fullName}
@@ -242,7 +194,7 @@ export default function OrderDetailsModal({
                     </div>
                   </div>
 
-                  <div className="rounded-3xl border bg-white  px-7 py-9 shadow-sm">
+                  <div className="rounded-3xl border bg-white px-7 py-9 shadow-sm">
                     <div className="mb-6 flex items-center gap-3">
                       <div className="rounded-2xl bg-zinc-100 p-3">
                         <CreditCard size={20} />
@@ -315,7 +267,7 @@ export default function OrderDetailsModal({
                 </div>
               </div>
 
-              <div className="space-y-6 ">
+              <div className="space-y-6">
                 <div className="rounded-3xl border bg-white p-6 shadow-sm">
                   <h2 className="mb-6 text-lg font-bold">
                     Update Order Status
@@ -324,7 +276,7 @@ export default function OrderDetailsModal({
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="w-full rounded-2xl border bg-white px-4 py-3 outline-none transition focus:border-zinc-900"
+                    className="w-full rounded-2xl border bg-white px-4 py-3 transition outline-none focus:border-zinc-900"
                   >
                     {ORDER_STATUS.map((item) => (
                       <option key={item} value={item}>
@@ -401,7 +353,7 @@ export default function OrderDetailsModal({
               </div>
             </div>
 
-            <div className="space-y-4 mt-10">
+            <div className="mt-10 space-y-4">
               {order.items?.map((item, index) => {
                 const originalPrice =
                   item.discountPercentage > 0
@@ -413,17 +365,17 @@ export default function OrderDetailsModal({
                     key={`${item.productId}-${index}`}
                     className="group rounded-2xl border border-zinc-200 bg-white p-4 transition-all duration-300 hover:border-zinc-900 hover:shadow-lg"
                   >
-                    <div className="flex gap-4">
+                    <div className="gap-4 lg:flex">
                       <Image
                         width={300}
                         height={300}
                         src={item.image}
                         alt={item.name}
-                        className="h-full w-40 rounded-xl border object-cover"
+                        className="h-full w-20 rounded-xl border object-cover lg:w-40"
                       />
 
-                      <div className="flex w-full">
-                        <div className="flex items-start w-full gap-6">
+                      <div className="w-full lg:flex">
+                        <div className="w-full items-start gap-6 lg:flex">
                           <div className="w-full">
                             <h3 className="text-lg font-semibold text-zinc-900">
                               {item.name}
@@ -434,9 +386,9 @@ export default function OrderDetailsModal({
                             </p>
                           </div>
 
-                          <div className="mt-5 grid grid-cols-2  w-full gap-3 lg:grid-cols-3">
+                          <div className="mt-5 grid w-full grid-cols-2 gap-3 lg:grid-cols-3">
                             <div className="rounded-xl border bg-zinc-50 p-3">
-                              <p className="text-[11px] uppercase tracking-wide text-zinc-400">
+                              <p className="text-[11px] tracking-wide text-zinc-400 uppercase">
                                 Size
                               </p>
 
@@ -444,7 +396,7 @@ export default function OrderDetailsModal({
                             </div>
 
                             <div className="rounded-xl border bg-zinc-50 p-3">
-                              <p className="text-[11px] uppercase tracking-wide text-zinc-400">
+                              <p className="text-[11px] tracking-wide text-zinc-400 uppercase">
                                 Color
                               </p>
 
@@ -461,7 +413,7 @@ export default function OrderDetailsModal({
                             </div>
 
                             <div className="rounded-xl border bg-zinc-50 p-3">
-                              <p className="text-[11px] uppercase tracking-wide text-zinc-400">
+                              <p className="text-[11px] tracking-wide text-zinc-400 uppercase">
                                 Discount
                               </p>
 
@@ -477,12 +429,12 @@ export default function OrderDetailsModal({
                             </div>
 
                             <div className="rounded-xl border bg-zinc-50 p-3">
-                              <p className="text-[11px] uppercase tracking-wide text-zinc-400">
+                              <p className="text-[11px] tracking-wide text-zinc-400 uppercase">
                                 Price
                               </p>
 
                               {item.discountPercentage > 0 ? (
-                                <div className="flex gap-3 items-center">
+                                <div className="flex items-center gap-3">
                                   <p className="text-xs text-zinc-400 line-through">
                                     ৳{Math.ceil(originalPrice)}
                                   </p>
@@ -499,7 +451,7 @@ export default function OrderDetailsModal({
                             </div>
 
                             <div className="rounded-xl border bg-zinc-50 p-3">
-                              <p className="text-[11px] uppercase tracking-wide text-zinc-400">
+                              <p className="text-[11px] tracking-wide text-zinc-400 uppercase">
                                 Qty
                               </p>
 
@@ -509,7 +461,7 @@ export default function OrderDetailsModal({
                             </div>
 
                             <div className="rounded-xl border bg-red-500 p-3 text-white">
-                              <p className="text-[11px] uppercase tracking-wide ">
+                              <p className="text-[11px] tracking-wide uppercase">
                                 Total
                               </p>
 
@@ -537,7 +489,7 @@ function Info({ title, value }) {
     <div>
       <p className="text-sm text-zinc-500">{title}</p>
 
-      <p className="mt-1 break-all font-semibold">{value}</p>
+      <p className="mt-1 font-semibold break-all">{value}</p>
     </div>
   );
 }

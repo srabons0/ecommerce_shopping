@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 export default async function PaymentSuccessPage({ searchParams }) {
-  const { id } = await searchParams;
+  const { id, method } = await searchParams;
+  const isCod = method === "cod";
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
@@ -25,11 +26,13 @@ export default async function PaymentSuccessPage({ searchParams }) {
         </div>
 
         <h1 className="text-center text-3xl font-bold text-green-600">
-          Payment Successful
+          {isCod ? "Order Placed" : "Payment Successful"}
         </h1>
 
         <p className="mt-4 text-center text-gray-600">
-          Thank you for your purchase.
+          {isCod
+            ? "Your order is confirmed. Please pay when it arrives."
+            : "Thank you for your purchase."}
         </p>
 
         <div className="mt-8 rounded-lg bg-gray-100 p-4">
@@ -48,7 +51,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
 
           <Link
             href={{
-              pathname: "/dashboard/admin/orders",
+              pathname: "/dashboard/orders",
               query: {
                 status: "all",
               },

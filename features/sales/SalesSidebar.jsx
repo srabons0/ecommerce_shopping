@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import {  useState } from "react";
+import { useState, useEffect } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { IoFilter } from "react-icons/io5";
 import { MdFilterListOff } from "react-icons/md";
@@ -28,6 +28,15 @@ function SalesSidebar({ category, gender, filters }) {
   const [discount, setDiscount] = useState(() =>
     filters.discount ? filters.discount : [],
   );
+  useEffect(() => {
+    const checkScreen = () => {
+      setCollapsed(!(window.innerWidth >= 1024));
+    };
+    checkScreen(); 
+    window.addEventListener("resize", checkScreen);
+
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   const handleSearch = () => {
     const params = new URLSearchParams(searchParams);
@@ -51,7 +60,7 @@ function SalesSidebar({ category, gender, filters }) {
     setSizes([]);
     setColors([]);
     setRatings([]);
-setDiscount([]);
+    setDiscount([]);
     setPriceValue(9999);
 
     const params = new URLSearchParams(searchParams);
@@ -96,16 +105,16 @@ setDiscount([]);
     setRatings((prev) => (prev.includes(value) ? [] : [value]));
   };
 
-const handleDiscountChange = (value)=>{
-  setDiscount((prev)=>(prev.includes(value)? []: [value]))
-}
+  const handleDiscountChange = (value) => {
+    setDiscount((prev) => (prev.includes(value) ? [] : [value]));
+  };
   const colorFilter = [...new Set(category.flatMap((i) => i.colors))];
 
   return (
     <div className={`flex absolute lg:relative ${collapsed ? "w-0" : "w-87"} `}>
       <div className="sticky top-67 left-0 h-screen flex z-50 text-white ">
         <Sidebar
-          className={`lg:h-245 pt-10 my-sidebar-scroll z-100`}
+          className={`lg:h-245 h-190 pt-10 my-sidebar-scroll z-100`}
           collapsed={collapsed}
           width="350px"
           collapsedWidth="0px"

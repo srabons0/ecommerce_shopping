@@ -19,10 +19,10 @@ function NavSearch({ setOpenSearch }) {
   const [hasSearched, setHasSearched] = useState(false);
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
-  const handleSearch = async() => {
-      setHasSearched(true);
+  const handleSearch = async () => {
+    setHasSearched(true);
     setLoading(true);
-   await fetch(`/api/products/searchProduct?search=${search}`)
+    await fetch(`/api/products/searchProduct?search=${search}`)
       .then((res) => res.json())
       .then(setProduct);
     setLoading(false);
@@ -43,15 +43,12 @@ function NavSearch({ setOpenSearch }) {
         duration: 0.35,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="fixed inset-0 text-white z-150 flex items-start justify-center bg-black/70 px-6 pt-20 backdrop-blur-xl"
+      className="fixed inset-0 z-150 flex items-start justify-center bg-black/70 px-6 pt-20 text-white backdrop-blur-xl"
     >
       <div className="w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 shadow-[0_30px_80px_rgba(0,0,0,.45)]">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-5">
           <div>
             <h2 className="text-2xl font-bold text-white">Search Products</h2>
-
-            
           </div>
 
           <button
@@ -62,8 +59,7 @@ function NavSearch({ setOpenSearch }) {
           </button>
         </div>
 
-        {/* Search */}
-        <div className="border-b border-zinc-800  gap-5 flex items-center justify-end  px-6 py-4">
+        <div className="flex items-center justify-end gap-5 border-b border-zinc-800 px-6 py-4">
           <InputGroup className="h-14 rounded-2xl border border-zinc-700 bg-zinc-800">
             <InputGroupAddon>
               <Search className="text-zinc-400" />
@@ -89,25 +85,16 @@ function NavSearch({ setOpenSearch }) {
           <button
             disabled={!search.trim()}
             onClick={handleSearch}
-            className={`
-          rounded-xl
-          px-6
-          py-3
-          font-medium
-          transition
-
-          ${
-            search.trim()
-              ? "bg-violet-600 text-white hover:bg-violet-700"
-              : "cursor-not-allowed bg-zinc-700 text-zinc-500"
-          }
-        `}
+            className={`rounded-xl px-6 py-3 font-medium transition ${
+              search.trim()
+                ? "bg-violet-600 text-white hover:bg-violet-700"
+                : "cursor-not-allowed bg-zinc-700 text-zinc-500"
+            } `}
           >
             Search
           </button>
         </div>
 
-        {/* Results */}
         <div className="max-h-72 overflow-y-auto p-5">
           {loading && (
             <div className="flex justify-center py-5">
@@ -131,23 +118,7 @@ function NavSearch({ setOpenSearch }) {
                     `/shop/${p.gender}/${p.subCategorySlug}?${params}`,
                   );
                 }}
-                className="
-              group
-              mb-3
-              flex
-              cursor-pointer
-              items-center
-              justify-between
-              rounded-2xl
-              border
-              border-zinc-800
-              bg-zinc-900/40
-              p-4
-              transition-all
-              duration-300
-              hover:border-violet-500/40
-              hover:bg-zinc-800
-            "
+                className="group mb-3 flex cursor-pointer items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4 transition-all duration-300 hover:border-violet-500/40 hover:bg-zinc-800"
               >
                 <div className="min-w-0 flex-1">
                   <h3 className="truncate text-base font-semibold text-white group-hover:text-violet-300">
@@ -196,7 +167,6 @@ function NavSearch({ setOpenSearch }) {
           )}
         </div>
 
-        {/* Footer */}
         <div className="flex items-center justify-end border-t border-zinc-800 px-6 py-4"></div>
       </div>
     </motion.div>

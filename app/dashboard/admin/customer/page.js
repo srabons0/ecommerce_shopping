@@ -28,7 +28,6 @@ async function page({ searchParams }) {
       ]),
     ),
   );
-  // console.log(customer);
   return (
     <div className=" w-full">
       <AdminHeader

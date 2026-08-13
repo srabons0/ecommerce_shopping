@@ -30,9 +30,9 @@ function AdminOrder({
     return () => clearInterval(interval);
   }, [router]);
   return (
-    <div className="mx-6 mt-10 mb-20">
+    <div className="mt-10 mb-20 lg:mx-6 lg:pl-5">
       <section>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 px-3 lg:grid-cols-4">
           {[
             {
               value: orderCount,
@@ -57,17 +57,7 @@ function AdminOrder({
           ].map((item) => (
             <div
               key={item.title}
-              className="
-          rounded-lg
-          border
-          border-white/10
-          bg-zinc-100
-          p-6
-          transition
-          duration-300
-          hover:-translate-y-1
-          hover:border-yellow-700/30
-        "
+              className="rounded-lg border border-white/10 bg-zinc-100 p-6 transition duration-300 hover:-translate-y-1 hover:border-yellow-700/30"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -75,23 +65,12 @@ function AdminOrder({
                     {item.value}
                   </h2>
 
-                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">
+                  <p className="mt-2 text-[8px] tracking-[0.18em] text-zinc-500 uppercase lg:text-xs">
                     {item.title}
                   </p>
                 </div>
 
-                <div
-                  className="
-              flex
-              h-10
-              w-10
-              items-center
-              justify-center
-              rounded
-              border-2
-              text-lg
-            "
-                >
+                <div className="flex h-10 w-10 items-center justify-center rounded border-2 text-lg">
                   {item.icon}
                 </div>
               </div>
@@ -108,7 +87,7 @@ function AdminOrder({
         {orderCount > 15 && (
           <Stack
             spacing={2}
-            className="gap-1 flex my-5 justify-center items-center "
+            className="my-5 flex items-center justify-center gap-1"
           >
             <Pagination
               page={page}

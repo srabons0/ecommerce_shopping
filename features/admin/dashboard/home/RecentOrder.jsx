@@ -4,7 +4,7 @@ import { FaEye, FaTrash } from "react-icons/fa";
 
 function RecentOrder({ order }) {
   return (
-    <div className="mt-6 mx-6 overflow-hidden rounded border border-white/10 bg-zinc-100  text-black">
+    <div className="mx-6 mt-6 overflow-hidden rounded border border-white/10 bg-zinc-100 text-black">
       <div className="flex flex-col gap-4 border-b border-white/10 p-6 md:flex-row md:items-center md:justify-between">
         <h3 className="text-lg font-semibold text-black">Recent Orders</h3>
 
@@ -16,20 +16,7 @@ function RecentOrder({ order }) {
                 status: "all",
               },
             }}
-            className="
-          rounded
-          border
-          border-white/10
-          px-4
-          py-2
-          text-xs
-          uppercase
-          tracking-widest
-          text-zinc-500
-          transition
-          hover:border-red-700
-          hover:text-red-500
-        "
+            className="rounded border border-white/10 px-4 py-2 text-xs tracking-widest text-zinc-500 uppercase transition hover:border-red-700 hover:text-red-500"
           >
             View All →
           </Link>
@@ -51,16 +38,7 @@ function RecentOrder({ order }) {
               ].map((head) => (
                 <th
                   key={head}
-                  className="
-                px-6
-                py-4
-                text-left
-                text-[11px]
-                font-semibold
-                uppercase
-                tracking-[0.18em]
-                text-zinc-500
-              "
+                  className="px-6 py-4 text-left text-[11px] font-semibold tracking-[0.18em] text-zinc-500 uppercase"
                 >
                   {head}
                 </th>
@@ -70,13 +48,7 @@ function RecentOrder({ order }) {
 
           <tbody>
             {order.map((order) => (
-              <tr
-                key={order.id}
-                className="
-              border-b
-              border-white/10
-                        "
-              >
+              <tr key={order.id} className="border-b border-white/10">
                 <td className="px-6 py-5 font-medium text-gray-500">
                   {order.orderNumber}
                 </td>
@@ -95,8 +67,7 @@ function RecentOrder({ order }) {
 
                 <td className="px-6 py-5">
                   <span
-                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold
-                    ${
+                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                       order.orderStatus === "Delivered"
                         ? "bg-emerald-500/10 text-emerald-500"
                         : order.orderStatus === "Processing"
@@ -111,8 +82,7 @@ function RecentOrder({ order }) {
                 </td>
                 <td className="px-6 py-5">
                   <span
-                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold
-                    ${
+                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                       order.paymentMethod === "stripe"
                         ? "bg-emerald-500/10 text-emerald-500"
                         : order.paymentMethod === "cod"
@@ -131,20 +101,20 @@ function RecentOrder({ order }) {
                   })}
                 </td>
 
-                <td className="pl-7 py-5">
+                <td className="py-5 pl-7">
                   <div className="flex gap-2">
                     <button
                       aria-label="Open dialog"
-                      className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10"
+                      className="rounded bg-white px-3 py-2 text-xs font-semibold text-black/60 transition hover:bg-black/10"
                     >
-                      <FaEye className="w-4 h-4" />
+                      <FaEye className="h-4 w-4" />
                     </button>
 
                     <button
                       aria-label="delete"
                       className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20"
                     >
-                      <FaTrash className="w-4 h-4" />
+                      <FaTrash className="h-4 w-4" />
                     </button>
                   </div>
                 </td>

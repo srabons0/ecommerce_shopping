@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-import Product from "@/models/Product";
-import Order from "@/models/Order";
 import { connectDB } from "@/lib/mongodb";
+import Order from "@/models/Order";
+import Product from "@/models/Product";
 
 export async function POST(req) {
   try {
@@ -11,21 +11,11 @@ export async function POST(req) {
     const { paymentIntentId, userId, items, shipping, paymentMethod } =
       await req.json();
 
-    if (!paymentIntentId) {
+    if (paymentMethod !== "cod" && !paymentIntentId) {
       return NextResponse.json(
         {
           success: false,
           message: "Payment not completed.",
-        },
-        { status: 400 },
-      );
-    }
-
-    if (!userId) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "User is required.",
         },
         { status: 400 },
       );
@@ -41,10 +31,9 @@ export async function POST(req) {
       );
     }
 
-
-    const existingOrder = await Order.findOne({
-      stripePaymentIntentId: paymentIntentId,
-    });
+    const existingOrder = paymentIntentId
+      ? await Order.findOne({ stripePaymentIntentId: paymentIntentId })
+      : null;
 
     if (existingOrder) {
       return NextResponse.json({
@@ -52,7 +41,6 @@ export async function POST(req) {
         order: existingOrder,
       });
     }
-
 
     let orderItems = [];
     let subtotal = 0;
@@ -106,9 +94,9 @@ export async function POST(req) {
         slug: product.slug,
         image: product.images,
         price,
-        gender:product.gender,
+        gender: product.gender,
         subCategory: product.subCategory,
-        item:product.item,
+        item: product.item,
         quantity: item.quantity,
         size: item.sizes || "",
         color: item.colors || "",
@@ -127,7 +115,6 @@ export async function POST(req) {
     const discount = 0;
 
     const total = Math.ceil(subtotal + shippingFee + tax - discount);
-
 
     const order = await Order.create({
       orderNumber: `ORD-${Date.now()}`,
@@ -152,13 +139,13 @@ export async function POST(req) {
 
       paymentMethod,
 
-      paymentStatus: "paid",
+      paymentStatus: paymentMethod === "cod" ? "pending" : "paid",
 
       orderStatus: "pending",
 
-      stripePaymentIntentId: paymentIntentId,
+      stripePaymentIntentId: paymentIntentId || "",
 
-      paidAt: new Date(),
+      paidAt: paymentMethod === "cod" ? undefined : new Date(),
     });
 
     return NextResponse.json({

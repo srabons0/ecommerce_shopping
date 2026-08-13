@@ -94,9 +94,9 @@ function UserList({ customer, filters }) {
     <div className="mt-6 overflow-hidden rounded-lg border border-white/10 bg-zinc-100">
       <div className="flex flex-col gap-4 border-b border-white/10 p-6 md:flex-row md:items-center md:justify-between">
         <h2 className="text-lg font-semibold text-black">All Customers</h2>
-        <div className="flex items-center pb-3 gap-3">
+        <div className="flex flex-col items-end gap-3 pb-3 lg:flex-row lg:items-center">
           <div className="relative">
-            <InputGroup className="min-w-70 max-w-xs z-100 text-black bg-white">
+            <InputGroup className="z-100 max-w-xs min-w-70 bg-white text-black">
               <InputGroupInput
                 value={search}
                 required
@@ -118,7 +118,7 @@ function UserList({ customer, filters }) {
               <InputGroupAddon
                 className={`cursor-pointer text-black ${
                   !search.trim()
-                    ? "opacity-30 pointer-events-none text-black"
+                    ? "pointer-events-none text-black opacity-30"
                     : "border-l pl-2"
                 }`}
                 onClick={handleSearch}
@@ -128,7 +128,7 @@ function UserList({ customer, filters }) {
               </InputGroupAddon>
             </InputGroup>
 
-            <div className=" absolute  z-80 max-h-40 top-4 rounded-b-md bg-white w-full overflow-y-auto    scrollbar-hide">
+            <div className="scrollbar-hide absolute top-4 z-80 max-h-40 w-full overflow-y-auto rounded-b-md bg-white">
               {loading && (
                 <div className="flex justify-center pt-8">
                   <Hourglass
@@ -143,9 +143,9 @@ function UserList({ customer, filters }) {
                 </div>
               )}
               {!loading && hasSearched && product.length <= 0 && search && (
-                <p className="text-center mt-5 text-gray-500 ">Not Found</p>
+                <p className="mt-5 text-center text-gray-500">Not Found</p>
               )}
-              <div className="px-1 pt-4 ">
+              <div className="px-1 pt-4">
                 {(loading || product.length > 0) &&
                   product.map((p) => (
                     <div
@@ -158,13 +158,13 @@ function UserList({ customer, filters }) {
                         setLoading(false);
                         setHasSearched(false);
                       }}
-                      className="border-b py-2 flex items-center  justify-between cursor-pointer text-sm text-black"
+                      className="flex cursor-pointer items-center justify-between border-b py-2 text-sm text-black"
                     >
                       <span className="mr-2 text-xs">{p.name} </span>◕
-                      <span className="text-red-500 text-xs  pl-1">
+                      <span className="pl-1 text-xs text-red-500">
                         {p.email}
                       </span>
-                      <span className="text-green-500 w-1/6 pl-4">
+                      <span className="w-1/6 pl-4 text-green-500">
                         <FaArrowRight />
                       </span>
                     </div>
@@ -179,7 +179,7 @@ function UserList({ customer, filters }) {
               params.set("page", 1);
               router.push(`${pathname}?${params}`);
             }}
-            className="select rounded-lg w-40 h-8  text-black text-center px-3 py-1 border-[#6d6d6d] border "
+            className="select h-8 w-40 rounded-lg border border-[#6d6d6d] px-3 py-1 text-center text-black"
           >
             {[
               { v: "all", l: "All Status" },
@@ -188,112 +188,218 @@ function UserList({ customer, filters }) {
               { v: "blocked", l: "Blocked" },
               { v: "admin", l: "Admin" },
             ].map((items, i) => (
-              <option key={i} className="bg-white text-black " value={items.v}>
+              <option key={i} className="bg-white text-black" value={items.v}>
                 {items.l}
               </option>
             ))}
           </select>
         </div>
       </div>
-
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="border-b border-white/10 bg-zinc-200">
-            <tr>
-              {[
-                "id",
-                "Customer",
-                "Email",
-                "Spent",
-                "Orders",
-                "Member Since",
-                "Status",
-                "Action",
-              ].map((head) => (
-                <th
-                  key={head}
-                  className="
-                  px-6
-                  py-4
-                  text-center
-                  text-[11px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.18em]
-                  text-zinc-500
-                "
-                >
-                  {head}
+      <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
+        <div className="hidden overflow-x-auto lg:block">
+          <table className="w-full min-w-[1100px]">
+            <thead className="border-b border-zinc-200 bg-zinc-50">
+              <tr>
+                <th className="px-6 py-4 text-left text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  ID
                 </th>
-              ))}
-            </tr>
-          </thead>
 
-          <tbody>
-            {customer.map((customer, i) => (
-              <tr
-                key={i}
-                className="
-                border-t-2
-                border-black/20
-                transition
-text-center
-              "
-              >
-                <td className="text-xs text-gray-500 px-4">#10{i + 1}</td>
-                <td className="px-3 py-5 ">
-                  <span className="font-semibold text-black">
+                <th className="px-6 py-4 text-left text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Customer
+                </th>
+
+                <th className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Email
+                </th>
+
+                <th className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Spent
+                </th>
+
+                <th className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Orders
+                </th>
+
+                <th className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Member Since
+                </th>
+
+                <th className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Status
+                </th>
+
+                <th className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-500 uppercase">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {customer.map((customer, i) => (
+                <tr
+                  key={customer._id}
+                  className="border-b border-zinc-100 transition-colors hover:bg-zinc-50"
+                >
+                  <td className="px-6 py-5">
+                    <p className="text-sm font-semibold text-zinc-900">
+                      #10{i + 1}
+                    </p>
+                  </td>
+
+                  <td className="px-6 py-5">
+                    <div>
+                      <p className="font-semibold text-zinc-900">
+                        {customer.name}
+                      </p>
+                    </div>
+                  </td>
+
+                  <td className="px-6 py-5 text-center">
+                    <span className="text-sm text-zinc-600">
+                      {customer.email}
+                    </span>
+                  </td>
+
+                  <td className="px-6 py-5 text-center">
+                    <span className="text-lg font-semibold text-zinc-900">
+                      ${customer.totalSpent}
+                    </span>
+                  </td>
+
+                  <td className="px-6 py-5 text-center">
+                    <span className="inline-flex rounded-full text-sm font-semibold text-zinc-700">
+                      {customer.orders}
+                    </span>
+                  </td>
+
+                  <td className="px-6 py-5 text-center text-sm whitespace-nowrap text-zinc-600">
+                    {new Date(customer.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+
+                  <td className="px-6 py-5 text-center">
+                    <span
+                      className={`inline-flex rounded-full px-4 py-2 text-sm font-semibold ${
+                        customer.isActive
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {customer.userStatus}
+                    </span>
+                  </td>
+
+                  <td className="px-6 py-5">
+                    <div className="flex justify-center gap-2">
+                      <button
+                        onClick={() => {
+                          setOpen(true);
+                          setUser(customer);
+                        }}
+                        className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600"
+                      >
+                        <FaEye />
+                      </button>
+
+                      <button
+                        onClick={() => handleUserDelete(customer._id)}
+                        className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-600 transition hover:bg-red-100"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="space-y-4 p-4 lg:hidden">
+          {customer.map((customer, i) => (
+            <div
+              key={customer._id}
+              className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="font-semibold text-zinc-900">
                     {customer.name}
-                  </span>
-                </td>
-                <td className="px-6 py-5 text-zinc-500">{customer.email}</td>
-                <td className="px-6 py-5 font-semibold text-black">
-                  ${customer?.totalSpent}
-                </td>
-                <td className="px-6 py-5 text-zinc-500">{customer?.orders}</td>
-                <td className="px-6 py-5 text-zinc-600">
-                  {new Date(customer.createdAt).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </td>
-                <td className="px-6 py-5">
+                  </h3>
+
+                  <p className="text-xs text-zinc-500">#{10 + i}</p>
+                </div>
+
+                <span className="text-lg font-bold">
+                  ${customer.totalSpent}
+                </span>
+              </div>
+
+              <div className="mt-5 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-zinc-400">Email</p>
+                  <p className="font-medium break-all">{customer.email}</p>
+                </div>
+
+                <div>
+                  <p className="text-zinc-400">Orders</p>
+                  <p className="font-semibold">{customer.orders}</p>
+                </div>
+
+                <div>
+                  <p className="text-zinc-400">Member Since</p>
+                  <p className="font-medium">
+                    {new Date(customer.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-zinc-400">Status</p>
+
                   <span
-                    className={`inline-flex rounded-full uppercase px-3 py-1 text-xs font-semibold ${
-                      customer.isActive === true
-                        ? "bg-green-500/10 text-green-500"
-                        : "bg-red-500/10 text-red-500"
+                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                      customer.isActive
+                        ? "bg-emerald-100 text-emerald-700"
+                        : "bg-red-100 text-red-700"
                     }`}
                   >
                     {customer.userStatus}
                   </span>
-                </td>
-                <td className="px-6 py-5">
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => {
-                        setOpen(true);
-                        setUser(customer);
-                      }}
-                      className="rounded bg-white px-3 py-2 text-xs text-black/60 font-semibold transition hover:bg-black/10"
-                    >
-                      <FaEye className="w-4 h-4" />
-                    </button>
+                </div>
+              </div>
 
-                    <button
-                      onClick={() => handleUserDelete(customer._id)}
-                      className="rounded bg-red-500/10 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-500/20"
-                    >
-                      <FaTrash className="w-4 h-4" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              <div className="mt-6 flex gap-3">
+                <button
+                  onClick={() => {
+                    setOpen(true);
+                    setUser(customer);
+                  }}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-zinc-200 py-3 font-medium text-zinc-700 transition hover:bg-zinc-100"
+                >
+                  <FaEye />
+                  View
+                </button>
+
+                <button
+                  onClick={() => handleUserDelete(customer._id)}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-red-500 py-3 font-medium text-white transition hover:bg-red-600"
+                >
+                  <FaTrash />
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
       {open && (
         <UserDetailsModal
           open={open}

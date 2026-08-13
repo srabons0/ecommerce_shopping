@@ -62,7 +62,6 @@ function Cart({ setOpenCart }) {
         };
       })
     : cartProduct;
-
   const handleCartDelete = async (p) => {
     if (session) {
       const req = await fetch(`/api/products/userCart/${p._id}`, {

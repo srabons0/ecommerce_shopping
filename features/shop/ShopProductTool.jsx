@@ -23,7 +23,7 @@ function ShopProductTool() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-    const params = new URLSearchParams(searchParams);
+  const params = new URLSearchParams(searchParams);
   const setCardSort = useCardSorter((state) => state.setCardSort);
   const sort = pathname.split("/").at(4);
 
@@ -35,7 +35,6 @@ function ShopProductTool() {
       .then(setProduct);
     setLoading(false);
     setHasSearched(true);
-
   };
   const handleCancelSearch = () => {
     setSearch("");
@@ -46,9 +45,9 @@ function ShopProductTool() {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row justify-between items-center py-3 px-10 w-full bg-black">
-        <div className="relative z-100 flex h-full w-full items-center ml-4 gap-3 bg-[#000000da]">
-          <div className="relative max-w-xs w-full">
+      <div className="flex flex-col-reverse px-5 lg:flex-row gap-5 lg:gap-5 lg:justify-between lg:items-center items-end py-3 lg:px-10 w-full bg-black">
+        <div className="relative z-50 flex h-full justify-end lg:justify-normal w-full items-center ml-4 gap-1 lg:gap-3 bg-[#000000da]">
+          <div className="relative max-w-55 lg:max-w-xs w-full">
             <InputGroup className=" z-30 text-white bg-black">
               <InputGroupInput
                 value={search}
@@ -118,7 +117,7 @@ function ShopProductTool() {
             </div>
           </div>
           <div
-            className={`cursor-pointer text-white rounded-3xl border-2 w-20 h-8 text-center p-0.5 ${
+            className={`cursor-pointer text-white rounded-lg border-2 w-20 h-8 text-center p-0.5 ${
               !search.trim() ? "opacity-30 pointer-events-none" : ""
             }`}
             onClick={handleSearch}
@@ -126,6 +125,7 @@ function ShopProductTool() {
             Search
           </div>
         </div>
+
         <div className="flex flex-row justify-between items-center gap-2">
           <select
             value={sort}

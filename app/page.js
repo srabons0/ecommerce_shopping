@@ -37,7 +37,6 @@ export default async function Home() {
       ]),
     ),
   );
-  console.log(discountProduct);
 
   return (
     <main className=" bg-white text-black relative overflow-auto">
@@ -45,7 +44,7 @@ export default async function Home() {
       <Banner category={subCategory} />
       <AllCategory category={category} subCategory={subCategory} />
       <FeaturedProduct
-      
+
         product={product}
         category={subCategory}
       />

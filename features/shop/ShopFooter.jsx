@@ -7,55 +7,52 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaXTwitter,
-
 } from "react-icons/fa6";
 
 import logo from "@/public/logo.png";
 
 export default function ShopFooter({ category }) {
   const year = new Date().getFullYear();
- const menCategory = category?.find((item) => item.gender === "men");
+  const menCategory = category?.find((item) => item.gender === "men");
 
- const footerLinks = [
-   {
-     title: "Explore",
-     links: [
-       { name: "Home", href: "/" },
-       { name: "Shop", href: `/shop/men/${menCategory?.slug}/newest` },
-       { name: "Collections", href: "/collections/men/summer" },
-       {
-         name: "Sale",
-         href: menCategory
-           ? `/sale/men/${menCategory?.slug}/newest`
-           : "/sale/men/men-tops/newest",
-       },
-     ],
-   },
-   {
-     title: "Support",
-     links: [
-       { name: "Contact Us", href: "/contact" },
-       { name: "FAQs", href: "/faq" },
-       { name: "Blog", href: "/blog" },
-     ],
-   },
-   {
-     title: "About",
-     links: [
-       { name: "About Us", href: "/about" },
-       { name: "Our Story", href: "/about" },
-       { name: "Latest News", href: "/blog" },
-     ],
-   },
- ];
+  const footerLinks = [
+    {
+      title: "Explore",
+      links: [
+        { name: "Home", href: "/" },
+        { name: "Shop", href: `/shop/men/${menCategory?.slug}/newest` },
+        { name: "Collections", href: "/collections/men/summer" },
+        {
+          name: "Sale",
+          href: menCategory
+            ? `/sale/men/${menCategory?.slug}/newest`
+            : "/sale/men/men-tops/newest",
+        },
+      ],
+    },
+    {
+      title: "Support",
+      links: [
+        { name: "Contact Us", href: "/contact" },
+        { name: "FAQs", href: "/faq" },
+        { name: "Blog", href: "/blog" },
+      ],
+    },
+    {
+      title: "About",
+      links: [
+        { name: "About Us", href: "/about" },
+        { name: "Our Story", href: "/about" },
+        { name: "Latest News", href: "/blog" },
+      ],
+    },
+  ];
 
   return (
-    <footer className="border-t  pt-80 border-zinc-800 bg-black text-zinc-400">
+    <footer className="border-t pt-60 lg:pt-80 border-zinc-800 bg-black text-zinc-400">
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-14 lg:grid-cols-[1.3fr_.7fr_.7fr_.7fr]">
-
-
-          <div>
+        <div className="grid gap-8 grid-cols-2  lg:grid-cols-[1.3fr_.7fr_.7fr_.7fr] lg:gap-8">
+          <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-3">
               <Image src={logo} alt="Everyday Wear" width={60} height={60} />
 
@@ -106,15 +103,13 @@ export default function ShopFooter({ category }) {
             </div>
           </div>
 
-
-
           {footerLinks.map((column) => (
             <div key={column.title}>
               <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-white">
                 {column.title}
               </h3>
 
-              <ul className="space-y-4">
+              <ul className="space-y-2">
                 {column.links.map((item) => (
                   <li key={item.name}>
                     <Link
@@ -132,10 +127,6 @@ export default function ShopFooter({ category }) {
           ))}
         </div>
       </section>
-
-
-
-
 
       <section>
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-zinc-500 lg:flex-row">

@@ -77,7 +77,7 @@ export default function ProductUpdate({ product, open, onClose }) {
           : [],
       },
     };
-    // console.log(payload);
+
     try {
       const response = await fetch(`/api/products/update/${product._id}`, {
         method: "PATCH",
@@ -93,7 +93,6 @@ export default function ProductUpdate({ product, open, onClose }) {
         throw new Error(result?.error || "Failed to update product");
       }
       router.refresh();
-      // console.log("Product updated", result);
       onClose();
     } catch (error) {
       console.error("Product update failed", error);

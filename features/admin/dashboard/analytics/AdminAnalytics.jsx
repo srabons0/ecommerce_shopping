@@ -14,8 +14,8 @@ export default function AdminAnalytics({
   lowStockProducts,
 }) {
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <div className="mx-auto max-w-7xl space-y-8 px-6 py-8">
+    <div className="min-h-screen bg-zinc-50 lg:pl-6">
+      <div className="mx-auto max-w-7xl space-y-8 lg:px-6 py-8">
         <div className="grid gap-6 xl:grid-cols-1">
           <div className="xl:col-span-2">
             <RevenueChart monthlyRevenue={monthlyRevenue} />

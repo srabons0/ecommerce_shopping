@@ -92,13 +92,11 @@ export default function Footer({ category }) {
               type="submit"
               className="group lg:hidden inline-flex  h-11 lg:h-14 items-center justify-center gap-2 rounded-br-2xl bg-zinc-950 px-4 font-semibold text-white transition-all duration-300 hover:bg-zinc-800 active:scale-95"
             >
-
               <SendHorizontal
                 size={18}
                 className="transition-transform text-red-600 duration-300 group-hover:translate-x-1"
               />
             </button>
-
           </form>
         </div>
       </section>

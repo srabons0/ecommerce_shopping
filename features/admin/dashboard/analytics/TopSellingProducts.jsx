@@ -58,7 +58,7 @@ export default function TopSellingProducts({ topSellingProducts }) {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="h-full">
+        <div className="hidden lg:block lg:h-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               layout="vertical"

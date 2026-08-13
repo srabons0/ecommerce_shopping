@@ -16,6 +16,7 @@ const useCartData = create(
             (i) => i._id !== id || i.sizes !== sizes || i.colors !== colors,
           ),
         })),
+      clearCartData: () => set({ cartData: [] }),
     }),
     {
       name: "cart",

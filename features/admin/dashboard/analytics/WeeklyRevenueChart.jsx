@@ -12,6 +12,7 @@ import {
   Cell,
 } from "recharts";
 import { TrendingUp, CalendarDays, DollarSign } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const COLORS = [
   "#32FB32",
@@ -39,7 +40,17 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 export default function WeeklyRevenueChart({ weeklyRevenue }) {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const weeklyRevenueChart = days.map((day, index) => {
     const found = weeklyRevenue.find((item) => item._id === index + 1);
 
@@ -63,27 +74,29 @@ export default function WeeklyRevenueChart({ weeklyRevenue }) {
   );
 
   return (
-    <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg">
-      <div className="mb-8 flex items-center justify-between">
+    <div className="rounded-3xl border border-zinc-200 bg-white p-2 lg:p-6 shadow-sm transition-all hover:shadow-lg">
+      <div className="mb-8 pt-4 px-4 flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-zinc-900">Weekly Revenue</h2>
+          <h2 className="text-lg lg:text-xl font-bold text-zinc-900">
+            Weekly Revenue
+          </h2>
 
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-xs w-2/3 lg:w-full lg:text-sm text-zinc-500">
             Revenue generated during the last 7 days
           </p>
         </div>
 
-        <div className="rounded-xl bg-violet-50 px-4 py-2">
+        <div className="rounded-xl bg-violet-50 px-2 py-1 lg:px-4 lg:py-2">
           <p className="text-xs text-zinc-500">Total Revenue</p>
 
-          <p className="text-xl font-bold text-[#2563EB]">
+          <p className="text-lg lg:text-xl font-bold text-[#2563EB]">
             ৳{totalRevenue.toLocaleString()}
           </p>
         </div>
       </div>
 
-      <div className="mb-8 grid gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-zinc-100 bg-zinc-50 p-5">
+      <div className="mb-8 grid gap-4 grid-cols-2 lg:grid-cols-3">
+        <div className="rounded-2xl border border-zinc-100 bg-zinc-50  p-2 lg:p-5">
           <DollarSign className="mb-3 text-violet-600" size={22} />
 
           <p className="text-sm text-zinc-500">Weekly Revenue</p>
@@ -120,12 +133,11 @@ export default function WeeklyRevenueChart({ weeklyRevenue }) {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={weeklyRevenueChart}
-            margin={{
-              top: 20,
-              right: 20,
-              left: 10,
-              bottom: 10,
-            }}
+            margin={
+              mobile
+                ? { top: 10, right: 10, left: 0, bottom: 20 }
+                : { top: 20, right: 20, left: 10, bottom: 20 }
+            }
           >
             <CartesianGrid
               vertical={false}

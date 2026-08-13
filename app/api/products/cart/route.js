@@ -13,7 +13,7 @@ export async function GET(req) {
     const Products = await Product.find({
       _id: { $in: id },
     })
-      .select("name slug  images price")
+      .select("name slug  images price discountPercentage")
       .lean();
 
     return NextResponse.json(Products);

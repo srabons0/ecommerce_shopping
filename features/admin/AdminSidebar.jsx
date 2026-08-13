@@ -1,160 +1,158 @@
 "use client";
+
 import Link from "next/link";
-import React from "react";
-import { MdDashboard } from "react-icons/md";
-import { IoBagHandleSharp } from "react-icons/io5";
-import { FaBoxes, FaHome } from "react-icons/fa";
-import { FaUsers } from "react-icons/fa";
-import { BsGraphDown } from "react-icons/bs";
-import { FaUserGear } from "react-icons/fa6";
-import { FaRegCreditCard } from "react-icons/fa";
-import { IoIosAddCircle } from "react-icons/io";
-import { BsPersonSquare } from "react-icons/bs";
+import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-function AdminSidebar() {
+
+import {
+  MdDashboard,
+  MdOutlineShoppingBag,
+  MdOutlineAnalytics,
+} from "react-icons/md";
+
+import { FaBoxes, FaUsers, FaHome } from "react-icons/fa";
+
+import { IoIosAddCircle } from "react-icons/io";
+
+import { BsPersonSquare } from "react-icons/bs";
+
+import { FaRegCreditCard, FaUserGear } from "react-icons/fa6";
+
+const menu = [
+  {
+    title: "Dashboard",
+    href: "/dashboard/admin/home",
+    icon: MdDashboard,
+  },
+
+  {
+    title: "Orders",
+    href: "/dashboard/admin/orders?status=all",
+    icon: MdOutlineShoppingBag,
+  },
+
+  {
+    title: "Products",
+    href: "/dashboard/admin/product?categories=all&subcategories=all&item=all&status=all&sortBy=random",
+    icon: FaBoxes,
+  },
+
+  {
+    title: "Orders History",
+    href: "/dashboard/admin/ordersHistory?status=all",
+    icon: FaRegCreditCard,
+  },
+
+  {
+    title: "Customers",
+    href: "/dashboard/admin/customer?status=all",
+    icon: FaUsers,
+  },
+
+  {
+    title: "Add Product",
+    href: "/dashboard/admin/productManagement",
+    icon: IoIosAddCircle,
+  },
+
+  {
+    title: "Analytics",
+    href: "/dashboard/admin/analytics",
+    icon: MdOutlineAnalytics,
+  },
+];
+
+export default function AdminSidebar() {
+  const pathname = usePathname();
   const { data: session } = useSession();
+
   return (
-    <aside
-      className="sidebar fixed left-0 top-0 bottom-0 z-200 flex w-65 flex-col border-r border-white/10 bg-[#000000]"
-      id="sidebar"
-    >
-      <div className="sidebar-logo border-b border-white/10 px-6 pt-7 pb-5  text-normal font-light text-white tracking-[0.15em]">
-        EVERY<em className="not-italic text-[#FF073A]">DAY</em> WEAR
-        <div
-          className="sidebar-logo-sub mt-1 text-[9px] uppercase tracking-[0.3em]
-         text-[#FF073A]"
-        >
-          Admin Panel
+    <aside className="fixed top-0 left-0 z-50 hidden h-screen w-72 overflow-hidden border-r border-white/10 bg-[#0b0b0d] text-white shadow-2xl lg:block">
+      <div className="border-b border-white/10 px-7 py-7">
+        <h1 className="text-xl font-black tracking-[0.18em]">
+          EVERY
+          <span className="text-red-500">DAY</span>
+          WEAR
+        </h1>
+
+        <p className="mt-2 text-[11px] tracking-[0.35em] text-red-500/90 uppercase">
+          Admin Dashboard
+        </p>
+      </div>
+
+      <div className="h-[calc(100%-170px)] overflow-y-auto px-4 py-5 pb-10">
+        <p className="mb-4 px-3 text-xs tracking-[0.25em] text-zinc-500 uppercase">
+          Navigation
+        </p>
+
+        <div className="space-y-2">
+          {menu.map((item) => {
+            const active = pathname === item.href.split("?")[0];
+
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.title}
+                href={item.href}
+                className={`group flex items-center gap-4 rounded-2xl px-4 py-3 duration-300 ${
+                  active
+                    ? "bg-red-600 text-white shadow-lg shadow-red-600/20"
+                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                } `}
+              >
+                <Icon
+                  className={`text-xl transition ${active ? "scale-110" : "group-hover:translate-x-1"} `}
+                />
+
+                <span className="font-medium tracking-wide">{item.title}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 border-t border-white/10 pt-6">
+          <p className="mb-4 px-3 text-xs tracking-[0.25em] text-zinc-500 uppercase">
+            General
+          </p>
+
+          <div className="space-y-2">
+            <Link
+              href="/dashboard/admin/profile"
+              className="flex items-center gap-4 rounded-2xl px-4 py-3 text-zinc-400 transition hover:bg-zinc-900 hover:text-white"
+            >
+              <BsPersonSquare className="text-xl" />
+              Profile
+            </Link>
+
+            <Link
+              href="/"
+              className="flex items-center gap-4 rounded-2xl px-4 py-3 text-zinc-400 transition hover:bg-zinc-900 hover:text-white"
+            >
+              <FaHome className="text-lg" />
+              Home
+            </Link>
+          </div>
         </div>
       </div>
 
-      <nav className="nav-group flex-1 overflow-y-auto px-3 pt-4 pb-2 ">
-        <Link
-          href={"/dashboard/admin/home"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("dashboard")}
-        >
-          <MdDashboard />
-          Dashboard
-        </Link>
+      <div className="absolute right-0 bottom-0 left-0 border-t border-white/10 bg-[#101014] p-5">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-700 text-xl">
+            <FaUserGear />
+          </div>
 
-        <Link
-          href={{
-            pathname: "/dashboard/admin/orders",
-            query: {
-              status: "all",
-            },
-          }}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("orders")}
-        >
-          <IoBagHandleSharp />
-          Orders
-        </Link>
+          <div className="min-w-0">
+            <h3 className="truncate font-semibold">
+              {session?.user?.name || "Administrator"}
+            </h3>
 
-        <Link
-          href={{
-            pathname: "/dashboard/admin/product",
-            query: {
-              categories: "all",
-              subcategories: "all",
-              item: "all",
-              status: "all",
-              sortBy: "random",
-            },
-          }}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("products")}
-        >
-          <FaBoxes />
-          Products
-        </Link>
-        <Link
-          href={{
-            pathname: "/dashboard/admin/ordersHistory",
-            query: {
-              status: "all",
-            },
-          }}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("products")}
-        >
-          <FaRegCreditCard />
-          Orders History
-        </Link>
-
-        <Link
-          href={{
-            pathname: "/dashboard/admin/customer",
-            query: {
-              status: "all",
-            },
-          }}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("customers")}
-        >
-          <FaUsers />
-          Customers
-        </Link>
-
-        <Link
-          href={"/dashboard/admin/productManagement"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("blog")}
-        >
-          <IoIosAddCircle />
-          Add Product
-        </Link>
-
-        <Link
-          href={"/dashboard/admin/analytics"}
-          className="nav-item mb-px flex cursor-pointer items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-          onClick={() => showPanel("analytics")}
-        >
-          <BsGraphDown /> Analytics
-        </Link>
-
-
-
-        <Link
-          href="/dashboard/admin/profile"
-          className="nav-item mb-px flex items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-        >
-          <BsPersonSquare />
-          Profile
-        </Link>
-        <Link
-          href="/"
-          className="nav-item mb-px flex items-center gap-2 rounded px-3 py-2.5  text-[#6e6e7e] transition hover:bg-white/5 hover:text-white/80"
-        >
-          <FaHome />
-          Home
-        </Link>
-      </nav>
-
-      <div className="sidebar-user flex items-center gap-2.5 border-t border-white/10 px-5 py-4">
-        <Link
-          href="/dashboard/admin/profile"
-          className="sidebar-avatar flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#b8953a]  font-bold text-[#0c0c0f]"
-        >
-          <FaUserGear />
-        </Link>
-
-        <div>
-          <Link
-            href="/profile"
-            className="sidebar-user-name text-xs font-semibold text-white"
-          >
-            {session?.user.name}
-          </Link>
-
-          <div className="sidebar-user-role text-[10px] text-[#6e6e7e]">
-            Admin
+            <p className="truncate text-sm text-zinc-400">
+              {session?.user?.email}
+            </p>
           </div>
         </div>
       </div>
     </aside>
   );
 }
-
-export default AdminSidebar;

@@ -36,7 +36,7 @@ const COLLECTIONS = [
   },
   {
     id: "minimal",
-    index: "04",
+    index: "03",
     name: "Minimal",
     subtitle: "CORE COLLECTION",
     palette: {
@@ -52,7 +52,7 @@ const COLLECTIONS = [
   },
   {
     id: "trending",
-    index: "05",
+    index: "04",
     name: "Trending ",
     subtitle: "Trending COLLECTION",
 
@@ -97,9 +97,9 @@ function CollectionShowcase() {
   }, [active]);
 
   return (
-    <section className=" bg-white px-16 py-[72px]">
+    <section className=" bg-white px-2 py-8 lg:px-16 lg:py-18">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-3 flex items-center gap-3">
+        <div className="mb-3 px-2 flex items-center gap-3">
           <div className="h-0.5 w-5" style={{ background: "red" }} />
           <span
             className="font-mono text-[9px] font-bold tracking-[0.28em]"
@@ -113,7 +113,7 @@ function CollectionShowcase() {
           OTHER COLLECTIONS
         </h2>
 
-        <div className="grid grid-cols-3 gap-4  mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4  mx-auto">
           {COLLECTIONS.filter((collection) => collection.id !== active).map(
             (col, i) => {
               const hovered = hoveredId === col.id;
@@ -172,7 +172,7 @@ function CollectionShowcase() {
                     className="absolute left-4 top-3  font-mono text-[9px] tracking-[0.18em]"
                     style={{ color: col.palette.primary }}
                   >
-                    {col.index}
+                    0{i+1}
                   </div>
 
                   <div className="absolute bottom-4 left-4 right-4">

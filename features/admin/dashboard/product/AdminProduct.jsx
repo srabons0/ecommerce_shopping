@@ -7,8 +7,12 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import ProductUpdate from "./ProductUpdate";
 import ProductView from "./ProductView";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 export default function AdminProduct({ product, productCount }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [page, setPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
@@ -43,8 +47,8 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-175 bg-[#edecec] px-4 py-4 overflow-y-auto scrollbar-hide">
-      <div className={` ${cardSort} grid-cols-1 px-10 pt-5`}>
+    <div className="min-h-175 bg-[#edecec] lg:px-4 py-4 overflow-y-auto scrollbar-hide">
+      <div className={` ${cardSort} grid-cols-2 gap-2 px-2 lg:px-10 pt-5`}>
         {product.map((product) => (
           <ProductCard
             key={product._id}
@@ -74,15 +78,15 @@ useEffect(() => {
       )}
 
       {productCount > 15 && (
-        <Stack
-          spacing={2}
-          className="gap-1 flex my-10 justify-center items-center "
-        >
+        <Stack spacing={2} className="my-10 flex items-center justify-center">
           <Pagination
             page={page}
             onChange={(event, value) => setPage(value)}
             count={Math.ceil(productCount / 15)}
             variant="outlined"
+            size={isMobile ? "small" : "medium"}
+            siblingCount={isMobile ? 0 : 1}
+            boundaryCount={isMobile ? 1 : 2}
             className="custom-pagination"
           />
         </Stack>

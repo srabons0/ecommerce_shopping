@@ -1,6 +1,7 @@
 "use client";
 
 import useCartData from "@/store/cartStore";
+import useWishlistData from "@/store/wishlistStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -16,6 +17,9 @@ const ProductModal = ({ product, onClose }) => {
   const [added, setAdded] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
   const setCartData = useCartData((state) => state.setCartData);
+  const toggleWishlistItem = useWishlistData(
+    (state) => state.toggleWishlistItem,
+  );
   const { data: session } = useSession();
 
   const colors = useMemo(() => {
@@ -107,7 +111,7 @@ const ProductModal = ({ product, onClose }) => {
     <>
       <div
         onClick={() => onClose?.()}
-        className={`fixed inset-0 z-90 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
+        className={`fixed inset-0 z-390 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
           product
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -115,7 +119,7 @@ const ProductModal = ({ product, onClose }) => {
       />
 
       {product && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6">
+        <div className="fixed inset-0 z-400 flex items-center justify-center p-3 sm:p-6">
           <div className="relative w-full max-w-6xl overflow-hidden rounded-[32px] border border-zinc-200 bg-white text-zinc-900 shadow-[0_30px_90px_-25px_rgba(15,23,42,0.45)]">
             <button
               type="button"
@@ -176,7 +180,10 @@ const ProductModal = ({ product, onClose }) => {
                   </div>
                   <button
                     type="button"
-                    onClick={() => setWishlisted((prev) => !prev)}
+                    onClick={() => {
+                      const nextState = toggleWishlistItem(product);
+                      setWishlisted(nextState);
+                    }}
                     className={`absolute right-17 top-4.5 rounded-full p-3 transition ${
                       wishlisted
                         ? "bg-rose-100 text-rose-600"

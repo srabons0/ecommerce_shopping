@@ -35,7 +35,7 @@ const COLLECTIONS = [
   },
   {
     id: "minimal",
-    index: "04",
+    index: "03",
     name: "Minimal",
     subtitle: "CORE COLLECTION",
     palette: {
@@ -51,7 +51,7 @@ const COLLECTIONS = [
   },
   {
     id: "trending",
-    index: "05",
+    index: "04",
     name: "Trending ",
     subtitle: "Trending COLLECTION",
 
@@ -84,7 +84,6 @@ function CollectionIndex() {
   };
 
   useEffect(() => {
-    // console.log("first",firstRender.current);
      if (firstRender.current) {
        firstRender.current = false;
        return;
@@ -98,8 +97,8 @@ function CollectionIndex() {
     }
   }, [active]);
   return (
-    <div className="border-b border-zinc-800 bg-white px-16 py-20">
-      <div className="mx-auto max-w-7xl">
+    <div className="border-b border-zinc-800 bg-white py-10 px-5 lg:px-16 lg:py-20">
+      <div className="mx-auto max-w-full lg:max-w-7xl">
         <div className="mb-3 flex items-center gap-3">
           <div className="h-0.5 w-6 bg-red-600" />
           <span className="font-mono text-[9px] font-bold tracking-[0.3em] text-red-600">
@@ -113,7 +112,7 @@ function CollectionIndex() {
           <span className="text-red-600">COLLECTIONS.</span>
         </h2>
 
-        <div className="grid grid-cols-4 gap-4  mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4  mx-auto">
           {COLLECTIONS.map((col, i) => {
             const hovered = hoveredId === col.id;
             const activeCard = active === col.id;
@@ -124,7 +123,7 @@ function CollectionIndex() {
                 onClick={() => setCollection(col.id)}
                 onMouseEnter={() => setHoveredId(col.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="group relative h-52 cursor-pointer overflow-hidden border transition-all duration-300"
+                className="group relative h-30 lg:h-52  cursor-pointer overflow-hidden border transition-all duration-300"
                 style={{
                   borderColor: activeCard
                     ? col.palette.primary

@@ -10,9 +10,10 @@ import { Menu, Search, ShoppingBag } from "lucide-react";
 import Cart from "@/features/cart/Cart";
 import NavSearch from "@/features/search/NavSearch";
 
-// import MobileMenu from "./MobileMenu";
+
 
 import webLogo from "@/public/logo.png";
+import MobileMenu from "./MobileMenu";
 
 export default function Navbar({ category }) {
   const { data: session } = useSession();
@@ -55,14 +56,7 @@ export default function Navbar({ category }) {
   return (
     <>
       <header
-        className={`
-
-          inset-x-0
-          top-0
-          z-50
-          transition-all
-          duration-300 bg-black
-        `}
+        className={`inset-x-0 top-0 z-50 bg-black transition-all duration-300`}
       >
         <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between px-6">
           <Link href="/" className="group flex items-center gap-1 select-none">
@@ -78,14 +72,14 @@ export default function Navbar({ category }) {
             </div>
 
             <div className="leading-none">
-              <h1 className="text-[9px] font-semibold uppercase tracking-[0.35em] text-white">
+              <h1 className="text-[9px] font-semibold tracking-[0.35em] text-white uppercase">
                 EVERYDAY
               </h1>
 
               <div className="mt-1 flex items-center gap-1">
                 <span className="h-px w-2.5 bg-red-600" />
 
-                <p className="text-[6px] font-medium uppercase tracking-[0.65em] text-red-500">
+                <p className="text-[6px] font-medium tracking-[0.65em] text-red-500 uppercase">
                   WEAR
                 </p>
 
@@ -95,26 +89,11 @@ export default function Navbar({ category }) {
           </Link>
 
           <nav className="hidden items-center gap-3 lg:flex">
-
             {navLinks.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className={`
-                  relative
-                  text-sm
-                  font-medium px-3
-                  transition
-                  after:absolute
-                  after:-bottom-2
-                  after:left-0
-                  after:h-[2px]
-                  after:w-0
-                  after:bg-white
-                  after:transition-all
-                  hover:after:w-full
-                   text-white hover:text-zinc-200"
-                `}
+                className={`hover:text-zinc-200" relative px-3 text-sm font-medium text-white transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all hover:after:w-full`}
               >
                 {item.title}
               </Link>
@@ -124,18 +103,7 @@ export default function Navbar({ category }) {
           <div className="hidden items-center gap-3 lg:flex">
             <button
               onClick={() => setOpenSearch(true)}
-              className={`
-                group
-                flex
-                h-11
-                w-11
-                items-center
-                justify-center
-                rounded-full
-                transition-all
-                duration-300
-                hover:bg-white/10 text-white
-              `}
+              className={`group flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-300 hover:bg-white/10`}
             >
               <Search
                 size={20}
@@ -145,26 +113,12 @@ export default function Navbar({ category }) {
 
             <button
               onClick={() => setOpenCart(true)}
-              className={`
-                group
-                relative
-                flex
-                h-11
-                w-11 mr-3
-                items-center
-                justify-center
-                rounded-full
-                transition-all
-                duration-300
-                hover:bg-white/10 text-white
-              `}
+              className={`group relative mr-3 flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-300 hover:bg-white/10`}
             >
               <ShoppingBag
                 size={20}
                 className="transition-transform duration-300 group-hover:scale-110"
               />
-
-
             </button>
 
             {session ? (
@@ -189,43 +143,33 @@ export default function Navbar({ category }) {
             ) : (
               <Link
                 href="/login"
-                className="
-                  rounded-full
-                  bg-black
-                  px-6
-                  py-3
-                  text-sm
-                  font-semibold
-                  text-white
-                  transition
-                  hover:scale-105
-                "
+                className="rounded-full bg-black px-6 py-3 text-sm font-semibold text-white transition hover:scale-105"
               >
                 Login
               </Link>
             )}
           </div>
-
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="
-              flex
-              h-11
-              w-11
-              items-center
-              justify-center
-              rounded-full
-              transition
-              hover:bg-zinc-100
-              lg:hidden
-            "
-          >
-            <Menu size={22} />
-          </button>
+          <div className="flex items-center lg:hidden">
+            <button
+              onClick={() => setOpenCart(true)}
+              className={`group relative flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-300 hover:bg-white/10`}
+            >
+              <ShoppingBag
+                size={20}
+                className="transition-transform duration-300 group-hover:scale-110"
+              />
+            </button>
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-zinc-400"
+            >
+              <Menu size={22} />
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* <MobileMenu open={mobileOpen} setOpen={setMobileOpen} /> */}
+      <MobileMenu open={mobileOpen} setOpen={setMobileOpen} />
 
       <AnimatePresence mode="wait">
         {openSearch && <NavSearch setOpenSearch={setOpenSearch} />}

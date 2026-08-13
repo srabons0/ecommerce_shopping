@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Logout from "./Logout";
+import Logout from "../../../../components/shared/Logout";
 import { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaUser } from "react-icons/fa";
@@ -31,7 +31,7 @@ function ProfileInfo() {
     if (image) {
       const formData = new FormData();
       formData.append("image", image);
-      // console.log(formData);
+
       const res = await fetch(
         `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
         {
@@ -58,7 +58,7 @@ function ProfileInfo() {
       body: JSON.stringify(info),
     });
     const result = await res.json();
-    // console.log(result);
+   
     if (result) {
       toast.success("Profile Updated Successfully!");
     }
@@ -82,38 +82,21 @@ function ProfileInfo() {
   }, [session, reset]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 md:p-10 flex flex-col gap-10">
+    <div className="flex min-h-screen flex-col gap-10 bg-gray-50 py-8 md:p-10">
       <motion.form
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="
-      bg-white
-      shadow-xl
-      rounded-2xl
-      p-6 md:p-10
-      w-full
-      max-w-3xl
-      mx-auto
-      flex
-      flex-col
-      gap-8
-    "
+        className="mx-auto flex w-full max-w-3xl flex-col gap-8 rounded-2xl bg-white p-6 shadow-xl md:p-10"
       >
         <div className="flex flex-col gap-4">
           <h3 className="text-xl font-semibold text-gray-700">
             Profile Picture
           </h3>
 
-          <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex flex-col items-center gap-6 md:flex-row">
             <Image
-              className="
-            w-32 h-32 md:w-36 md:h-36
-            object-cover
-            rounded-full
-            border-2 border-gray-400
-            shadow-md
-          "
+              className="h-32 w-32 rounded-full border-2 border-gray-400 object-cover shadow-md md:h-36 md:w-36"
               src={
                 (image && URL.createObjectURL(image)) ||
                 user?.image ||
@@ -126,30 +109,14 @@ function ProfileInfo() {
             />
 
             <div className="relative">
-              <label
-                className="
-              cursor-pointer
-              inline-flex
-              items-center
-              justify-center
-              px-6
-              py-2
-              rounded-lg
-              border-2
-              border-gray-400
-              font-semibold
-              text-gray-700
-              hover:bg-gray-100
-              transition
-            "
-              >
+              <label className="inline-flex cursor-pointer items-center justify-center rounded-lg border-2 border-gray-400 px-6 py-2 font-semibold text-gray-700 transition hover:bg-gray-100">
                 Update Photo
                 <input
                   type="file"
                   {...register("image")}
                   accept="image/*"
                   onChange={(e) => setImage(e.target.files[0])}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  className="absolute inset-0 cursor-pointer opacity-0"
                 />
               </label>
             </div>
@@ -166,10 +133,10 @@ function ProfileInfo() {
             <input
               type="text"
               {...register("name")}
-              className=" w-full py-3 px-3 rounded-xl border-2 border-gray-300"
+              className="w-full rounded-xl border-2 border-gray-300 px-3 py-3"
             />
             {errors.name && (
-              <p className="error-text text-red-500 text-sm">
+              <p className="error-text text-sm text-red-500">
                 {errors.name.message}
               </p>
             )}
@@ -183,10 +150,10 @@ function ProfileInfo() {
               type="email"
               disabled={true}
               {...register("email")}
-              className=" w-full py-3 px-3 rounded-xl border-2 bg-gray-100 border-gray-300"
+              className="w-full rounded-xl border-2 border-gray-300 bg-gray-100 px-3 py-3"
             />
             {errors.email && (
-              <p className="error-text text-red-500 text-sm">
+              <p className="error-text text-sm text-red-500">
                 {errors.email.message}
               </p>
             )}
@@ -199,10 +166,10 @@ function ProfileInfo() {
             <input
               type="tel"
               {...register("number")}
-              className=" w-full py-3 px-3 rounded-xl border-2 border-gray-300"
+              className="w-full rounded-xl border-2 border-gray-300 px-3 py-3"
             />
             {errors.number && (
-              <p className="error-text text-red-500 text-sm">
+              <p className="error-text text-sm text-red-500">
                 {errors.number.message}
               </p>
             )}
@@ -214,10 +181,10 @@ function ProfileInfo() {
             </label>
             <input
               {...register("address")}
-              className=" w-full py-3 px-3 rounded-xl border-2 border-gray-300"
+              className="w-full rounded-xl border-2 border-gray-300 px-3 py-3"
             />
             {errors.address && (
-              <p className="error-text text-red-500 text-sm">
+              <p className="error-text text-sm text-red-500">
                 {errors.address.message}
               </p>
             )}
@@ -228,15 +195,7 @@ function ProfileInfo() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
           type="submit"
-          className="
-        bg-black
-        font-bold text-white
-        py-3
-        rounded-xl
-        shadow-lg
-        hover:shadow-xl
-        transition
-      "
+          className="rounded-xl bg-black py-3 font-bold text-white shadow-lg transition hover:shadow-xl"
         >
           Save Changes
         </motion.button>

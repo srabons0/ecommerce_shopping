@@ -1,11 +1,12 @@
 import {
   Package,
-  
+
   CreditCard,
   MapPin,
   User,
   CheckCircle2,
 } from "lucide-react";
+import Image from "next/image";
 
 const ORDER_STATUS = [
   "pending",
@@ -211,7 +212,8 @@ export default function OrderDetails({ order }) {
                   >
                     <td className="p-4">
                       <div className="flex items-center gap-4">
-                        <img
+                        <Image height={100} width={100}
+                          alt={item.name}
                           src={item.image}
                           className="h-20 w-16 rounded-xl object-cover"
                         />

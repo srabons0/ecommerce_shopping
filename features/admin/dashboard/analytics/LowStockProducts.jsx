@@ -32,16 +32,16 @@ export default function LowStockProducts({ products }) {
     <div className="rounded-3xl border border-zinc-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b border-zinc-100 p-6">
         <div>
-          <h2 className="text-xl font-bold text-zinc-900">
+          <h2 className=" text-lg lg:text-xl font-bold text-zinc-900">
             Low Stock Products
           </h2>
 
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-xs lg:text-sm text-zinc-500">
             Products that require restocking soon
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl bg-red-50 px-4 py-2">
+        <div className="flex items-center gap-2 rounded-xl bg-red-50 px-2 py-1 lg:px-4 lg:py-2">
           <AlertTriangle className="text-red-500" size={18} />
 
           <span className="font-semibold text-red-600">

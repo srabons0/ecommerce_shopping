@@ -35,7 +35,7 @@ const COLLECTIONS = [
   },
   {
     id: "minimal",
-    index: "04",
+    index: "03",
     name: "Minimal",
     subtitle: "CORE COLLECTION",
     palette: {
@@ -51,7 +51,7 @@ const COLLECTIONS = [
   },
   {
     id: "trending",
-    index: "05",
+    index: "04",
     name: "Trending ",
     subtitle: "Trending COLLECTION",
 

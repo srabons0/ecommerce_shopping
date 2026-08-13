@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   PieChart,
   Pie,
@@ -19,6 +20,17 @@ const COLORS = [
 ];
 
 function CategoryChart({ categoryStats }) {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className="h-130 my-10 w-full rounded-2xl bg-white p-6 shadow">
       <h2 className="mb-6 text-lg font-semibold text-zinc-800">
@@ -33,8 +45,8 @@ function CategoryChart({ categoryStats }) {
             nameKey="name"
             cx="50%"
             cy="50%"
-            outerRadius={120}
-            innerRadius={70}
+            outerRadius={mobile ? 70 : 120}
+            innerRadius={mobile ? 30 : 70}
             paddingAngle={3}
             label={({ name, percent }) =>
               `${name} ${(percent * 100).toFixed(0)}%`

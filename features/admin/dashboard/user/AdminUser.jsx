@@ -25,9 +25,9 @@ function AdminUser({ customer, customerCount, filters }) {
   }, [router]);
 
   return (
-    <div className="mx-6 mt-10 mb-20">
+    <div className="mt-10 mb-20 lg:mx-6 lg:pl-5">
       <section>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-6 grid grid-cols-2 gap-5 lg:grid-cols-3">
           {[
             {
               value: customerCount,
@@ -50,21 +50,11 @@ function AdminUser({ customer, customerCount, filters }) {
           ].map((item) => (
             <div
               key={item.title}
-              className="
-          rounded-lg
-          border
-          border-white/10
-          bg-zinc-100
-          p-6
-          transition
-          duration-300
-          hover:-translate-y-1
-          hover:border-yellow-700/30
-        "
+              className="rounded-lg border border-white/10 bg-zinc-100 p-4 transition duration-300 hover:-translate-y-1 hover:border-yellow-700/30 lg:p-6"
             >
               <h2 className="text-4xl font-bold text-black">{item.value}</h2>
 
-              <p className="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">
+              <p className="mt-2 text-[8px] tracking-[0.18em] text-zinc-500 uppercase lg:text-xs">
                 {item.title}
               </p>
 
@@ -79,7 +69,7 @@ function AdminUser({ customer, customerCount, filters }) {
       {customerCount > 25 && (
         <Stack
           spacing={2}
-          className="gap-1 flex my-10 justify-center items-center "
+          className="my-10 flex items-center justify-center gap-1"
         >
           <Pagination
             page={page}

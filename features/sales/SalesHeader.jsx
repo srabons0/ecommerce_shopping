@@ -8,7 +8,7 @@ function SalesHeader({ productCount }) {
       </div>
 
       <div className="relative z-10 mx-auto max-w-360">
-        <div className="mt-3.5 flex flex-wrap items-end justify-between gap-3">
+        <div className="mt-3.5 lg:flex lg:items-end lg:justify-between gap-3">
           <div>
             <div className="mb-2 flex items-center gap-3">
               <div className="h-0.5 w-4.5 bg-[#FF4D4D]" />
@@ -26,13 +26,15 @@ function SalesHeader({ productCount }) {
             </h1>
           </div>
 
-          <div className="text-right">
-            <div className="font-['Bebas_Neue'] text-[52px] leading-none text-[#FF4D4D]">
-              {productCount}
-            </div>
+          <div className="flex flex-col">
+            <div className="text-right">
+              <div className="font-['Bebas_Neue'] text-[52px] leading-none text-[#FF4D4D]">
+                {productCount}
+              </div>
 
-            <div className="font-mono text-[9px] tracking-[0.16em] text-[#666666]">
-              ITEMS ON SALE
+              <div className="font-mono text-[9px] tracking-[0.16em] text-black lg:text-[#666666]">
+                ITEMS ON SALE
+              </div>
             </div>
           </div>
         </div>
