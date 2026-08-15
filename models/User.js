@@ -24,6 +24,12 @@ const UserSchema = new mongoose.Schema(
     },
     orders: { type: Number, default: 0 },
     totalSpent: { type: Number, default: 0 },
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   { timestamps: true, versionKey: false },
 );

@@ -1,11 +1,10 @@
 "use client";
 
 import useCartData from "@/store/cartStore";
-import useWishlistData from "@/store/wishlistStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { FaHeart, FaHeartBroken, FaStar } from "react-icons/fa";
+import {  FaStar } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
 
@@ -15,11 +14,8 @@ const ProductModal = ({ product, onClose }) => {
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState("overview");
   const [added, setAdded] = useState(false);
-  const [wishlisted, setWishlisted] = useState(false);
   const setCartData = useCartData((state) => state.setCartData);
-  const toggleWishlistItem = useWishlistData(
-    (state) => state.toggleWishlistItem,
-  );
+
   const { data: session } = useSession();
 
   const colors = useMemo(() => {
@@ -141,11 +137,7 @@ const ProductModal = ({ product, onClose }) => {
                 <div className="absolute inset-0 bg-linear-to-t from-zinc-950/60 via-zinc-950/10 to-transparent" />
 
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                  {product?.isFeatured && (
-                    <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-900">
-                      Featured
-                    </span>
-                  )}
+
                   {discountPercentage > 0 && (
                     <span className="rounded-full bg-rose-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white">
                       -{discountPercentage}%
@@ -178,7 +170,7 @@ const ProductModal = ({ product, onClose }) => {
                       {product?.name || "Product name"}
                     </h2>
                   </div>
-                  <button
+                  {/* <button
                     type="button"
                     onClick={() => {
                       const nextState = toggleWishlistItem(product);
@@ -195,7 +187,7 @@ const ProductModal = ({ product, onClose }) => {
                     ) : (
                       <FaHeartBroken className="h-4 w-4" />
                     )}
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="mb-4 flex flex-wrap items-center gap-3 text-sm text-zinc-600">

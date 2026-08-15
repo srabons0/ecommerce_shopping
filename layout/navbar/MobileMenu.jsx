@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   HiOutlineArrowRightOnRectangle,
-  HiOutlineHome,
   HiOutlineNewspaper,
   HiOutlineSquares2X2,
   HiOutlineTag,
@@ -14,6 +13,7 @@ import {
 } from "react-icons/hi2";
 
 import MobileShopDropdown from "./MobileShopDropdown";
+import { MdDashboard } from "react-icons/md";
 
 export default function MobileMenu({ open, setOpen, category, subCategory }) {
   const { data: session } = useSession();
@@ -34,19 +34,20 @@ export default function MobileMenu({ open, setOpen, category, subCategory }) {
         : "/sale/men/men-tops/newest",
       icon: HiOutlineTag,
     },
-    {
-      title: "Blog",
-      href: "/blog",
-      icon: HiOutlineNewspaper,
-    },
     session?.user && {
       title: "Dashboard",
       href:
         session.user.role === "admin"
           ? "/dashboard/admin/home"
           : "/dashboard/profile",
-      icon: HiOutlineHome,
+      icon: MdDashboard,
     },
+    {
+      title: "Blog",
+      href: "/blog",
+      icon: HiOutlineNewspaper,
+    },
+
     !session?.user && {
       title: "Track order",
       href: "/guest-orders",

@@ -5,12 +5,12 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
 import { MagnifyingGlass } from "react-loader-spinner";
-export default function LoginPage() {
+function LoginContent() {
   const {
     register,
     handleSubmit,
@@ -40,15 +40,15 @@ export default function LoginPage() {
     setValue("password", "password123");
   }
 
-const handleSocialLogin = async () => {
-  try {
-    await signIn("google", {
-      callbackUrl: "/",
-    });
-  } catch (error) {
-    console.error("Google login error:", error);
-  }
-};
+  const handleSocialLogin = async () => {
+    try {
+      await signIn("google", {
+        callbackUrl: "/",
+      });
+    } catch (error) {
+      console.error("Google login error:", error);
+    }
+  };
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -404,5 +404,18 @@ const handleSocialLogin = async () => {
       </AnimatePresence>
       <Toaster position="top-right" reverseOrder={false} />
     </div>
+  );
+}
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <section className="flex h-screen items-center justify-center bg-[#faf9f6]">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-zinc-200 border-t-[#b8953a]" />
+        </section>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }

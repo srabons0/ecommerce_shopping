@@ -14,7 +14,6 @@ import {
   FiPackage,
   FiPhone,
   FiShield,
-  FiShoppingBag,
   FiUpload,
 } from "react-icons/fi";
 
@@ -95,10 +94,9 @@ export default function ProfilePageClient({ initialUser = {} }) {
   const stats = useMemo(
     () => [
       { label: "Orders", value: user.orders || 0, icon: FiPackage },
-      { label: "Wishlist", value: user.wishlist || 0, icon: FiHeart },
-      { label: "Cart Items", value: user.cartItems || 0, icon: FiShoppingBag },
+      { label: "Wishlist", value: user.wishlist.length || 0, icon: FiHeart },
     ],
-    [user.cartItems, user.orders, user.wishlist],
+    [user.orders, user.wishlist],
   );
 
   const displayName = useMemo(() => {
@@ -139,7 +137,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
         <div className="bg-linear-to-r from-red-600 to-orange-500 p-6 text-white sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/80">
+              <p className="text-sm font-semibold tracking-[0.24em] text-white/80 uppercase">
                 My account
               </p>
               <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
@@ -167,7 +165,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
         </div>
 
         <div className="p-6 sm:p-8">
-          <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="rounded-[24px] border border-zinc-200 bg-zinc-50 p-6">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                 <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-white bg-zinc-200 shadow-sm">
@@ -184,7 +182,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                       {displayName?.charAt(0)?.toUpperCase() || "U"}
                     </div>
                   )}
-                  <div className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-white shadow-lg">
+                  <div className="absolute right-0 bottom-0 flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-white shadow-lg">
                     <FiCamera className="h-4 w-4" />
                   </div>
                 </div>
@@ -194,7 +192,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                     <h2 className="text-2xl font-semibold text-zinc-900">
                       {displayName}
                     </h2>
-                    <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                    <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold tracking-[0.2em] text-emerald-700 uppercase">
                       {user.role || "user"}
                     </span>
                   </div>
@@ -206,7 +204,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {stats.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -225,7 +223,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                   );
                 })}
               </div>
-              <div className="hidden lg:flex mt-6  items-center justify-center">
+              <div className="mt-6 hidden items-center justify-center lg:flex">
                 <Logout></Logout>
               </div>
             </div>
@@ -258,7 +256,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                     onChange={(event) =>
                       setForm((prev) => ({ ...prev, name: event.target.value }))
                     }
-                    className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm outline-none transition focus:border-violet-500 focus:bg-white"
+                    className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm transition outline-none focus:border-violet-500 focus:bg-white"
                   />
                 </label>
 
@@ -267,7 +265,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                     Phone number
                   </span>
                   <div className="relative">
-                    <FiPhone className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+                    <FiPhone className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-zinc-400" />
                     <input
                       value={form.number}
                       onChange={(event) =>
@@ -276,7 +274,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                           number: event.target.value,
                         }))
                       }
-                      className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 pl-10 pr-4 text-sm outline-none transition focus:border-violet-500 focus:bg-white"
+                      className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 pr-4 pl-10 text-sm transition outline-none focus:border-violet-500 focus:bg-white"
                     />
                   </div>
                 </label>
@@ -286,7 +284,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                     Address
                   </span>
                   <div className="relative">
-                    <FiMapPin className="pointer-events-none absolute left-3 top-3 h-4 w-4 text-zinc-400" />
+                    <FiMapPin className="pointer-events-none absolute top-3 left-3 h-4 w-4 text-zinc-400" />
                     <textarea
                       value={form.address}
                       onChange={(event) =>
@@ -296,7 +294,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
                         }))
                       }
                       rows={4}
-                      className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 pl-10 pr-4 text-sm outline-none transition focus:border-violet-500 focus:bg-white"
+                      className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 pr-4 pl-10 text-sm transition outline-none focus:border-violet-500 focus:bg-white"
                     />
                   </div>
                 </label>
@@ -354,7 +352,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
           </div>
         </div>
       </section>
-      <div className="lg:hidden flex mt-6  items-center justify-center">
+      <div className="mt-6 flex items-center justify-center lg:hidden">
         <Logout></Logout>
       </div>
     </div>

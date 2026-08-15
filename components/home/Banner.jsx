@@ -79,7 +79,7 @@ export default function Banner({ category }) {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative h-full w-full overflow-hidden ">
+            <div className="relative h-full w-full overflow-hidden">
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -90,12 +90,12 @@ export default function Banner({ category }) {
 
               <div className="absolute inset-0 bg-black/45" />
 
-              <div className="absolute w-full inset-0 bg-gradient-to-r from-black via-black/50 to-transparent" />
+              <div className="absolute inset-0 w-full bg-gradient-to-r from-black via-black/50 to-transparent" />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
 
               <div className="relative z-20 mx-auto flex h-full max-w-7xl items-center px-5 sm:px-8 lg:px-10">
-                <div className="grid w-full items-center gap-16 ">
+                <div className="grid w-full items-center gap-16">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={slide.id}
@@ -116,11 +116,11 @@ export default function Banner({ category }) {
                       }}
                       className="max-w-3xl"
                     >
-                      <span className="mb-6 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[5px] text-white backdrop-blur-xl">
+                      <span className="mb-6 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1 text-[10px] tracking-[2px] text-white uppercase backdrop-blur-xl lg:py-2 lg:text-xs lg:tracking-[5px]">
                         {slide.subtitle}
                       </span>
 
-                      <h1 className="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-7xl">
+                      <h1 className="text-4xl leading-tight font-black text-white sm:text-5xl lg:text-7xl">
                         {slide.title}
                       </h1>
 
@@ -174,8 +174,8 @@ export default function Banner({ category }) {
         ))}
       </div>
 
-      <div className="absolute left-[-120px] top-1/3 h-72 w-72 rounded-full bg-white/10 blur-[140px]" />
-      <div className="absolute bottom-[-100px] right-[-80px] h-72 w-72 rounded-full bg-[#E8FF47]/20 blur-[160px]" />
+      <div className="absolute top-1/3 left-[-120px] h-72 w-72 rounded-full bg-white/10 blur-[140px]" />
+      <div className="absolute right-[-80px] bottom-[-100px] h-72 w-72 rounded-full bg-[#E8FF47]/20 blur-[160px]" />
     </section>
   );
 }
