@@ -21,6 +21,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
   const { data: session } = useSession();
   const router = useRouter();
   const [user, setUser] = useState(initialUser);
+  console.log(user)
   const [form, setForm] = useState(() => ({
     name: initialUser.name || "",
     number: initialUser.number || "",
@@ -94,7 +95,7 @@ export default function ProfilePageClient({ initialUser = {} }) {
   const stats = useMemo(
     () => [
       { label: "Orders", value: user.orders || 0, icon: FiPackage },
-      { label: "Wishlist", value: user.wishlist.length || 0, icon: FiHeart },
+      { label: "Wishlist", value: user?.wishlist.length || 0, icon: FiHeart },
     ],
     [user.orders, user.wishlist],
   );

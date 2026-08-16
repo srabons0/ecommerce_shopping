@@ -5,7 +5,7 @@ import { FaEye, FaTrash } from "react-icons/fa";
 function RecentOrder({ order }) {
   return (
     <div className="mx-6 mt-6 overflow-hidden rounded border border-white/10 bg-zinc-100 text-black">
-      <div className="flex flex-col gap-4 border-b border-white/10 p-6 md:flex-row md:items-center md:justify-between">
+      <div className="flex  gap-4 border-b border-white/10 p-6 items-center justify-between">
         <h3 className="text-lg font-semibold text-black">Recent Orders</h3>
 
         <div className="flex gap-3">
@@ -22,7 +22,7 @@ function RecentOrder({ order }) {
           </Link>
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div className="hidden overflow-x-auto lg:block">
         <table className="w-full">
           <thead>
             <tr className="border-b border-white/10 bg-zinc-200">
@@ -47,8 +47,8 @@ function RecentOrder({ order }) {
           </thead>
 
           <tbody>
-            {order.map((order) => (
-              <tr key={order.id} className="border-b border-white/10">
+            {order.map((order,i) => (
+              <tr key={i} className="border-b border-white/10">
                 <td className="px-6 py-5 font-medium text-gray-500">
                   {order.orderNumber}
                 </td>
@@ -122,6 +122,85 @@ function RecentOrder({ order }) {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="space-y-4 p-4 lg:hidden">
+        {order.map((order,i) => {
+
+          return (
+            <div
+              key={i}
+              className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div>
+                    <h3 className="font-semibold text-zinc-900">
+                      {order.shipping.fullName}
+                    </h3>
+
+                    <p className="text-xs text-zinc-500">
+                      #{order.orderNumber}
+                    </p>
+                  </div>
+                </div>
+
+                <span className="text-lg font-bold">
+                  ${Number(order.total).toFixed(2)}
+                </span>
+              </div>
+
+              <div className="mt-5 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-zinc-400">Items</p>
+                  <p className="font-semibold">
+                    {order.items.reduce((acc, item) => acc + item.quantity, 0)}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-zinc-400">Payment</p>
+
+                  <span
+                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                      order.paymentMethod === "stripe"
+                        ? "bg-emerald-100 text-emerald-700"
+                        : order.paymentMethod === "cod"
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {order.paymentMethod}
+                  </span>
+                </div>
+
+                <div className="col-span-2">
+                  <p className="mb-2 text-zinc-400">Status</p>
+
+                  <span
+                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold `}
+                  >
+
+                    {order.orderStatus}
+                  </span>
+                </div>
+
+                <div className="col-span-2">
+                  <p className="text-zinc-400">Order Date</p>
+
+                  <p className="font-medium">
+                    {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+              </div>
+
+
+            </div>
+          );
+        })}
       </div>
     </div>
   );

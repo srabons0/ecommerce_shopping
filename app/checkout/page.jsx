@@ -167,13 +167,12 @@ export default function CheckoutPage() {
 
   if (!cartItems.length) {
     return (
-      <main className="min-h-screen bg-[#f6f6f4] px-5 py-10 sm:px-8 sm:py-16">
+      <main className="min-h-screen bg-[#ffffff] px-5 py-10 sm:px-8 sm:py-16">
         <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-5xl items-center justify-center">
-          <section className="relative isolate w-full overflow-hidden bg-zinc-950 px-6 py-14 text-center text-white shadow-2xl sm:px-12 sm:py-20">
-            <div className="absolute -top-24 -right-24 -z-10 h-80 w-80 rounded-full bg-red-600/70 blur-3xl" />
-            <div className="absolute -bottom-28 -left-20 -z-10 h-72 w-72 rounded-full border-24 border-red-500/15" />
+          <section className="relative isolate w-full overflow-hidden bg-zinc-50 px-6 py-14 text-center text-black shadow-2xl sm:px-12 sm:py-20">
 
-            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-white/10 text-red-400 backdrop-blur-sm">
+
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-black/15 bg-black/5 text-red-400 backdrop-blur-sm">
               <ShoppingBag className="h-10 w-10" />
             </div>
 
@@ -183,21 +182,21 @@ export default function CheckoutPage() {
             <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-6xl">
               Your cart is empty.
             </h1>
-            <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-zinc-300 sm:text-base">
+            <p className="mx-auto mt-5 max-w-md text-sm leading-6 text-zinc-400 sm:text-base">
               There is nothing to check out yet. Find something you love and
               we&apos;ll keep it ready for you here.
             </p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
-                href="/shop"
+                href="/shop/men/men-tops/newest"
                 className="inline-flex items-center gap-2 bg-red-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-red-500"
               >
                 Explore the shop <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center px-6 py-3 text-sm font-semibold text-zinc-300 transition hover:text-white"
+                className="inline-flex items-center px-6 py-3 text-sm font-semibold text-zinc-500 transition hover:text-black"
               >
                 Back home
               </Link>

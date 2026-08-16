@@ -62,12 +62,12 @@ export default function ProductCard({ product, page, openView }) {
         <div className="absolute inset-0 bg-linear-to-t from-zinc-950/70 via-zinc-950/10 to-transparent" />
 
         {discountPercentage > 0 && (
-          <span className="absolute top-3 left-3 rounded-full bg-rose-600 px-2.5 py-1 text-[6px] font-semibold tracking-[0.24em] text-white uppercase lg:text-[10px]">
+          <span className="absolute top-3 left-3 rounded-full bg-rose-600 px-2.5 py-1 text-[8px] font-semibold tracking-[0.24em] text-white uppercase lg:text-[10px]">
             -{discountPercentage}%
           </span>
         )}
 
-        
+
         <button
           type="button"
           aria-label={
@@ -107,11 +107,11 @@ export default function ProductCard({ product, page, openView }) {
       <div className="space-y-3 p-2 lg:p-4">
         <div className="flex items-start justify-between lg:items-center">
           <div className="h-12 w-3/5 lg:h-18">
-            <p className="text-[7px] font-semibold tracking-[0.24em] text-zinc-500 uppercase lg:text-[10px]">
+            <p className="text-[8px] font-semibold tracking-[0.24em] text-zinc-500 uppercase lg:text-[10px]">
               {product?.subCategory || "Category"}
             </p>
 
-            <h3 className="mt-1 line-clamp-2 text-[9px] font-semibold text-zinc-950 lg:text-base">
+            <h3 className="mt-1 line-clamp-2 text-xs font-semibold text-zinc-950 lg:text-base">
               {product?.name || "Product name"}
             </h3>
           </div>
@@ -119,16 +119,16 @@ export default function ProductCard({ product, page, openView }) {
           <div className="text-right">
             {discountPercentage > 0 ? (
               <div className="flex flex-col">
-                <span className="text-[7px] font-medium text-zinc-400 line-through lg:text-sm">
+                <span className="text-[8px] font-medium text-zinc-400 line-through lg:text-sm">
                   {product?.currency || "BDT"} {price}
                 </span>
 
-                <span className="text-[8px] font-semibold text-rose-600 lg:text-base">
+                <span className="text-[10px] font-semibold text-rose-600 lg:text-base">
                   {product?.currency || "BDT"} {discountedPrice}
                 </span>
               </div>
             ) : (
-              <span className="w-1/3 text-[8px] font-semibold text-zinc-950 lg:text-base">
+              <span className="w-1/3 text-[10px] font-semibold text-zinc-950 lg:text-base">
                 {product?.currency || "BDT"} {price}
               </span>
             )}

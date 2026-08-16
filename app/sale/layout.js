@@ -16,7 +16,7 @@ export default async function Layout({ children }) {
   return (
     <>
       <Navbar category={category}></Navbar>
-      {children}
+      <div className="lg:max-h-252 relative"> {children}</div>
       <SalesFooter category={category}></SalesFooter>
     </>
   );

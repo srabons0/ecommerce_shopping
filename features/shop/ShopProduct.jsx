@@ -27,10 +27,9 @@ export default function ShopProduct({ product, productCount }) {
     setSelectedProduct(null);
   };
   return (
-    <div className="lg:min-h-230  min-h-175 bg-[#edecec] px-2 lg:px-4 py-4 overflow-y-auto  scrollbar-hide">
+    <div className="scrollbar-hide min-h-175 overflow-y-auto bg-[#edecec] px-2 py-4 lg:min-h-230 lg:px-4">
       <div
-        className={` ${cardSort} grid-cols-2 gap-3 lg:px-10 lg:pt-5
-            `}
+        className={` ${cardSort} grid-cols-2 gap-3 md:grid-cols-3 lg:px-10 lg:pt-5`}
       >
         {product.map((product) => (
           <ProductCard
@@ -46,19 +45,19 @@ export default function ShopProduct({ product, productCount }) {
       )}
 
       {productCount > 15 && (
-        <div className="mt-7 mb-5 w-full gap-1 flex text-white justify-center items-center ">
+        <div className="mt-7 mb-5 flex w-full items-center justify-center gap-1 text-white">
           <div
             onClick={() => setPage(page > 1 ? page - 1 : 1)}
-            className="cursor-pointer text-center border-2  w-6.5 h-6.5 lg:w-9 lg:h-9  p-1 mr-1 border-red-800  rounded-full bg-red-600 "
+            className="mr-1 h-6.5 w-6.5 cursor-pointer rounded-full border-2 border-red-800 bg-red-600 p-1 text-center lg:h-9 lg:w-9"
           >
-            <IoIosArrowBack className="lg:w-6.5 lg:h-6.5 w-3 h-3 lg:p-1" />
+            <IoIosArrowBack className="h-3 w-3 lg:h-6.5 lg:w-6.5 lg:p-1" />
           </div>
-          <div className="gap-1 flex text-white justify-center bg-red-600 p-1 rounded-4xl  items-center ">
+          <div className="flex items-center justify-center gap-1 rounded-4xl bg-red-600 p-1 text-white">
             {Array.from({ length: Math.ceil(productCount / 15) }, (_, i) => (
               <div
                 key={i}
                 onClick={() => setPage(i + 1)}
-                className={`w-6.5 h-6.5 lg:w-9 lg:h-9  lg:p-1 cursor-pointer text-sm p-0.5 lg:text-lg rounded-full font-semibold bg-[#ffffff4d] text-center  border-2 border-red-400 ${page === i + 1 && "bg-white text-red-700"}`}
+                className={`h-6.5 w-6.5 cursor-pointer rounded-full border-2 border-red-400 bg-[#ffffff4d] p-0.5 text-center text-sm font-semibold lg:h-9 lg:w-9 lg:p-1 lg:text-lg ${page === i + 1 && "bg-white text-red-700"}`}
               >
                 {i + 1}
               </div>
@@ -72,9 +71,9 @@ export default function ShopProduct({ product, productCount }) {
                   : Math.ceil(productCount / 15),
               )
             }
-            className=" cursor-pointer text-center rounded-full  w-6.5 h-6.5 lg:w-9 lg:h-9 p-1 mrl-1 border-2 bg-red-600  border-red-800 "
+            className="mrl-1 h-6.5 w-6.5 cursor-pointer rounded-full border-2 border-red-800 bg-red-600 p-1 text-center lg:h-9 lg:w-9"
           >
-            <IoIosArrowForward className="lg:w-6.5 lg:h-6.5 w-3 h-3 lg:p-1" />
+            <IoIosArrowForward className="h-3 w-3 lg:h-6.5 lg:w-6.5 lg:p-1" />
           </div>
         </div>
       )}

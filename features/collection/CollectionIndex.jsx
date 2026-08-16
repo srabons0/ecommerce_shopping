@@ -80,7 +80,7 @@ function CollectionIndex() {
   const setCollection = (id) => {
     const path = pathname.split("/");
     path[path.length - 1] = id;
-    router.push(`${path.join("/")}?${searchParams.toString()}`);
+    router.push(`${path.join("/")}?${searchParams.toString()}#productScroll`);
   };
 
   useEffect(() => {

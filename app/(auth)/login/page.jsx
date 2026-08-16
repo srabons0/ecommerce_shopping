@@ -233,7 +233,7 @@ function LoginContent() {
                   onClick={fillUserTest}
                   className="flex items-center gap-2 rounded-sm border border-black/10 bg-white px-3 py-2 text-sm font-medium text-[#0c0c0f]"
                 >
-                  Test User
+                  Demo User
                 </button>
 
                 <button
@@ -241,7 +241,7 @@ function LoginContent() {
                   onClick={fillAdminTest}
                   className="flex items-center gap-2 rounded-sm border border-black/10 bg-white px-3 py-2 text-sm font-medium text-[#0c0c0f]"
                 >
-                  Test Admin
+                  Demo Admin
                 </button>
               </div>
 

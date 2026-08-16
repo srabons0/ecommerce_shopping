@@ -57,7 +57,7 @@ export default function AllCategory({ category, subCategory }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-3 lg:p-6">
 
-                  <h3 className="mt-3 text-[8px] md:text-lg lg:text-2xl font-semibold tracking-tight text-white">
+                  <h3 className="mt-3 text-[10px] md:text-lg lg:text-2xl font-semibold tracking-tight text-white">
                     {category.name}
                   </h3>
                 </div>

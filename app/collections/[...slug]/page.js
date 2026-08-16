@@ -59,7 +59,7 @@ async function page({ searchParams, params }) {
         subCategory={subCategory}
         gender={slug[0]}
       ></CollectionProduct>
-      <CollectionShowcase></CollectionShowcase>
+      <CollectionShowcase product={product}></CollectionShowcase>
       <CollectionNews></CollectionNews>
     </div>
   );

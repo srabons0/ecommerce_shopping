@@ -17,7 +17,7 @@ export default async function Layout({ children }) {
     <>
       <Navbar category={category}></Navbar>
       <ShopHeader></ShopHeader>
-      {children}
+      <div className="lg:max-h-255"> {children}</div>
       <ShopFooter category={category}></ShopFooter>
     </>
   );

@@ -4,7 +4,7 @@ import useCartData from "@/store/cartStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import {  FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
 
@@ -104,7 +104,7 @@ const ProductModal = ({ product, onClose }) => {
   };
 
   return (
-    <>
+    <div className="relative z-400 max-h-screen">
       <div
         onClick={() => onClose?.()}
         className={`fixed inset-0 z-390 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
@@ -115,12 +115,12 @@ const ProductModal = ({ product, onClose }) => {
       />
 
       {product && (
-        <div className="fixed inset-0 z-400 flex items-center justify-center p-3 sm:p-6">
-          <div className="relative w-full max-w-6xl overflow-hidden rounded-[32px] border border-zinc-200 bg-white text-zinc-900 shadow-[0_30px_90px_-25px_rgba(15,23,42,0.45)]">
+        <div className="fixed inset-0 z-400 flex  h-full lg:h-full items-center justify-center p-3 sm:p-6">
+          <div className="relative h-11/12 lg:h-full w-full md:max-w-xl lg:max-w-6xl scrollbar-hide overflow-y-auto rounded-[32px] border border-zinc-200 bg-white text-zinc-900 shadow-[0_30px_90px_-25px_rgba(15,23,42,0.45)] overflow-x-hidden">
             <button
               type="button"
               onClick={() => onClose?.()}
-              className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-zinc-700 shadow-sm transition hover:bg-white"
+              className="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-zinc-700 shadow-sm transition hover:bg-white"
             >
               <ImCross className="text-sm" />
             </button>
@@ -132,22 +132,21 @@ const ProductModal = ({ product, onClose }) => {
                   alt={product?.name || "Product"}
                   width={800}
                   height={1000}
-                  className="h-full min-h-80 w-full object-cover"
+                  className="h-full lg:min-h-80 w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-zinc-950/60 via-zinc-950/10 to-transparent" />
 
-                <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-
+                <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                   {discountPercentage > 0 && (
-                    <span className="rounded-full bg-rose-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white">
+                    <span className="rounded-full bg-rose-600 px-3 py-1 text-[10px] font-semibold tracking-[0.24em] text-white uppercase">
                       -{discountPercentage}%
                     </span>
                   )}
                 </div>
 
-                <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-white/10 flex gap-2 items-center justify-center px-3 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-white backdrop-blur">
+                <div className="absolute bottom-4 left-4 flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[11px] font-medium tracking-[0.24em] text-white uppercase backdrop-blur">
                   <span
-                    className={`h-2 w-2  rounded-full ${
+                    className={`h-2 w-2 rounded-full ${
                       product.stock <= 5 ? "bg-red-500" : "bg-emerald-600"
                     }`}
                   />
@@ -159,10 +158,10 @@ const ProductModal = ({ product, onClose }) => {
                 </div>
               </div>
 
-              <div className="w-full p-5 sm:p-7 relative lg:w-[54%] lg:p-8">
+              <div className="relative w-full p-5 sm:p-7 lg:w-[54%] lg:p-8">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                    <p className="text-[11px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                       {product?.subCategory || "Category"} ·{" "}
                       {product?.gender || "Unisex"}
                     </p>
@@ -235,7 +234,7 @@ const ProductModal = ({ product, onClose }) => {
                 </p>
 
                 <div className="mb-5">
-                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                  <p className="mb-2 text-[11px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                     Color
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -258,7 +257,7 @@ const ProductModal = ({ product, onClose }) => {
 
                 <div className="mb-6">
                   <div className="mb-2 flex items-center justify-between">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                    <p className="text-[11px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                       Size
                     </p>
                     {selectedSize && (
@@ -349,33 +348,33 @@ const ProductModal = ({ product, onClose }) => {
                   )}
 
                   {tab === "details" && (
-                    <div className="grid gap-3  lg:grid-cols-4">
-                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                    <div className="grid gap-3 lg:grid-cols-4">
+                      <div className="w-33 rounded-2xl border border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                           Fit
                         </p>
                         <p className="mt-1 font-semibold text-zinc-900">
                           {product?.attributes?.fit || "Classic fit"}
                         </p>
                       </div>
-                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                      <div className="w-33 rounded-2xl border border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                           Material
                         </p>
                         <p className="mt-1 font-semibold text-zinc-900">
                           {product?.attributes?.material || "Premium fabric"}
                         </p>
                       </div>
-                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                      <div className="w-33 rounded-2xl border border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                           Pattern
                         </p>
                         <p className="mt-1 font-semibold text-zinc-900">
                           {product?.attributes?.pattern || "Minimal"}
                         </p>
                       </div>
-                      <div className="rounded-2xl border w-33 border-zinc-200 bg-zinc-50 p-3">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                      <div className="w-33 rounded-2xl border border-zinc-200 bg-zinc-50 p-3">
+                        <p className="text-[10px] font-semibold tracking-[0.24em] text-zinc-500 uppercase">
                           Brand
                         </p>
                         <p className="mt-1 font-semibold text-zinc-900">
@@ -398,7 +397,7 @@ const ProductModal = ({ product, onClose }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

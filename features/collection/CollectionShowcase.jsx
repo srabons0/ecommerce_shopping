@@ -70,7 +70,7 @@ const COLLECTIONS = [
   },
 ];
 
-function CollectionShowcase() {
+function CollectionShowcase({ product }) {
   const [hoveredId, setHoveredId] = useState(null);
   const firstRender = useRef(true);
   const router = useRouter();
@@ -80,7 +80,7 @@ function CollectionShowcase() {
   const setCollection = (id) => {
     const path = pathname.split("/");
     path[path.length - 1] = id;
-    router.push(`${path.join("/")}?${searchParams.toString()}`);
+    router.push(`${path.join("/")}?${searchParams.toString()}#productScroll`);
   };
   useEffect(() => {
     if (firstRender.current) {
@@ -94,12 +94,12 @@ function CollectionShowcase() {
         block: "start",
       });
     }
-  }, [active]);
+  }, [active, product]);
 
   return (
-    <section className=" bg-white px-2 py-8 lg:px-16 lg:py-18">
+    <section className="bg-white px-2 py-8 lg:px-16 lg:py-18">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-3 px-2 flex items-center gap-3">
+        <div className="mb-3 flex items-center gap-3 px-2">
           <div className="h-0.5 w-5" style={{ background: "red" }} />
           <span
             className="font-mono text-[9px] font-bold tracking-[0.28em]"
@@ -113,7 +113,7 @@ function CollectionShowcase() {
           OTHER COLLECTIONS
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4  mx-auto">
+        <div className="mx-auto grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-4">
           {COLLECTIONS.filter((collection) => collection.id !== active).map(
             (col, i) => {
               const hovered = hoveredId === col.id;
@@ -158,7 +158,7 @@ function CollectionShowcase() {
                     }}
                   />
 
-                  <div className="absolute inset-0 bg-linear-to-t from-[#000000]  to-transparent to-50%" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#000000] to-transparent to-50%" />
 
                   <div
                     className="absolute inset-0 transition-opacity duration-300"
@@ -169,15 +169,15 @@ function CollectionShowcase() {
                   />
 
                   <div
-                    className="absolute left-4 top-3  font-mono text-[9px] tracking-[0.18em]"
+                    className="absolute top-3 left-4 font-mono text-[9px] tracking-[0.18em]"
                     style={{ color: col.palette.primary }}
                   >
-                    0{i+1}
+                    0{i + 1}
                   </div>
 
-                  <div className="absolute bottom-4 left-4 right-4">
+                  <div className="absolute right-4 bottom-4 left-4">
                     <p
-                      className="mb-1 font-mono text-[9px]   tracking-[0.14em]"
+                      className="mb-1 font-mono text-[9px] tracking-[0.14em]"
                       style={{ color: col.palette.primary }}
                     >
                       {col.subtitle}

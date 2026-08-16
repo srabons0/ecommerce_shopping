@@ -50,7 +50,7 @@ export default function SalesFooter({ category }) {
   ];
 
   return (
-    <footer className="border-t pt-190 lg:pt-210 border-zinc-800 bg-black text-zinc-400">
+    <footer className="border-t lg:top-130 relative  border-zinc-800 bg-black text-zinc-400">
       <section className="mx-auto max-w-7xl px-6 pt-20 pb-10 lg:py-20">
         <div className="grid gap-8 grid-cols-2  lg:grid-cols-[1.3fr_.7fr_.7fr_.7fr] lg:gap-8">
           <div className="col-span-2 lg:col-span-1">

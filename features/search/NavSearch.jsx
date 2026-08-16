@@ -59,8 +59,8 @@ function NavSearch({ setOpenSearch }) {
           </button>
         </div>
 
-        <div className="flex items-center justify-end gap-5 border-b border-zinc-800 px-6 py-4">
-          <InputGroup className="h-14 rounded-2xl border border-zinc-700 bg-zinc-800">
+        <div className="flex items-center justify-end gap-2 lg:gap-5 border-b border-zinc-800 px-6 py-4">
+          <InputGroup className="lg:h-14 h-12 rounded-2xl border border-zinc-700 bg-zinc-800">
             <InputGroupAddon>
               <Search className="text-zinc-400" />
             </InputGroupAddon>
@@ -76,7 +76,7 @@ function NavSearch({ setOpenSearch }) {
               }}
             />
 
-            <InputGroupAddon align="inline-end">
+            <InputGroupAddon align="inline-end" className="hidden lg:block">
               <span className="rounded-full bg-zinc-700 px-3 py-1 text-xs text-zinc-300">
                 {product.length} Results
               </span>
@@ -85,7 +85,7 @@ function NavSearch({ setOpenSearch }) {
           <button
             disabled={!search.trim()}
             onClick={handleSearch}
-            className={`rounded-xl px-6 py-3 font-medium transition ${
+            className={`rounded-xl px-4 lg:px-6 py-1.5 lg:py-3 font-medium transition ${
               search.trim()
                 ? "bg-violet-600 text-white hover:bg-violet-700"
                 : "cursor-not-allowed bg-zinc-700 text-zinc-500"

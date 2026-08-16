@@ -39,14 +39,10 @@ export default function MobileMenu({ open, setOpen, category, subCategory }) {
       href:
         session.user.role === "admin"
           ? "/dashboard/admin/home"
-          : "/dashboard/profile",
+          : "/dashboard/home",
       icon: MdDashboard,
     },
-    {
-      title: "Blog",
-      href: "/blog",
-      icon: HiOutlineNewspaper,
-    },
+
 
     !session?.user && {
       title: "Track order",
@@ -67,12 +63,17 @@ export default function MobileMenu({ open, setOpen, category, subCategory }) {
           href: "/login",
           icon: HiOutlineArrowRightOnRectangle,
         },
+         {
+      title: "Blog",
+      href: "/blog",
+      icon: HiOutlineNewspaper,
+    },
   ].filter(Boolean);
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        className="fixed inset-0 z-100 lg:hidden"
+        className="fixed inset-0 z-500 lg:hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{
@@ -164,17 +165,7 @@ export default function MobileMenu({ open, setOpen, category, subCategory }) {
             })}
           </div>
 
-          {!session && (
-            <div className="border-t p-5">
-              <Link
-                href="/login"
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-center rounded-2xl bg-black py-4 font-semibold text-white transition hover:bg-zinc-800"
-              >
-                Login
-              </Link>
-            </div>
-          )}
+
         </motion.div>
       </motion.div>
     </AnimatePresence>
