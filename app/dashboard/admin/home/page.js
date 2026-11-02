@@ -11,7 +11,8 @@ async function page() {
   const [
     productRating,
     totalRevenue,
-    categoryStats,monthlyRevenue,
+    categoryStats,
+    monthlyRevenue,
     order,
     orderCount,
     userCount,
@@ -29,6 +30,11 @@ async function page() {
         ]),
         OrderHistory.aggregate([
           {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
+          {
             $group: {
               _id: null,
               totalPrice: { $sum: "$total" },
@@ -36,6 +42,11 @@ async function page() {
           },
         ]),
         OrderHistory.aggregate([
+          {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
           {
             $unwind: "$items",
           },
@@ -62,6 +73,11 @@ async function page() {
           },
         ]),
         OrderHistory.aggregate([
+          {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
           {
             $group: {
               _id: {

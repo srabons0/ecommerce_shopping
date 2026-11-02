@@ -117,7 +117,7 @@ function SalesSidebar({ category, gender, filters }) {
       >
         <div className="fixed top-0 left-0 z-160 flex h-dvh text-white lg:sticky lg:top-67 lg:h-auto">
           <Sidebar
-            className="my-sidebar-scroll z-150 h-full max-h-dvh overflow-y-auto pt-10 lg:max-h-245"
+            className="my-sidebar-scroll z-150 h-full max-h-dvh overflow-y-auto pt-10   lg:max-h-245"
             collapsed={collapsed}
             width="350px"
             collapsedWidth="0px"

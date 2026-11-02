@@ -20,6 +20,11 @@ async function page() {
         // Monthly Revenue
         OrderHistory.aggregate([
           {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
+          {
             $group: {
               _id: {
                 $month: "$createdAt",
@@ -38,6 +43,11 @@ async function page() {
 
         // Category Stats
         OrderHistory.aggregate([
+          {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
           {
             $unwind: "$items",
           },
@@ -93,6 +103,11 @@ async function page() {
         // Revenue By Category
         OrderHistory.aggregate([
           {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
+          {
             $unwind: "$items",
           },
           {
@@ -121,6 +136,11 @@ async function page() {
 
         // Top Selling Products
         OrderHistory.aggregate([
+          {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
           {
             $unwind: "$items",
           },
@@ -165,6 +185,11 @@ async function page() {
 
         // Payment Methods
         OrderHistory.aggregate([
+          {
+            $match: {
+              orderStatus: "delivered",
+            },
+          },
           {
             $group: {
               _id: "$paymentMethod",

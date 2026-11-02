@@ -14,7 +14,7 @@ function SalesProductTool() {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row justify-between items-center py-3 px-5 lg:px-10 w-full bg-black">
+      <div className="flex flex-row justify-between items-center py-3 px-5 lg:px-10 w-full  bg-black">
         <div></div>
         <div className="flex flex-row justify-between items-center gap-2">
           <select

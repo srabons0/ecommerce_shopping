@@ -28,7 +28,7 @@ export default function SalesProduct({ product, productCount }) {
   };
 
   return (
-    <div className="lg:min-h-230  min-h-175 bg-[#edecec] px-2 lg:px-4 py-4 overflow-y-auto  scrollbar-hide">
+    <div className="lg:min-h-230  min-h-175 bg-[#edecec] px-2 lg:px-2  lg:pb-18 py-4 overflow-y-auto  scrollbar-hide">
       <div
         className={` ${cardSort}  grid-cols-2 md:grid-cols-3 gap-3 lg:px-10 lg:pt-5 lg:pb-15
             `}

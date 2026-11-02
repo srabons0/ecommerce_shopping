@@ -27,7 +27,7 @@ export default function ShopProduct({ product, productCount }) {
     setSelectedProduct(null);
   };
   return (
-    <div className="scrollbar-hide min-h-175 overflow-y-auto bg-[#edecec] px-2 py-4 lg:min-h-230 lg:px-4">
+    <div className="scrollbar-hide min-h-175 overflow-y-auto bg-[#edecec] px-2 py-4 lg:min-h-230 lg:px-4 lg:py-18">
       <div
         className={` ${cardSort} grid-cols-2 gap-3 md:grid-cols-3 lg:px-10 lg:pt-5`}
       >
